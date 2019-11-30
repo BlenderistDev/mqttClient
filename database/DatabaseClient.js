@@ -1,25 +1,25 @@
+const Sequelize = require('sequelize');
+
 /**
- * Сингтон подключения к базе данных
+ * Синглтон подключения к базе данных
  */
-class DatabaseClient {
+class DatabaseConnection {
   /**
   * @return {object} database connection
   */
   static getConnection() {
-    if (DatabaseClient._connection === undefined) {
-      DatabaseClient._connection = require('knex')({
-        client: 'mysql',
-        version: '5.7',
-        connection: {
-          host: '127.0.0.1',
-          user: 'root',
-          password: 'Ha2_Pin!y<',
-          database: 'mqtt',
+    if (DatabaseConnection._connection === undefined) {
+      DatabaseConnection._connection = new Sequelize('mqtt', 'root', 'Ha2_Pin!y<', {
+        dialect: 'mysql',
+        host: '127.0.0.1',
+        logging: false,
+        define: {
+          timestamps: false,
         },
       });
     }
-    return DatabaseClient._connection;
+    return DatabaseConnection._connection;
   }
 }
 
-module.exports = DatabaseClient.getConnection();
+module.exports = DatabaseConnection.getConnection();

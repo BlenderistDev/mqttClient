@@ -1,5 +1,5 @@
 const mqttClient = require('../../mqtt/MqttClient');
-const Subscribe = require('./model/Subscribe');
+const Subscriptions = require('./model/Subscriptions');
 
 /**
  * Класс для управления подписчиками
@@ -13,14 +13,14 @@ class Subscriber {
     this.setHandler();
   }
 
-  /**
-   * @param {object} oSubscribeData
-   */
-  addSubscribe(oSubscribeData) {
-    const oSubscribe = new Subscribe();
-    oSubscribe.setData(oSubscribeData);
-    oSubscribe.save();
-  }
+  // /**
+  //  * @param {object} oSubscribeData
+  //  */
+  // addSubscribe(oSubscribeData) {
+  //   const oSubscribe = new Subscribe();
+  //   oSubscribe.setData(oSubscribeData);
+  //   oSubscribe.save();
+  // }
 
   /**
    * Подписываемся на все топики
@@ -36,7 +36,7 @@ class Subscriber {
    */
   setHandler() {
     mqttClient.on('message', (topic, message) => {
-      Subscribe.find({topic: topic}).then((res) => {
+      Subscriptions.getByTopic(topic).then((res) => {
         res.forEach((oRow) => {
           require(`./subscribers/${oRow.module}.js`).handleMessage(JSON.parse(message.toString()));
         });
