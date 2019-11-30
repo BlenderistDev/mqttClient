@@ -23,9 +23,16 @@ Subscriptions.init({
     primaryKey: true,
     unique: true,
     allowNull: false,
+    autoIncrement: true,
   },
-  topic: {type: Sequelize.TEXT},
-  module: {type: Sequelize.TEXT},
+  topic: {
+    type: Sequelize.TEXT,
+    allowNull: false,
+  },
+  module: {
+    type: Sequelize.TEXT,
+    allowNull: false,
+  },
 }, {sequelize, modelName: 'subscriptions'});
 
 module.exports = new Subscriptions();

@@ -18,7 +18,10 @@ Senders.init({
     allowNull: false,
     autoIncrement: true,
   },
-  module: {type: Sequelize.TEXT},
+  module: {
+    type: Sequelize.TEXT,
+    allowNull: false,
+  },
 }, {sequelize, modelName: 'senders'});
 
 module.exports = new Senders();
