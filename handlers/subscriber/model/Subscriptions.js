@@ -29,3 +29,4 @@ Subscriptions.init({
 }, {sequelize, modelName: 'subscriptions'});
 
 module.exports = new Subscriptions();
+module.exports.sync = Subscriptions;
