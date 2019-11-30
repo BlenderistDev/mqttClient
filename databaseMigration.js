@@ -1,4 +1,9 @@
-const ShellSubscriptions = require('./handlers/subscriber/subscribers/ShellSubscriber/model/ShellSubscriptions').sync;
-const Subscriptions = require('./handlers/subscriber/model/Subscriptions').sync;
+const ShellSubscriptions = require('./modules/shell/model/ShellSubscriptions').sync;
+const Subscriptions = require('./handlers/model/Subscriptions').sync;
+const Senders = require('./handlers/model/Senders').sync;
+const ShellSenders = require('./modules/shell/model/ShellSenders').sync;
+
 ShellSubscriptions.sync();
 Subscriptions.sync();
+Senders.sync();
+ShellSenders.sync();

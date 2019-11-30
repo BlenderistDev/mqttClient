@@ -12,6 +12,7 @@ class ShellSubscriber {
     const sCmd = oMessage.cmd;
     const oReplaceData = oMessage.data;
     ShellSubscriptions.getByCmd(sCmd).then((res)=>{
+      console.log(res);
       res.forEach((oRow) => {
         this.executeCommand(oRow.commandTemplate, oReplaceData);
       });
