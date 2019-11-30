@@ -13,9 +13,7 @@ class Subscriptions extends ModelPrototype {
    * @return {promise}
    */
   getByTopic(topic) {
-    return Subscriptions.findAll({where: {topic: topic}}).then((res) => {
-      return res;
-    });
+    return Subscriptions.findAll({where: {topic: topic}});
   }
 }
 

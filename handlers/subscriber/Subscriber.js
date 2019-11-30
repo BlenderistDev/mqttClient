@@ -13,15 +13,6 @@ class Subscriber {
     this.setHandler();
   }
 
-  // /**
-  //  * @param {object} oSubscribeData
-  //  */
-  // addSubscribe(oSubscribeData) {
-  //   const oSubscribe = new Subscribe();
-  //   oSubscribe.setData(oSubscribeData);
-  //   oSubscribe.save();
-  // }
-
   /**
    * Подписываемся на все топики
    */
@@ -38,7 +29,7 @@ class Subscriber {
     mqttClient.on('message', (topic, message) => {
       Subscriptions.getByTopic(topic).then((res) => {
         res.forEach((oRow) => {
-          require(`./subscribers/${oRow.module}.js`).handleMessage(JSON.parse(message.toString()));
+          require(`./subscribers/${oRow.module}/Subscriber.js`).handleMessage(JSON.parse(message.toString()));
         });
       });
     });
