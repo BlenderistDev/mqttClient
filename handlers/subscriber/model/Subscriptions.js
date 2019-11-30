@@ -4,10 +4,11 @@ const ModelPrototype = require('../../../database/ModelPrototype');
 const sequelize = ModelPrototype.sequelize;
 
 /**
- * bot options model
+ * Модель для таблицы подписчиков
  */
 class Subscriptions extends ModelPrototype {
   /**
+   * Поиск записи по топику
    * @param {string} topic
    * @return {promise}
    */
