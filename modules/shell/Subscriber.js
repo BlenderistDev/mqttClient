@@ -2,7 +2,7 @@ const shell = require('shelljs');
 const ShellSubscriptions = require('./model/ShellSubscriptions');
 
 /**
- * mqtt Подписчик для выполнения ырудд команд
+ * mqtt Подписчик для выполнения shell команд
  */
 class ShellSubscriber {
   /**
@@ -12,7 +12,6 @@ class ShellSubscriber {
     const sCmd = oMessage.cmd;
     const oReplaceData = oMessage.data;
     ShellSubscriptions.getByCmd(sCmd).then((res)=>{
-      console.log(res);
       res.forEach((oRow) => {
         this.executeCommand(oRow.commandTemplate, oReplaceData);
       });

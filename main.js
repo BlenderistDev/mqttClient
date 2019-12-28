@@ -3,4 +3,3 @@ const Sender = require('./handlers/Sender');
 
 new Subscriber();
 new Sender();
-
