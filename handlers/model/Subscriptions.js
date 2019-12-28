@@ -1,4 +1,5 @@
 const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
 const ModelPrototype = require('../../database/ModelPrototype');
 
 const sequelize = ModelPrototype.sequelize;
@@ -13,7 +14,11 @@ class Subscriptions extends ModelPrototype {
    * @return {promise}
    */
   getByTopic(topic) {
-    return Subscriptions.findAll({where: {topic: topic}});
+    return Subscriptions.findAll({
+      where: {
+        [Op.or]: [{topic: topic}, {topic: '#'}],
+      },
+    });
   }
 }
 

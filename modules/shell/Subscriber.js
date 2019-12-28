@@ -6,9 +6,11 @@ const ShellSubscriptions = require('./model/ShellSubscriptions');
  */
 class ShellSubscriber {
   /**
-   * @param {object} oMessage
+   * @param {string} sTopic
+   * @param {string} sMessage
    */
-  handleMessage(oMessage) {
+  handleMessage(sTopic, sMessage) {
+    const oMessage = JSON.parse(sMessage);
     const sCmd = oMessage.cmd;
     const oReplaceData = oMessage.data;
     ShellSubscriptions.getByCmd(sCmd).then((res)=>{

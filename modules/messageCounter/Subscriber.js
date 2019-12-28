@@ -19,8 +19,10 @@ class MessageCounter {
 
   /**
    * Обработчик сообщения
+   * @param {string} sTopic
+   * @param {string} sMessage
    */
-  handleMessage() {
+  handleMessage(sTopic, sMessage) {
     this.aCounters.forEach((oCounter) => {
       oCounter.increase();
     });

@@ -9,7 +9,7 @@ class Subscriber {
    * @param {string} sTopic
    * @param {string} sMessage
    */
-  logMessage(sTopic, sMessage) {
+  handleMessage(sTopic, sMessage) {
     MqttMessages.create({
       topic: sTopic,
       message: sMessage,

@@ -1,7 +1,5 @@
 const mqttClient = require('../mqtt/MqttClient');
 const Subscriptions = require('./model/Subscriptions');
-const MqttLogger = require('../modules/mqttLogger/MqttLogger');
-const MessageCounter = require('../modules/messageCounter/Subscriber');
 
 /**
  * Класс для управления подписчиками
@@ -29,11 +27,9 @@ class Subscriber {
    */
   setHandler() {
     mqttClient.on('message', (topic, message) => {
-      MqttLogger.logMessage(topic, message.toString());
-      MessageCounter.handleMessage();
       Subscriptions.getByTopic(topic).then((res) => {
         res.forEach((oRow) => {
-          require(`../modules/${oRow.module}/Subscriber.js`).handleMessage(JSON.parse(message.toString()));
+          require(`../modules/${oRow.module}/Subscriber.js`).handleMessage(topic.toString(), message.toString());
         });
       });
     });
