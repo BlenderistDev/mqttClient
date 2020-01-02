@@ -1,4 +1,5 @@
 const mqtt = require('mqtt');
+const mqttConfig = require('../config/mqttConfig.json');
 
 /**
  * Клиент для mqtt
@@ -10,9 +11,9 @@ class MqttClient {
    */
   static getConnection() {
     if (MqttClient._connection === undefined) {
-      MqttClient._connection = mqtt.connect('mqtt://192.168.1.101', {
-        username: 'blenderist',
-        password: 'Ha2_Pin!y<',
+      MqttClient._connection = mqtt.connect(mqttConfig.host, {
+        username: mqttConfig.username,
+        password: mqttConfig.password,
       });
     }
     return MqttClient._connection;

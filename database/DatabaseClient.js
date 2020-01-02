@@ -1,4 +1,5 @@
 const Sequelize = require('sequelize');
+const dbConfig = require('../config/dbConfig.json');
 
 /**
  * Синглтон подключения к базе данных
@@ -9,9 +10,9 @@ class DatabaseConnection {
   */
   static getConnection() {
     if (DatabaseConnection._connection === undefined) {
-      DatabaseConnection._connection = new Sequelize('mqtt', 'root', 'Ha2_Pin!y<', {
-        dialect: 'mysql',
-        host: '127.0.0.1',
+      DatabaseConnection._connection = new Sequelize(dbConfig.dbname, dbConfig.username, dbConfig.password, {
+        dialect: dbConfig.dialect,
+        host: dbConfig.host,
         logging: false,
         define: {
           timestamps: false,
