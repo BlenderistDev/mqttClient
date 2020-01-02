@@ -12,7 +12,7 @@ class Sender {
     ShellSenders.getTable().then((res) => {
       res.forEach((oSenderRow) => {
         setInterval(() => {
-          const oCommandLineSensorData = shell.exec(oSenderRow.command);
+          const oCommandLineSensorData = shell.exec(oSenderRow.command, {'silent': true});
           MqttClient.publish(oSenderRow.topic, oCommandLineSensorData.toString());
         }, oSenderRow.interval);
       });

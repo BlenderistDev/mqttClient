@@ -31,7 +31,7 @@ class ShellSubscriber {
         sCommandTemplate = sCommandTemplate.replace(`{{${sLabel}}}`, oReplaceData[sLabel]);
       }
     }
-    shell.exec(sCommandTemplate);
+    shell.exec(sCommandTemplate, {'silent': true});
   }
 }
 
