@@ -1,5 +1,4 @@
 const Sequelize = require('sequelize');
-const dbConfig = require('../config/dbConfig.json');
 
 /**
  * Синглтон подключения к базе данных
@@ -10,6 +9,7 @@ class DatabaseConnection {
   */
   static getConnection() {
     if (DatabaseConnection._connection === undefined) {
+      const dbConfig = require('../config/dbConfig.json');
       DatabaseConnection._connection = new Sequelize(dbConfig.dbname, dbConfig.username, dbConfig.password, {
         dialect: dbConfig.dialect,
         host: dbConfig.host,
