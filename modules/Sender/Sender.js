@@ -10,7 +10,7 @@ class Sender {
   constructor() {
     Senders.getTable().then((res) => {
       res.forEach((oRow) => {
-        require(`../modules/${oRow.module}/Sender`);
+        require(`../${oRow.module}/Sender`);
       });
     });
   }

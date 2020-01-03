@@ -1,5 +1,5 @@
-const Subscriber = require('./handlers/Subscriber');
-const Sender = require('./handlers/Sender');
+const Subscriber = require('./modules/Subscriber/Subscriber');
+const Sender = require('./modules/Sender/Sender');
 
 new Subscriber();
 new Sender();

@@ -1,4 +1,4 @@
-const mqttClient = require('../mqtt/MqttClient');
+const mqttClient = require('../../mqtt/MqttClient');
 const Subscriptions = require('./model/Subscriptions');
 
 /**
@@ -29,7 +29,7 @@ class Subscriber {
     mqttClient.on('message', (topic, message) => {
       Subscriptions.getByTopic(topic).then((res) => {
         res.forEach((oRow) => {
-          require(`../modules/${oRow.module}/Subscriber.js`).handleMessage(topic.toString(), message.toString());
+          require(`../${oRow.module}/Subscriber.js`).handleMessage(topic.toString(), message.toString());
         });
       });
     });

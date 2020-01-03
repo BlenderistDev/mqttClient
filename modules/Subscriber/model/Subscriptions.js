@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
-const ModelPrototype = require('../../database/ModelPrototype');
+const ModelPrototype = require('../../../database/ModelPrototype');
 
 const sequelize = ModelPrototype.sequelize;
 
