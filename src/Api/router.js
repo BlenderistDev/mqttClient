@@ -8,7 +8,7 @@ const fsPromises = require('fs').promises;
 /**
  * обработка маршрутов api
  */
-router.post('/mqtt', async function(req, res, next) {
+router.post('/api', async function(req, res, next) {
   let result;
   try {
     result = await handleRequest(req);
