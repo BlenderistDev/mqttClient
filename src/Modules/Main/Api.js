@@ -3,13 +3,13 @@ const ApiPrototype = require(path.join(process.env.WEB_DIR, 'ApiPrototype'));
 const Subscriptions = require('./model/Subscriptions');
 
 /**
- * Api для подписчиков
+ * Api для главного модуля
  */
 class Api extends ApiPrototype {
   /**
    * Добавляем подписчика
    */
-  cmdAdd() {
+  cmdAddSubscriber() {
     const oSubscriberData = {
       'module': this.data.module,
       'topic': this.data.topic,
@@ -20,7 +20,7 @@ class Api extends ApiPrototype {
   /**
    * Удаляем подписчика
    */
-  cmdRemove() {
+  cmdRemoveSubscriber() {
     const iSubscriberId = this.data.id;
     Subscriptions.removeByPk(iSubscriberId);
   }
@@ -28,7 +28,7 @@ class Api extends ApiPrototype {
   /**
    * Обновляем подписчика
    */
-  cmdUpdate() {
+  cmdUpdateSubscriber() {
 
   }
 }

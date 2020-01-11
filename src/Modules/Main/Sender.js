@@ -16,4 +16,4 @@ class Sender {
   }
 }
 
-module.exports = Sender;
+module.exports = new Sender();

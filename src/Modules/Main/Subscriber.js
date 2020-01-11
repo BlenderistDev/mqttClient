@@ -37,5 +37,5 @@ class Subscriber {
   }
 }
 
-module.exports = Subscriber;
+module.exports = new Subscriber();
 
