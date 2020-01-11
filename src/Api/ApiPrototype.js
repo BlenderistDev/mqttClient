@@ -14,7 +14,6 @@ class ApiPrototype {
   constructor(request, response) {
     this.request = request;
     this.response = response;
-    this._requiredModules = [];
   }
 
   /**
@@ -25,7 +24,6 @@ class ApiPrototype {
    * @param {string} sModuleName
    */
   getModule(sModuleName) {
-    this._requiredModules.push(sModuleName);
     const Api = require(path.join(process.cwd(), 'modules', sModuleName, 'Api'));
     const oApi = new Api(this.request, this.response);
     return oApi;
