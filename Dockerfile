@@ -1,3 +1,5 @@
 FROM node:latest
 COPY . /app
-ENTRYPOINT [ "/app/start.sh" ]
+WORKDIR /app
+RUN npm install
+ENTRYPOINT [ "./start.sh" ]
