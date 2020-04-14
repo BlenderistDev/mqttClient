@@ -34,7 +34,7 @@ class ApiPrototype {
    * возвращает поле data post запроса
    */
   get data() {
-    return JSON.parse(this.request.body.data);
+    return this.request.body.data;
   }
 }
 

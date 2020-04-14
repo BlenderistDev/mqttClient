@@ -1,5 +1,5 @@
 const path = require('path');
-const ApiPrototype = require(path.join(process.env.WEB_DIR, 'ApiPrototype'));
+const ApiPrototype = require(path.join(process.env.API_DIR, 'ApiPrototype'));
 const Subscriptions = require('./model/Subscriptions');
 
 /**
@@ -8,28 +8,40 @@ const Subscriptions = require('./model/Subscriptions');
 class Api extends ApiPrototype {
   /**
    * Добавляем подписчика
+   * @return {Promise}
    */
-  cmdAddSubscriber() {
-    const oSubscriberData = {
-      'module': this.data.module,
-      'topic': this.data.topic,
-    };
-    Subscriptions.create(oSubscriberData);
+  cmdCreateSubscriber() {
+    return Subscriptions.create(this.data);
   }
 
   /**
    * Удаляем подписчика
+   * @return {promise}
    */
-  cmdRemoveSubscriber() {
-    const iSubscriberId = this.data.id;
-    Subscriptions.removeByPk(iSubscriberId);
+  cmdDeleteSubscriber() {
+    return Subscriptions.removeByPk(this.data.id);
   }
 
   /**
    * Обновляем подписчика
+   * @return {promise}
    */
   cmdUpdateSubscriber() {
+    return Subscriptions.getByPk(this.data.id).then((oRow) => {
+      return oRow.update(this.data).then(() => {
+        return oRow.dataValues;
+      });
+    });
+  }
 
+  /**
+   * Получаем списко подписок модуля на топики
+   * @return {promise}
+   */
+  cmdGetModuleSubscriptions() {
+    return Subscriptions.getByModule(this.data.module).then((res) => {
+      return res;
+    });
   }
 }
 

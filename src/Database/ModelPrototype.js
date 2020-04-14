@@ -32,6 +32,15 @@ class ModelPrototype extends Sequelize.Model {
       return oRow.destroy();
     });
   }
+
+  /**
+   * Возвращает запись по первичному ключу
+   * @param {mixed} mPk
+   * @return {Promise}
+   */
+  getByPk(mPk) {
+    return this.constructor.findByPk(mPk);
+  }
 }
 
 module.exports = ModelPrototype;

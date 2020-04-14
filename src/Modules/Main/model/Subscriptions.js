@@ -21,6 +21,19 @@ class Subscriptions extends ModelPrototype {
       },
     });
   }
+
+  /**
+   * Поиск записи по модулю
+   * @param {string} sModule
+   * @return {promise}
+   */
+  getByModule(sModule) {
+    return Subscriptions.findAll({
+      where: {
+        module: sModule,
+      },
+    });
+  }
 }
 
 Subscriptions.init({
