@@ -20,8 +20,6 @@ app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
 // для обработки запросов не с localhost
 app.use(cors());
-// подключаем папку для статических файлов
-app.use(express.static(path.join(__dirname, 'public')));
 // подключаем обработчик маршрутов
 app.use('/', router);
 
