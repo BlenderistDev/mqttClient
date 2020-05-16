@@ -24,5 +24,4 @@ Senders.init({
   },
 }, {sequelize, modelName: 'senders'});
 
-module.exports = new Senders();
-module.exports.sync = Senders;
+module.exports = Senders;

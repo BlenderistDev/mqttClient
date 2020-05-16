@@ -7,13 +7,6 @@ const sequelize = ModelPrototype.sequelize;
  * Модель для подписчика командной строки
  */
 class MqttMessages extends ModelPrototype {
-  /**
-   * Создает запись в таблице
-   * @param {object} oData
-   */
-  create(oData) {
-    MqttMessages.create(oData);
-  }
 }
 
 MqttMessages.init({
@@ -36,5 +29,5 @@ MqttMessages.init({
   },
 }, {sequelize, modelName: 'mqtt_messages'});
 
-module.exports = new MqttMessages();
-module.exports.sync = MqttMessages;
+module.exports = MqttMessages;
+

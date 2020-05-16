@@ -26,5 +26,5 @@ MessageCounter.init({
   },
 }, {sequelize, modelName: 'message_counter'});
 
-module.exports = new MessageCounter();
-module.exports.sync = MessageCounter;
+module.exports = MessageCounter;
+

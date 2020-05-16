@@ -13,7 +13,7 @@ class Subscriptions extends ModelPrototype {
    * @param {string} topic
    * @return {promise}
    */
-  getByTopic(topic) {
+  static getByTopic(topic) {
     return Subscriptions.findAll({
       where: {
         [Op.or]: [{topic: topic}, {topic: '#'}],
@@ -26,7 +26,7 @@ class Subscriptions extends ModelPrototype {
    * @param {string} sModule
    * @return {promise}
    */
-  getByModule(sModule) {
+  static getByModule(sModule) {
     return Subscriptions.findAll({
       where: {
         module: sModule,
@@ -53,5 +53,4 @@ Subscriptions.init({
   },
 }, {sequelize, modelName: 'subscriptions'});
 
-module.exports = new Subscriptions();
-module.exports.sync = Subscriptions;
+module.exports = Subscriptions;

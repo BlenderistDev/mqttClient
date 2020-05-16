@@ -7,7 +7,6 @@ const sequelize = ModelPrototype.sequelize;
  * Модель для подписчика командной строки
  */
 class ShellSenders extends ModelPrototype {
-
 }
 
 ShellSenders.init({
@@ -32,5 +31,5 @@ ShellSenders.init({
   },
 }, {sequelize, modelName: 'shell_senders'});
 
-module.exports = new ShellSenders();
-module.exports.sync = ShellSenders;
+module.exports = ShellSenders;
+

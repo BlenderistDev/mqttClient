@@ -23,9 +23,6 @@ Model.init({
   },
 }, {sequelize, modelName: 'model_prototype_tests'});
 
-
-const oModel = new Model();
-
 describe('modelPrototype', function() {
   oInsertData = {
     test_field: 'test',
@@ -37,13 +34,8 @@ describe('modelPrototype', function() {
   });
 
   context('create()', function() {
-    it('должна добавиться строка в базу данных', async function() {
-      await oModel.create(oInsertData);
-      const data = await sequelize.query('SELECT * FROM `model_prototype_tests`', {type: Sequelize.QueryTypes.SELECT});
-      assert.equal(data.length, 1);
-    });
     it('Поле должно сохранится без изменений', async function() {
-      await oModel.create(oInsertData);
+      await Model.create(oInsertData);
       const data = await sequelize.query('SELECT * FROM `model_prototype_tests`', {type: Sequelize.QueryTypes.SELECT});
       const oRow = data.pop();
       assert.equal(oRow.test_field, oInsertData.test_field);
@@ -55,7 +47,7 @@ describe('modelPrototype', function() {
       await Model.create(oInsertData);
       await Model.create(oInsertData);
       await Model.create(oInsertData);
-      const aTableData = await oModel.getTable();
+      const aTableData = await Model.getTable();
       assert.equal(aTableData.length, 3);
     });
   });
@@ -67,7 +59,7 @@ describe('modelPrototype', function() {
         'test_field': 'test',
       };
       await Model.create(oData);
-      const oRow = await oModel.getByPk(5);
+      const oRow = await Model.getByPk(5);
       assert.equal(oRow.test_field, oData.test_field);
     });
   });
@@ -79,7 +71,7 @@ describe('modelPrototype', function() {
         'test_field': 'test',
       };
       await Model.create(oData);
-      await oModel.removeByPk(12);
+      await Model.removeByPk(12);
       const aTableData = await sequelize.query('SELECT * FROM `model_prototype_tests`', {type: Sequelize.QueryTypes.SELECT});
       assert.equal(aTableData.length, 0);
     });

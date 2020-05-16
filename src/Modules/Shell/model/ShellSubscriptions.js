@@ -12,7 +12,7 @@ class ShellSubscriptions extends ModelPrototype {
    * @param {string} sCmd
    * @return {promise}
    */
-  getByCmd(sCmd) {
+  static getByCmd(sCmd) {
     return ShellSubscriptions.findAll({where: {cmd: sCmd}});
   }
 }
@@ -29,5 +29,5 @@ ShellSubscriptions.init({
   commandTemplate: {type: Sequelize.TEXT},
 }, {sequelize, modelName: 'shell_subscriptions'});
 
-module.exports = new ShellSubscriptions();
-module.exports.sync = ShellSubscriptions;
+module.exports = ShellSubscriptions;
+

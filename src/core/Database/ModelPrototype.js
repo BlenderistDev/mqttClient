@@ -10,16 +10,8 @@ class ModelPrototype extends Sequelize.Model {
    * @return {Promise}
    * return all table data
    */
-  getTable() {
-    return this.constructor.findAll();
-  }
-  /**
-   * Создает запись в таблице
-   * @param {object} oData
-   * @return {Promise}
-   */
-  create(oData) {
-    return this.constructor.create(oData);
+  static getTable() {
+    return this.findAll();
   }
 
   /**
@@ -27,8 +19,8 @@ class ModelPrototype extends Sequelize.Model {
    * @param {mixed} mPk
    * @return {Promise}
    */
-  removeByPk(mPk) {
-    return this.constructor.findByPk(mPk).then((oRow) => {
+  static removeByPk(mPk) {
+    return this.findByPk(mPk).then((oRow) => {
       return oRow.destroy();
     });
   }
@@ -38,8 +30,8 @@ class ModelPrototype extends Sequelize.Model {
    * @param {mixed} mPk
    * @return {Promise}
    */
-  getByPk(mPk) {
-    return this.constructor.findByPk(mPk);
+  static getByPk(mPk) {
+    return this.findByPk(mPk);
   }
 }
 
