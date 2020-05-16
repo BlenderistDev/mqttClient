@@ -1,5 +1,4 @@
-const path = require('path');
-const ApiPrototype = require(path.join(process.env.API_DIR, 'ApiPrototype'));
+const ApiPrototype = require('../../core/index').ApiPrototype;
 const ShellSubscribers = require('./model/ShellSubscriptions');
 const ShellSenders = require('./model/ShellSenders');
 

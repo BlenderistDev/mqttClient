@@ -1,5 +1,4 @@
-const path = require('path');
-const MqttClient = require(path.join(process.env.SOURCE_DIR, 'Mqtt', 'MqttClient'));
+const MqttClient = require('../../core/index').mqtt;
 
 /**
  * Счетчик сообщений

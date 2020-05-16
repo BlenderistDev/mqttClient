@@ -1,7 +1,6 @@
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
-const path = require('path');
-const ModelPrototype = require(path.join(process.env.SOURCE_DIR, 'Database', 'ModelPrototype'));
+const ModelPrototype = require('../../../core/index').modelPrototype;
 
 const sequelize = ModelPrototype.sequelize;
 

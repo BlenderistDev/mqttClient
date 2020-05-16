@@ -1,6 +1,5 @@
 const shell = require('shelljs');
-const path = require('path');
-const MqttClient = require(path.join(process.env.SOURCE_DIR, 'Mqtt', 'MqttClient'));
+const MqttClient = require('../../core/index').mqtt;
 const ShellSenders = require('./model/ShellSenders');
 /**
  * Класс для отправителя сенсора командной строки

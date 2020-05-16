@@ -1,5 +1,4 @@
-const path = require('path');
-const mqttClient = require(path.join(process.env.SOURCE_DIR, 'Mqtt', 'MqttClient'));
+const mqttClient = require('../../core/index').mqtt;
 const Subscriptions = require('./model/Subscriptions');
 
 /**
