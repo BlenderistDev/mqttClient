@@ -1,7 +1,7 @@
-require('../../config/constants');
+require('../../../config/constants');
 
 const assert = require('assert');
-const ApiPrototype = require('../../src/core/Api/ApiPrototype');
+const ApiPrototype = require('../../../src/core/Api/ApiPrototype');
 
 describe('ApiPrototype', () => {
   context('get data()', () => {

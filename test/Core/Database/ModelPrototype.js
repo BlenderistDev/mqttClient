@@ -1,6 +1,6 @@
-require('../../config/test/constants');
+require('../../../config/test/constants');
 const assert = require('assert');
-const ModelPrototype = require('../../src/core/index').modelPrototype;
+const ModelPrototype = require('../../../src/core/index').modelPrototype;
 const sequelize = ModelPrototype.sequelize;
 const Sequelize = require('sequelize');
 

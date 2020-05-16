@@ -1,9 +1,9 @@
-require('../../config/constants');
+require('../../../config/constants');
 
 const assert = require('assert');
 
-const RequestHandler = require('../../src/core/Api/RequestHandler');
-const ApiPrototype = require('../../src/core/Api/ApiPrototype');
+const RequestHandler = require('../../../src/core/Api/RequestHandler');
+const ApiPrototype = require('../../../src/core/Api/ApiPrototype');
 const fsPromises = require('fs').promises;
 
 describe('RequestHandler', async function() {

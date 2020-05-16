@@ -1,7 +1,7 @@
-require('../../config/constants');
+require('../../../config/constants');
 
 const assert = require('assert');
-const ApiConfigurator = require('../../src/core/Api/ApiConfigurator');
+const ApiConfigurator = require('../../../src/core/Api/ApiConfigurator');
 
 describe('ApiConfigurator', function() {
   context('getPort()', function() {
