@@ -1,5 +1,6 @@
 const ApiPrototype = require('../../core/index').ApiPrototype;
 const fsPromises = require('fs').promises;
+const path = require('path');
 
 /**
  * класс Api для настроек
