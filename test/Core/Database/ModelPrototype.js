@@ -28,9 +28,8 @@ describe('modelPrototype', function() {
     test_field: 'test',
   };
 
-  beforeEach(async function() {
-    await Model.drop();
-    await Model.sync();
+  beforeEach(function(done) {
+    Model.drop().then(() => Model.sync().then(() => done()));
   });
 
   context('create()', function() {
