@@ -10,16 +10,17 @@ class Subscriber {
    */
   constructor() {
     this.setSubscribes();
-    this.setHandler();
   }
 
   /**
    * Подписываемся на все топики
    */
-  setSubscribes() {
+  async setSubscribes() {
     mqttClient.on('connect', () => {
       mqttClient.subscribe('#');
     });
+    this.aSubscriptions = await Subscriptions.getTable();
+    this.setHandler();
   }
 
   /**
@@ -27,10 +28,10 @@ class Subscriber {
    */
   setHandler() {
     mqttClient.on('message', (topic, message) => {
-      Subscriptions.getByTopic(topic).then((res) => {
-        res.forEach((oRow) => {
-          require(`../${oRow.module}/Subscriber.js`).handleMessage(topic.toString(), message.toString());
-        });
+      this.aSubscriptions.forEach((oSubscription) => {
+          if (oSubscription.topic === topic || oSubscription.topic == '#') {
+            require(`../${oSubscription.module}/Subscriber.js`).handleMessage(topic.toString(), message.toString());
+          }
       });
     });
   }
