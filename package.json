@@ -19,8 +19,9 @@
     "mysql2": "^2.0.1",
     "nyc": "^15.0.1",
     "sequelize": "^5.21.2",
-    "shelljs": "^0.8.3",
-    "winston": "^3.2.1"
+    "shelljs": "^0.8.4",
+    "winston": "^3.2.1",
+    "socket.io": "^2.3.0"
   },
   "devDependencies": {
     "eslint": "^6.7.0",
