@@ -1,4 +1,8 @@
 config/
 node_modules
 .eslintrc.js
-log
+*.log
+.nyc_output/
+.vscode/
+coverage/
+package-lock.json
