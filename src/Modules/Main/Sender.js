@@ -1,19 +1,21 @@
-const Senders = require('./model/Senders');
+const fsPromises = require('fs').promises;
+const fs = require('fs');
+const path = require('path');
 
 /**
- * Класс для управления отправителями
+ * подключает отправителей
  */
-class Sender {
-  /**
-   * Конструктор управления отправителями
-   */
-  constructor() {
-    Senders.getTable().then((res) => {
-      res.forEach((oRow) => {
-        require(`../${oRow.module}/Sender`);
-      });
-    });
-  }
+async function requireSenders() {
+  const aModuleDirList = await fs.promises.readdir(process.env.MODULE_DIR);
+  aModuleDirList.forEach(async (sModuleDir) => {
+    const sSenderFilePath = path.join(process.env.MODULE_DIR, sModuleDir, 'Sender.js');
+    fsPromises.access(sSenderFilePath, fs.constants.R_OK)
+        .then(() => {
+          require(sSenderFilePath);
+        })
+        .catch(() => {});
+  });
 }
 
-module.exports = new Sender();
+module.exports = requireSenders();
+
