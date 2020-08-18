@@ -1,9 +1,9 @@
-const MqttClient = require('../../core/index').mqtt;
+import {mqttClient} from '../../core/index.js';
 
 /**
  * Счетчик сообщений
  */
-class Counter {
+export class Counter {
   /**
    * @param {String} sTopic Топик счетчика
    * @param {Integer} iInterval Интервал обновления счетчика в секундах
@@ -20,7 +20,7 @@ class Counter {
    * Обнуление счетчика
    */
   zeroingCounter() {
-    MqttClient.publish(this.topic, this.messageCount.toString());
+    mqttClient.sendMessage(this.topic, this.messageCount.toString());
     this.messageCount = 0;
   }
 
@@ -32,4 +32,3 @@ class Counter {
   }
 }
 
-module.exports = Counter;

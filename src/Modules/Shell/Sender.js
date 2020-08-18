@@ -1,23 +1,22 @@
-const shell = require('shelljs');
-const MqttClient = require('../../core/index').mqtt;
-const ShellSenders = require('./model/ShellSenders');
+import shell from 'shelljs';
+import {ShellSenders} from './model/ShellSenders.js';
+import {SenderPrototype} from '../../core/index.js';
 /**
  * Класс для отправителя сенсора командной строки
  */
-class Sender {
+export class Sender extends SenderPrototype {
   /**
    * Конструктор отправителя сенсора командной строки
    */
   constructor() {
+    super();
     ShellSenders.getTable().then((res) => {
       res.forEach((oSenderRow) => {
         setInterval(() => {
           const oCommandLineSensorData = shell.exec(oSenderRow.command, {'silent': false});
-          MqttClient.publish(oSenderRow.topic, oCommandLineSensorData.toString());
+          this.sendMessage(oSenderRow.topic, oCommandLineSensorData.toString());
         }, oSenderRow.interval);
       });
     });
   }
 }
-
-module.export = new Sender();

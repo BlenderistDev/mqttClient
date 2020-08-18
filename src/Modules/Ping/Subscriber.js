@@ -1,9 +1,9 @@
-const MqttClient = require('../../core/index').mqtt;
+import {SubscriberPrototype} from '../../core/ModuleManager/SubscriberPrototype.js';
 
 /**
  * mqtt Подписчик для замера пинга
  */
-class PingSubscriber {
+export class Subscriber extends SubscriberPrototype {
   /**
    * @param {string} sTopic
    * @param {string} sMessage
@@ -11,8 +11,10 @@ class PingSubscriber {
   handleMessage(sTopic, sMessage) {
     const oMessage = JSON.parse(sMessage);
     const iPing = (Date.now() - JSON.parse(sMessage).timestamp)/1000;
-    MqttClient.publish(oMessage.result_topic, iPing.toString());
+    this.sendMessage(oMessage.result_topic, iPing.toString())
+  }
+
+  isTopicInSubscription(sTopic) {
+    return sTopic === '/mqtt/ping/measure';
   }
 }
-
-module.exports = new PingSubscriber();

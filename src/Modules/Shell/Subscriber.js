@@ -1,10 +1,11 @@
-const shell = require('shelljs');
-const ShellSubscriptions = require('./model/ShellSubscriptions');
+import shell from 'shelljs';
+import {ShellSubscriptions} from './model/ShellSubscriptions.js';
+import {SubscriberPrototype} from '../../core/ModuleManager/SubscriberPrototype.js';
 
 /**
  * mqtt Подписчик для выполнения shell команд
  */
-class ShellSubscriber {
+export class Subscriber extends SubscriberPrototype {
   /**
    * @param {string} sTopic
    * @param {string} sMessage
@@ -31,8 +32,13 @@ class ShellSubscriber {
         sCommandTemplate = sCommandTemplate.replace(`{{${sLabel}}}`, oReplaceData[sLabel]);
       }
     }
-    shell.exec(sCommandTemplate, {'silent': true});
+    shell.exec(sCommandTemplate, {
+      // 'silent': true
+    });
+  }
+
+  isTopicInSubscription(sTopic) {
+    return (sTopic === '/notebook/shell');
   }
 }
 
-module.exports = new ShellSubscriber();

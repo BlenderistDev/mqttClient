@@ -1,15 +1,15 @@
-const Sequelize = require('sequelize');
-const ModelPrototype = require('../../../core/index').modelPrototype;
+import Sequelize from 'sequelize';
+import {ModelPrototype} from '../../../core/index.js';
 
-const sequelize = ModelPrototype.sequelize;
+const sequelize = ModelPrototype.getSequelize();
 
 /**
  * Модель для счетчика сообщений
  */
-class MessageCounter extends ModelPrototype {
+export class MessagesCounter extends ModelPrototype {
 }
 
-MessageCounter.init({
+MessagesCounter.init({
   id: {
     type: Sequelize.INTEGER,
     primaryKey: true,
@@ -26,5 +26,4 @@ MessageCounter.init({
   },
 }, {sequelize, modelName: 'message_counter'});
 
-module.exports = MessageCounter;
 

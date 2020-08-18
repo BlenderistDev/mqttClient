@@ -1,4 +1,7 @@
-module.exports.mqtt = require('./Mqtt/MqttClient');
-module.exports.logger = require('./Logger/Logger');
-module.exports.modelPrototype = require('./Database/ModelPrototype');
-module.exports.ApiPrototype = require('./Api/ApiPrototype');
+import {mqttClient} from './Mqtt/MqttClient.js';
+import {logger} from './Logger/Logger.js';
+import {ModelPrototype} from './Database/ModelPrototype.js';
+import {ApiPrototype, ApiServer} from './Api/index.js';
+import {ModuleManager, SubscriberPrototype, SenderPrototype} from './ModuleManager/index.js';
+
+export {mqttClient, logger, ModelPrototype, ApiPrototype, ApiServer, ModuleManager, SubscriberPrototype, SenderPrototype};

@@ -1,12 +1,12 @@
-const Sequelize = require('sequelize');
-const ModelPrototype = require('../../../core/index').modelPrototype;
+import Sequelize from 'sequelize';
+import {ModelPrototype} from '../../../core/index.js';
 
-const sequelize = ModelPrototype.sequelize;
+const sequelize = ModelPrototype.getSequelize();
 
 /**
  * Модель для подписчика командной строки
  */
-class MqttMessages extends ModelPrototype {
+export class MqttMessages extends ModelPrototype {
 }
 
 MqttMessages.init({
@@ -29,5 +29,4 @@ MqttMessages.init({
   },
 }, {sequelize, modelName: 'mqtt_messages'});
 
-module.exports = MqttMessages;
 

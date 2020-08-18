@@ -1,12 +1,12 @@
-const Sequelize = require('sequelize');
-const ModelPrototype = require('../../../core/index').modelPrototype;
+import Sequelize from 'sequelize';
+import {ModelPrototype} from '../../../core/index.js';
 
-const sequelize = ModelPrototype.sequelize;
+const sequelize = ModelPrototype.getSequelize();
 
 /**
  * Модель для подписчика командной строки
  */
-class ShellSenders extends ModelPrototype {
+export class ShellSenders extends ModelPrototype {
 }
 
 ShellSenders.init({
@@ -31,5 +31,4 @@ ShellSenders.init({
   },
 }, {sequelize, modelName: 'shell_senders'});
 
-module.exports = ShellSenders;
 

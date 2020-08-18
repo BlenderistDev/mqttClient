@@ -1,15 +1,15 @@
-const Sequelize = require('sequelize');
-const ModelPrototype = require('../../../core/index').modelPrototype;
+import Sequelize from 'sequelize';
+import {ModelPrototype} from '../../../core/index.js';
 
-const sequelize = ModelPrototype.sequelize;
+const sequelize = ModelPrototype.getSequelize();
 
 /**
  * Модель для модуля пинга
  */
-class PingTable extends ModelPrototype {
+export class PingTable extends ModelPrototype {
   /**
    * Возвращает записи топику замера
-   * @param {string} sCmd
+   * @param {string} sTopic
    * @return {promise}
    */
   static getByMeasureTopic(sTopic) {
@@ -36,6 +36,4 @@ PingTable.init({
     allowNull: false,
   },
 }, {sequelize, modelName: 'message_ping'});
-
-module.exports = PingTable;
 

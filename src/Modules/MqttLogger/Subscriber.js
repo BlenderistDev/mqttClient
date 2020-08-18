@@ -1,9 +1,10 @@
-const MqttMessages = require('./model/mqttMessages');
+import {MqttMessages} from './model/mqttMessages.js';
+import {SubscriberPrototype} from '../../core/ModuleManager/SubscriberPrototype.js';
 
 /**
  * Логгер всех mqtt сообщений
  */
-class Subscriber {
+export class Subscriber extends SubscriberPrototype {
   /**
    * Запись mqtt сообщения в лог
    * @param {string} sTopic
@@ -17,5 +18,3 @@ class Subscriber {
     });
   }
 }
-
-module.exports = new Subscriber();

@@ -1,23 +1,45 @@
-const mqtt = require('mqtt');
-const path = require('path');
+import mqtt from 'mqtt';
+import EventEmitter from 'events';
+import {mqtt as mqttConfig} from '../../../config/config.js';
+
 /**
  * Клиент для mqtt
  */
-class MqttClient {
+class MqttClient extends EventEmitter {
   /**
-   * Возвращает подключение к mqtt
-   * @return {object}
+   * Конструктор
+   * Устанавливаем соединение
    */
-  static getConnection() {
-    if (MqttClient._connection === undefined) {
-      const mqttConfig = require(path.join(process.env.CONFIG_DIR, 'mqttConfig.json'));
-      MqttClient._connection = mqtt.connect(mqttConfig.host, {
-        username: mqttConfig.username,
-        password: mqttConfig.password,
-      });
-    }
-    return MqttClient._connection;
+  constructor() {
+    super();
+    this.setConnection();
+  }
+
+  /**
+   * Установка соеденения с mqtt
+   */
+  async setConnection() {
+    this._connection = mqtt.connect(mqttConfig.host, {
+      username: mqttConfig.username,
+      password: mqttConfig.password,
+    });
+    this._connection.on('connect', () => {
+      this._connection.subscribe('#');
+    });
+    this._connection.on('message', (topic, message) => {
+      this.emit('message', topic.toString(), message.toString());
+    });
+  }
+
+  /**
+   * Отправляет mqtt сообщение
+   * @param {mixed} sTopic
+   * @param {mixed} sMessage
+   */
+  sendMessage(sTopic, sMessage) {
+    this._connection.publish(sTopic.toString(), sMessage.toString());
   }
 }
 
-module.exports = MqttClient.getConnection();
+export const mqttClient = new MqttClient();
+

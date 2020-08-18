@@ -1,10 +1,10 @@
-const Sequelize = require('sequelize');
-const sequelize = require('./DatabaseClient');
+import Sequelize from 'sequelize';
+import {getConnection} from './DatabaseClient.js';
 
 /**
  * Прототип модели
  */
-class ModelPrototype extends Sequelize.Model {
+export class ModelPrototype extends Sequelize.Model {
   /**
    * @param {bool} asArray
    * @return {Promise}
@@ -33,7 +33,13 @@ class ModelPrototype extends Sequelize.Model {
   static getByPk(mPk) {
     return this.findByPk(mPk);
   }
+
+  /**
+   * Возвращает подключение к базе
+   * @return {object}
+   */
+  static getSequelize() {
+    return getConnection();
+  }
 }
 
-module.exports = ModelPrototype;
-module.exports.sequelize = sequelize;
