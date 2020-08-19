@@ -35,9 +35,10 @@ class MqttClient extends EventEmitter {
    * Отправляет mqtt сообщение
    * @param {mixed} sTopic
    * @param {mixed} sMessage
+   * @param {bool} bRetain
    */
-  sendMessage(sTopic, sMessage) {
-    this._connection.publish(sTopic.toString(), sMessage.toString());
+  sendMessage(sTopic, sMessage, bRetain = false) {
+    this._connection.publish(sTopic.toString(), sMessage.toString(), {retain: bRetain});
   }
 }
 
