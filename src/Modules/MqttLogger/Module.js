@@ -1,10 +1,10 @@
 import {MqttMessages} from './model/mqttMessages.js';
-import {SubscriberPrototype} from '../../core/ModuleManager/SubscriberPrototype.js';
+import {ModulePrototype} from '../../core/index.js';
 
 /**
  * Логгер всех mqtt сообщений
  */
-export class Subscriber extends SubscriberPrototype {
+export class Module extends ModulePrototype {
   /**
    * Запись mqtt сообщения в лог
    * @param {string} sTopic

@@ -1,11 +1,11 @@
 import {MessagesCounter} from './model/MessagesCounter.js';
 import {Counter} from './Counter.js';
-import {SubscriberPrototype} from '../../core/ModuleManager/SubscriberPrototype.js';
+import {ModulePrototype} from '../../core/index.js';
 
 /**
- * Подписчик для счетчиков сообщений за период
+ * Модуль для счетчиков сообщений за период
  */
-export class Subscriber extends SubscriberPrototype {
+export class Module extends ModulePrototype {
   /**
    * Создаем массив счетчиков
    */

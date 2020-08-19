@@ -1,9 +1,19 @@
 import {mqttClient} from '../../core/index.js';
 
 /**
- * Прототип для подписчиков
+ * Прототип для модулей
  */
-export class SubscriberPrototype {
+export class ModulePrototype {
+  /**
+   * Отправка сообщения mqtt
+   * @param {mixed} sTopic
+   * @param {mixed} sMessage
+   * @param {bool} bRetain
+   */
+  sendMessage(sTopic, sMessage, bRetain = false) {
+    mqttClient.sendMessage(sTopic, sMessage, bRetain);
+  }
+
   /**
    * Проверяет, подписан ли подписчик на топик
    * @param {string} sTopic
@@ -18,17 +28,9 @@ export class SubscriberPrototype {
    * Метод должен быть переопределен в дочернем классе
    * @param {string} sTopic
    * @param {string} sMessage
+   * @return {mixed}
    */
   handleMessage(sTopic, sMessage) {
-    throw new Error('Message handle is not defined');
-  }
-
-  /**
-   * Отправка сообщения mqtt
-   * @param {mixed} sTopic
-   * @param {mixed} sMessage
-   */
-  sendMessage(sTopic, sMessage) {
-    mqttClient.sendMessage(sTopic, sMessage);
+    return null;
   }
 }

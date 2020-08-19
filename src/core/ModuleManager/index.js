@@ -1,5 +1,4 @@
 import {ModuleManager} from './ModuleManager.js';
-import {SubscriberPrototype} from './SubscriberPrototype.js';
-import {SenderPrototype} from './SenderPrototype.js';
+import {ModulePrototype} from './ModulePrototype.js';
 
-export {ModuleManager, SubscriberPrototype, SenderPrototype};
+export {ModuleManager, ModulePrototype};

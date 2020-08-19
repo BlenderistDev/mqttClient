@@ -1,11 +1,11 @@
 import {PingTable} from './model/Ping.js';
-import {SenderPrototype} from '../../core/index.js';
+import {ModulePrototype} from '../../core/index.js';
 /**
  * Класс для модуля пинга
  */
-export class Sender extends SenderPrototype {
+export class Module extends ModulePrototype {
   /**
-   * Конструктор отправителя модуля пинга
+   * Конструктор модуля пинга
    */
   constructor() {
     super();
@@ -15,7 +15,7 @@ export class Sender extends SenderPrototype {
   }
 
   /**
-   * Устанавливает отправителя доя модуля
+   * Устанавливает отправителя для модуля
    * @param {object} oSenderRow
    */
   setPingSender(oSenderRow) {
@@ -34,6 +34,20 @@ export class Sender extends SenderPrototype {
       result_topic: oSenderRow.result_topic,
     };
     this.sendMessage(oSenderRow.measure_topic, JSON.stringify(oPing));
+  }
+
+  /**
+   * @param {string} sTopic
+   * @param {string} sMessage
+   */
+  handleMessage(sTopic, sMessage) {
+    const oMessage = JSON.parse(sMessage);
+    const iPing = (Date.now() - JSON.parse(sMessage).timestamp)/1000;
+    this.sendMessage(oMessage.result_topic, iPing.toString());
+  }
+
+  isTopicInSubscription(sTopic) {
+    return sTopic === '/mqtt/ping/measure';
   }
 }
 

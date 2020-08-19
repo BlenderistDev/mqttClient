@@ -1,11 +1,26 @@
 import shell from 'shelljs';
+import {ShellSenders} from './model/ShellSenders.js';
+import {ModulePrototype} from '../../core/index.js';
 import {ShellSubscriptions} from './model/ShellSubscriptions.js';
-import {SubscriberPrototype} from '../../core/ModuleManager/SubscriberPrototype.js';
-
 /**
- * mqtt Подписчик для выполнения shell команд
+ * Класс для модуля командной строки
  */
-export class Subscriber extends SubscriberPrototype {
+export class Module extends ModulePrototype {
+  /**
+   * Конструктор модуля командной строки
+   */
+  constructor() {
+    super();
+    ShellSenders.getTable().then((res) => {
+      res.forEach((oSenderRow) => {
+        setInterval(() => {
+          const oCommandLineSensorData = shell.exec(oSenderRow.command, {'silent': false});
+          this.sendMessage(oSenderRow.topic, oCommandLineSensorData.toString());
+        }, oSenderRow.interval);
+      });
+    });
+  }
+
   /**
    * @param {string} sTopic
    * @param {string} sMessage
@@ -41,4 +56,3 @@ export class Subscriber extends SubscriberPrototype {
     return (sTopic === '/notebook/shell');
   }
 }
-

@@ -12,7 +12,7 @@ export class ModuleManager {
    * и устанавливаем обработчик сообщений
    */
   constructor() {
-    this.aSubscirbers = [];
+    this.aModules = [];
     this.setModules();
     this.setMessageHandler();
   }
@@ -25,39 +25,20 @@ export class ModuleManager {
   async setModules() {
     const aModuleDirList = await fs.promises.readdir(process.env.MODULE_DIR);
     aModuleDirList.forEach((sModuleDir) => {
-      this.setSubscriber(sModuleDir);
-      this.setSender(sModuleDir);
+      this.setModule(sModuleDir);
     });
   }
 
   /**
-   * Проверяем существование подписчика в директории модуля
-   * Если подписчик есть - инициализируем и кэшируем
+   * Проверяем существование модуля в директории модуля
+   * Если модуль есть - инициализируем и кэшируем
    * @param {string} sModuleDir
    */
-  setSubscriber(sModuleDir) {
-    const sSubscriberFilePath = path.join(process.env.MODULE_DIR, sModuleDir, 'Subscriber.js');
-
-    fs.promises.access(sSubscriberFilePath, fs.constants.R_OK).then(async () => {
-      const oSubscriber = await import(sSubscriberFilePath);
-      this.aSubscirbers.push(new oSubscriber.Subscriber());
-    }).catch((err) => {
-      if (err.code !== 'ENOENT') {
-        throw err;
-      }
-    });
-  }
-
-  /**
-   * Проверяем существование отправителя в директории модуля
-   * Если он существует - инициализируем
-   * @param {string} sModuleDir
-   */
-  setSender(sModuleDir) {
-    const sSenderFilePath = path.join(process.env.MODULE_DIR, sModuleDir, 'Sender.js');
-    fs.promises.access(sSenderFilePath, fs.constants.R_OK).then(async () => {
-      const oSender = await import(sSenderFilePath);
-      new oSender.Sender();
+  setModule(sModuleDir) {
+    const sModuleFilePath = path.join(process.env.MODULE_DIR, sModuleDir, 'Module.js');
+    fs.promises.access(sModuleFilePath, fs.constants.R_OK).then(async () => {
+      const oModule = await import(sModuleFilePath);
+      this.aModules.push(new oModule.Module());
     }).catch((err) => {
       if (err.code !== 'ENOENT') {
         throw err;
@@ -70,9 +51,9 @@ export class ModuleManager {
    */
   async setMessageHandler() {
     mqttClient.on('message', (topic, message) => {
-      this.aSubscirbers.forEach((oSubscriber) => {
-        if (oSubscriber.isTopicInSubscription(topic.toString())) {
-          oSubscriber.handleMessage(topic, message);
+      this.aModules.forEach((oModule) => {
+        if (oModule.isTopicInSubscription(topic.toString())) {
+          oModule.handleMessage(topic, message);
         }
       });
     });
