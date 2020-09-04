@@ -17,9 +17,6 @@ MessagesCounter.init({
     allowNull: false,
     autoIncrement: true,
   },
-  topic: {
-    type: Sequelize.TEXT,
-  },
   interval: {
     type: Sequelize.INTEGER,
     allowNull: false,

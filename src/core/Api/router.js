@@ -1,8 +1,8 @@
-const express = require('express');
+import express from 'express';
 // eslint-disable-next-line new-cap
 const router = express.Router();
-const ApiError = require('./ApiError');
-const RequestHandler = require('./RequestHandler');
+import {ApiError} from './ApiError.js';
+import {RequestHandler} from './RequestHandler.js';
 
 /**
  * обработка маршрутов api
@@ -34,4 +34,4 @@ function handleError(error) {
   }
 }
 
-module.exports = router;
+export {router};

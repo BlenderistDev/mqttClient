@@ -1,17 +1,17 @@
-const ApiPrototype = require('../../core/index').ApiPrototype;
-const ShellSubscribers = require('./model/ShellSubscriptions');
-const ShellSenders = require('./model/ShellSenders');
+import {ApiPrototype} from '../../core/index.js';
+import {ShellSubscriptions} from './model/ShellSubscriptions.js';
+import {ShellSenders} from './model/ShellSenders.js';
 
 /**
  * Класс для Api модуля Shelll
  */
-class Api extends ApiPrototype {
+export class Api extends ApiPrototype {
   /**
    * Возвращает список подписок модуля
    * @return {promise}
    */
   cmdGetList() {
-    return ShellSubscribers.getTable();
+    return ShellSubscriptions.getTable();
   }
 
   /**
@@ -19,7 +19,7 @@ class Api extends ApiPrototype {
    * @return {promise}
    */
   cmdUpdate() {
-    return ShellSubscribers.getByPk(this.data.id).then((oRow) => {
+    return ShellSubscriptions.getByPk(this.data.id).then((oRow) => {
       return oRow.update(this.data).then(() => {
         return oRow.dataValues;
       });
@@ -31,7 +31,7 @@ class Api extends ApiPrototype {
   * @return {promise}
   */
   cmdCreate() {
-    return ShellSubscribers.create(this.data);
+    return ShellSubscriptions.create(this.data);
   }
 
   /**
@@ -39,7 +39,7 @@ class Api extends ApiPrototype {
    * @return {promise}
    */
   cmdDelete() {
-    return ShellSubscribers.removeByPk(this.data.id);
+    return ShellSubscriptions.removeByPk(this.data.id);
   }
 
   /**
@@ -79,4 +79,3 @@ class Api extends ApiPrototype {
   }
 }
 
-module.exports = Api;

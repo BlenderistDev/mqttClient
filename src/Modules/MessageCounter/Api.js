@@ -1,10 +1,10 @@
-const ApiPrototype = require('../../core/index').ApiPrototype;
-const MessagesCounter = require('./model/MessagesCounter');
+import {ApiPrototype} from '../../core/index.js';
+import {MessagesCounter} from './model/MessagesCounter.js';
 
 /**
  * Класс Api для модуля счетчика сообщений
  */
-class Api extends ApiPrototype {
+export class Api extends ApiPrototype {
   /**
    * Получаем список счетчиков
    * @return {promise}
@@ -41,5 +41,3 @@ class Api extends ApiPrototype {
     return MessagesCounter.removeByPk(this.data.id);
   }
 }
-
-module.exports = Api;

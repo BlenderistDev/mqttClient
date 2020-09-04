@@ -7,14 +7,17 @@ import {ModulePrototype} from '../../core/index.js';
  */
 export class Module extends ModulePrototype {
   /**
+   * @param {string} moduleTopic
    * Создаем массив счетчиков
    */
-  constructor() {
-    super();
+  constructor(moduleTopic) {
+    super(moduleTopic);
     this.aCounters = [];
     MessagesCounter.getTable().then((res) => {
       res.forEach((oCounterRow) => {
-        this.aCounters.push(new Counter(oCounterRow.topic, oCounterRow.interval));
+        const counterName = `messages_in_${oCounterRow.interval}_sec`;
+        const counterTopic = `${this.getTopic()}/${counterName}`;
+        this.aCounters.push(new Counter(counterTopic, oCounterRow.interval, counterName));
       });
     });
   }

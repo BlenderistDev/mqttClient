@@ -1,15 +1,16 @@
-const http = require('http');
-const ApiConfigurator = require('./ApiConfigurator');
+import http from 'http';
+import {ApiConfigurator} from './ApiConfigurator.js';
+import {app} from './app.js';
 
 /**
  * Класс для Api контроллера
  */
-class ApiServer {
+export class ApiServer {
   /**
    * Конструктор сервера
    */
   constructor() {
-    this.app = require('./app');
+    this.app = app;
     this.port = ApiConfigurator.getPort();
     this.app.set('port', this.port);
     this.createServer();
@@ -32,5 +33,3 @@ class ApiServer {
     console.error(error);
   }
 }
-
-module.exports = new ApiServer();

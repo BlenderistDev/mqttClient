@@ -5,12 +5,23 @@ import {mqttClient} from '../../core/index.js';
  */
 export class ModulePrototype {
   /**
+   * Сохраняем топик модуля
+   * @param {string} moduleTopic
+   */
+  constructor(moduleTopic) {
+    this.setTopic(moduleTopic);
+  }
+
+  /**
    * Отправка сообщения mqtt
-   * @param {mixed} sTopic
    * @param {mixed} sMessage
+   * @param {mixed} sTopic
    * @param {bool} bRetain
    */
-  sendMessage(sTopic, sMessage, bRetain = false) {
+  sendMessage(sMessage, sTopic = '', bRetain = false) {
+    if (sTopic === '') {
+      sTopic = this.getTopic();
+    }
     mqttClient.sendMessage(sTopic, sMessage, bRetain);
   }
 
@@ -32,5 +43,21 @@ export class ModulePrototype {
    */
   handleMessage(sTopic, sMessage) {
     return null;
+  }
+
+  /**
+   * Устанавливаем топик модуля
+   * @param {string} sTopic
+   */
+  setTopic(sTopic) {
+    this.topic = sTopic;
+  }
+
+  /**
+   * Возвращает топик модуля
+   * @return {string}
+   */
+  getTopic() {
+    return this.topic;
   }
 }

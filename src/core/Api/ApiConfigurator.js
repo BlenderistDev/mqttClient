@@ -1,7 +1,7 @@
 /**
  * Класс для получения конфигурационных данных для Api
  */
-class ApiConfigurator {
+export class ApiConfigurator {
   /**
    * Получаем порт, который слушает сервер
    * @return {int}
@@ -26,4 +26,3 @@ class ApiConfigurator {
   }
 }
 
-module.exports = ApiConfigurator;

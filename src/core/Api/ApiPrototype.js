@@ -1,7 +1,7 @@
 /**
  * Прототип контроллеров Api
  */
-class ApiPrototype {
+export class ApiPrototype {
   /**
    * Конструктор контроллера.
    * Устанавливает объекты request и response
@@ -21,4 +21,3 @@ class ApiPrototype {
   }
 }
 
-module.exports = ApiPrototype;

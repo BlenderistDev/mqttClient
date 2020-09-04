@@ -3,8 +3,6 @@
  * эти ошибки будут отлавливаться и отправляться в виде текса
  * с кодом ошибки при возникновении.
  */
-class ApiError extends Error {
-
+export class ApiError extends Error {
 }
 
-module.exports = ApiError;

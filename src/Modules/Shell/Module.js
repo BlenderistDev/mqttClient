@@ -15,7 +15,7 @@ export class Module extends ModulePrototype {
       res.forEach((oSenderRow) => {
         setInterval(() => {
           const oCommandLineSensorData = shell.exec(oSenderRow.command, {'silent': false});
-          this.sendMessage(oSenderRow.topic, oCommandLineSensorData.toString());
+          this.sendMessage(oCommandLineSensorData.toString(), `${this.getTopic()}/${oSenderRow.topic}`);
         }, oSenderRow.interval);
       });
     });

@@ -1,11 +1,12 @@
-const path = require('path');
-const fsPromises = require('fs').promises;
-const ApiError = require('./ApiError');
+import path from 'path';
+import fs from 'fs';
+const fsPromises = fs.promises;
+import {ApiError} from './ApiError.js';
 
 /**
  * Класс для обработки запроса Api
  */
-class RequestHandler {
+export class RequestHandler {
   /**
    * Конструктор класса.
    * Сохраняет объект запроса в свойства объекта
@@ -30,10 +31,11 @@ class RequestHandler {
    */
   getModuleApi() {
     const sControllerPath = path.join(process.env.MODULE_DIR, this.moduleName, 'Api.js');
-    return fsPromises.access(sControllerPath).then(()=>{
-      const ApiController = require(sControllerPath);
-      return new ApiController(this.request);
+    return fsPromises.access(sControllerPath).then(async ()=>{
+      const oApi = await import(sControllerPath);
+      return new oApi.Api(this.request);
     }).catch((error) => {
+      console.error(error);
       throw new ApiError(`Undefined module ${this.moduleName}`);
     });
   }
@@ -84,4 +86,3 @@ class RequestHandler {
   }
 }
 
-module.exports = RequestHandler;

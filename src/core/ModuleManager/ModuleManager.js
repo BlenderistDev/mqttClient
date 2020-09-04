@@ -1,4 +1,4 @@
-import {mqttClient} from '../index.js';
+import {mqttClient, mqttPrefix} from '../index.js';
 import fs from 'fs';
 import path from 'path';
 
@@ -37,8 +37,9 @@ export class ModuleManager {
   setModule(sModuleDir) {
     const sModuleFilePath = path.join(process.env.MODULE_DIR, sModuleDir, 'Module.js');
     fs.promises.access(sModuleFilePath, fs.constants.R_OK).then(async () => {
-      const oModule = await import(sModuleFilePath);
-      this.aModules.push(new oModule.Module());
+      const Module = await import(sModuleFilePath);
+      const oModule = new Module.Module(`${mqttPrefix}/${sModuleDir}`)
+      this.aModules.push(oModule);
     }).catch((err) => {
       if (err.code !== 'ENOENT') {
         throw err;

@@ -2,6 +2,8 @@ import mqtt from 'mqtt';
 import EventEmitter from 'events';
 import {mqtt as mqttConfig} from '../../../config/config.js';
 
+export const mqttPrefix = mqttConfig.topic;
+
 /**
  * Клиент для mqtt
  */

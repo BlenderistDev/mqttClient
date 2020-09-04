@@ -18,6 +18,7 @@ const config = (function() {
         host: '',
         username: '',
         password: '',
+        topic: 'mqttClient',
       },
     };
     fs.writeFile('./config/config.yml', yaml.safeDump(config), (err) => {
