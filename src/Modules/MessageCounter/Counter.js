@@ -40,7 +40,7 @@ export class Counter {
    */
   homeAssistantDiscover() {
     const oParams = {
-      unit_of_measurement: '',
+      unit_of_measurement: 'messages',
     };
     sendDiscoveryMessage(this.counterName, this.topic, 'sensor', oParams);
   }
