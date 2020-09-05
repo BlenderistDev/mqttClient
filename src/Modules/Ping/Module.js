@@ -1,5 +1,4 @@
-import {ModulePrototype} from '../../core/index.js';
-import md5 from 'md5';
+import {ModulePrototype, sendDiscoveryMessage} from '../../core/index.js';
 
 const measureSubTopic = '/measure';
 const resultSubTopic = '/result';
@@ -63,18 +62,12 @@ export class Module extends ModulePrototype {
 
   /**
    * Отправляем сообщение для обнаружения в Home Assistant
-   * Уникальное имя образуется за счет md5 хэша от топика с результатом
    */
   homeAssistantDiscover() {
-    const resultTopicHash = md5(this.getResultTopic());
-    const oResultTopic = this.getResultTopic();
-    const oHomeAssistantDiscoveryConfig = {
-      name: `${resultTopicHash}_ping`,
-      unique_id: `${resultTopicHash}_ping`,
+    const oParams = {
       unit_of_measurement: 'c',
-      state_topic: oResultTopic,
     };
-    this.sendMessage(JSON.stringify(oHomeAssistantDiscoveryConfig), `homeassistant/sensor/${resultTopicHash}/ping/config`, true);
+    sendDiscoveryMessage('ping', this.getResultTopic(), 'sensor', oParams);
   }
 
   /**

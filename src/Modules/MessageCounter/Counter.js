@@ -1,5 +1,4 @@
-import {mqttClient} from '../../core/index.js';
-import md5 from 'md5';
+import {mqttClient, sendDiscoveryMessage} from '../../core/index.js';
 
 /**
  * Счетчик сообщений
@@ -40,14 +39,10 @@ export class Counter {
    * Уникальное имя образуется за счет md5 хэша от топика с результатом
    */
   homeAssistantDiscover() {
-    const topicHash = md5(this.topic);
-    const oHomeAssistantDiscoveryConfig = {
-      name: `${topicHash}_${this.counterName}`,
-      unique_id: `${topicHash}_${this.counterName}`,
+    const oParams = {
       unit_of_measurement: '',
-      state_topic: this.topic,
     };
-    mqttClient.sendMessage(`homeassistant/sensor/${topicHash}/${this.counterName}/config`, JSON.stringify(oHomeAssistantDiscoveryConfig), true);
+    sendDiscoveryMessage(this.counterName, this.topic, 'sensor', oParams);
   }
 }
 
