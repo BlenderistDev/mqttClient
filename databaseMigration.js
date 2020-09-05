@@ -7,10 +7,14 @@ import {MqttMessages} from './src/Modules/MqttLogger/model/mqttMessages.js';
 import {MessagesCounter} from './src/Modules/MessageCounter/model/MessagesCounter.js';
 import {MotionSensors} from './src/Modules/MotionSensor/model/MotionSensors.js';
 
-ShellSubscriptions.sync();
-ShellSenders.sync();
-MqttMessages.sync();
-MessagesCounter.sync();
-MotionSensors.sync();
+Promise.all([
+  ShellSubscriptions.sync(),
+  ShellSenders.sync(),
+  MqttMessages.sync(),
+  MessagesCounter.sync(),
+  MotionSensors.sync(),
+]).then(() => {
+  process.exit(0);
+});
 
-process.exit(0);
+
