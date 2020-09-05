@@ -36,10 +36,7 @@ export class MotionSensor {
       this.inSensor.motion = false;
       if (this.outSensor.sinceMotionDetected) {
         // сколько времени длится текущее движение
-        let delay = new Date - this.outSensor.sinceMotionDetected;
-        if (delay < this.outSensor.minDelay) {
-          delay = this.outSensor.minDelay;
-        }
+        const delay = new Date - this.outSensor.sinceMotionDetected;
         this.outSensor.setMotionTimeout(delay);
       }
     }

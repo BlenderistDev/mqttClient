@@ -21,6 +21,7 @@ export class OutSensor {
     this.noMotionMessage = oMotionSensorRow.out_no_motion_message;
     this.sinceMotionDetected = null;
     this.minDelay = oMotionSensorRow.min_delay;
+    this.maxDelay = oMotionSensorRow.max_delay;
     this.homeAssistantDiscover();
   }
 
@@ -30,13 +31,26 @@ export class OutSensor {
   */
   setMotionTimeout(delay) {
     this.cancelNoMotionTimeout();
-    console.log(delay);
     this.noMotionTimerId = setTimeout(() => {
       this.setNoMotion();
       this.noMotionTimerId = null;
-    }, delay);
+    }, this.getCorrectDelay(delay));
   }
 
+  /**
+   * Гарантирует, что задержка не будет меньше минимальной
+   * и больше максимальной из конфига
+   * @param {integer} delay
+   * @return {integer}
+   */
+  getCorrectDelay(delay) {
+    if (delay < this.minDelay) {
+      delay = this.minDelay;
+    } else if (delay > this.maxDelay) {
+      delay = this.maxDelay;
+    }
+    return delay;
+  }
   /**
   * Отменяем таймаут до состояния отсутствия движения
   */
@@ -55,7 +69,6 @@ export class OutSensor {
     if (this.motion !== true) {
       this.motion = true;
       this.sinceMotionDetected = new Date;
-      console.log('motion');
       mqttClient.sendMessage(this.topic, this.motionMessage);
     }
   }
@@ -67,7 +80,6 @@ export class OutSensor {
   setNoMotion() {
     if (this.motion !== false) {
       this.motion = false;
-      console.log('no_motion');
       mqttClient.sendMessage(this.topic, this.noMotionMessage);
     }
   }

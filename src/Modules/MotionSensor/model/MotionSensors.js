@@ -45,6 +45,10 @@ MotionSensors.init({
     type: Sequelize.INTEGER,
     allowNull: false,
   },
+  max_delay: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+  },
 }, {sequelize, modelName: 'motion_sensors'});
 
 
