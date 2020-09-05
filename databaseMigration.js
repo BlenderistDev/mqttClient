@@ -1,15 +1,16 @@
-require('./config/constants');
+import {setConstants} from './config/constants.js';
+setConstants();
 
-const ShellSubscriptions = require('./src/Modules/Shell/model/ShellSubscriptions');
-const Subscriptions = require('./src/Modules/Main/model/Subscriptions');
-const ShellSenders = require('./src/Modules/Shell/model/ShellSenders');
-const MqttMessages = require('./src/Modules/MqttLogger/model/mqttMessages');
-const MessagesCounter = require('./src/Modules/MessageCounter/model/MessagesCounter');
-const Ping = require('./src/Modules/Ping/model/Ping');
+import {ShellSubscriptions} from './src/Modules/Shell/model/ShellSubscriptions.js';
+import {ShellSenders} from './src/Modules/Shell/model/ShellSenders.js';
+import {MqttMessages} from './src/Modules/MqttLogger/model/mqttMessages.js';
+import {MessagesCounter} from './src/Modules/MessageCounter/model/MessagesCounter.js';
+import {MotionSensors} from './src/Modules/MotionSensor/model/MotionSensors.js';
 
 ShellSubscriptions.sync();
-Subscriptions.sync();
 ShellSenders.sync();
 MqttMessages.sync();
 MessagesCounter.sync();
-Ping.sync();
+MotionSensors.sync();
+
+process.exit(0);
