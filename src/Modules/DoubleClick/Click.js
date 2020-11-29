@@ -41,10 +41,15 @@ export class ClickWatcher {
    * @param {object} oMessage
    */
   hangleClick(oMessage) {
-    if (this.currentState && this.currentState[this.attribute] !== oMessage[this.attribute] && this.timerId) {
-      this.handleSecondClick();
-    } else {
-      this.handleFirstClick();
+    if (!this.currentState) {
+      this.currentState = oMessage;
+    }
+    if (this.currentState[this.attribute] !== oMessage[this.attribute]) {
+      if (this.timerId) {
+        this.handleSecondClick();
+      } else {
+        this.handleFirstClick();
+      }
     }
     this.currentState = oMessage;
   }
