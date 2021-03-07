@@ -1,4 +1,4 @@
-import {ModuleManager} from './ModuleManager.js';
+import {getManager} from './ModuleManager.js';
 import {ModulePrototype} from './ModulePrototype.js';
 
-export {ModuleManager, ModulePrototype};
+export {getManager, ModulePrototype};

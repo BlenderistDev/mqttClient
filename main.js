@@ -1,8 +1,8 @@
-import {setConstants} from './config/constants.js';
-import {ModuleManager} from './src/core/index.js';
+import { setConstants } from './config/constants.js';
+import { getManager } from './src/core/index.js';
 import {ApiServer} from './src/core/index.js';
 
 setConstants();
-new ModuleManager();
+getManager().start()
 new ApiServer();
 

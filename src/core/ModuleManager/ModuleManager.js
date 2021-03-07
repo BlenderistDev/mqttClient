@@ -6,12 +6,13 @@ import path from 'path';
  * Класс для инициализации
  * и координации подписчиков
  */
-export class ModuleManager {
+class ModuleManager {
   /**
    * Инициализируем модули
    * и устанавливаем обработчик сообщений
    */
-  constructor() {
+  start () {
+    console.log("start")
     this.aModules = [];
     this.setModules();
     this.setMessageHandler();
@@ -39,6 +40,7 @@ export class ModuleManager {
     fs.promises.access(sModuleFilePath, fs.constants.R_OK).then(async () => {
       const Module = await import(sModuleFilePath);
       const oModule = new Module.Module(`${mqttPrefix}/${sModuleDir}`)
+      oModule.name = sModuleDir
       this.aModules.push(oModule);
     }).catch((err) => {
       if (err.code !== 'ENOENT') {
@@ -60,4 +62,7 @@ export class ModuleManager {
     });
   }
 }
+const manager = new ModuleManager();
+export const getManager = () => manager
+
 
