@@ -12,7 +12,6 @@ class ModuleManager {
    * и устанавливаем обработчик сообщений
    */
   start () {
-    console.log("start")
     this.aModules = [];
     this.setModules();
     this.setMessageHandler();
