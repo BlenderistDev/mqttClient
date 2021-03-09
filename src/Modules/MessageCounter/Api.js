@@ -1,10 +1,15 @@
-import {ApiPrototype} from '../../core/index.js';
+import {ApiPrototype, Form, List} from '../../core/index.js';
 import {MessagesCounter} from './model/MessagesCounter.js';
 
 /**
  * Класс Api для модуля счетчика сообщений
  */
 export class Api extends ApiPrototype {
+  cmdIndex() {
+    const list = new List()
+    list.addField('interval', 'number')
+    this.setInterface(list)
+  }
   /**
    * Получаем список счетчиков
    * @return {promise}

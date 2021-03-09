@@ -10,6 +10,7 @@ export class ApiPrototype {
    */
   constructor(request) {
     this.request = request;
+    this.fields = []
   }
 
   /**
@@ -18,6 +19,13 @@ export class ApiPrototype {
    */
   get data() {
     return this.request.body.data;
+  }
+
+  addField(name, type='string') {
+    this.fields.push({
+      name: name,
+      type: type
+    })
   }
 }
 

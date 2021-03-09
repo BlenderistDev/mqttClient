@@ -36,9 +36,11 @@ class ModuleManager {
    */
   setModule(sModuleDir) {
     const sModuleFilePath = path.join(process.env.MODULE_DIR, sModuleDir, 'Module.js');
+    const sApiFilePath = path.join(process.env.MODULE_DIR, sModuleDir, 'Api.js');
     fs.promises.access(sModuleFilePath, fs.constants.R_OK).then(async () => {
       const Module = await import(sModuleFilePath);
       const oModule = new Module.Module(`${mqttPrefix}/${sModuleDir}`)
+      oModule.Api = await fs.promises.access(sApiFilePath, fs.constants.R_OK).catch(() => false)
       oModule.name = sModuleDir
       this.aModules.push(oModule);
     }).catch((err) => {
