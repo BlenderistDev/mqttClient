@@ -1,6 +1,11 @@
-<template lang="pug">
+
+<template lang="pug">|
 div
-  div(v-for="module in moduleList") {{ module.name }}
+  router-link(
+    v-for="module in moduleList"
+    :to="{ name: 'module', params: { name: module.name } }"
+  ) 
+    div {{ module.name }}
 </template>
 
 <script>
@@ -8,7 +13,7 @@ import { computed } from 'vue'
 import { useStore } from 'vuex'
 
 export default {
-  name: 'ModuleList',
+  name: 'ModuleSettings',
   props: {
     msg: String
   },
