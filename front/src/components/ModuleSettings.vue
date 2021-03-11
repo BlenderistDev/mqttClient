@@ -7,6 +7,7 @@ import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 import Form from './Form'
 import List from './List'
+import axios from 'axios'
 
 export default {
   name: 'ModuleList',
@@ -15,10 +16,15 @@ export default {
     List
   },
   props: ['name'],
-  setup () {
+  async setup () {
     const router = useRoute()
+    const ui = await axios.post('http://localhost:4000/api', {
+        module: this.name,
+        cmd: 'index'
+      }).then(res => res.data)
     return {
-      moduleName: computed(() => router.params.name)
+      moduleName: computed(() => router.params.name),
+      ui: computed(() => ui)
     }
   }
 }
