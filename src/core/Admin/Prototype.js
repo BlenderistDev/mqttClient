@@ -18,7 +18,7 @@ export class Prototype {
   getInterface() {
     return {
       type: this.getType(),
-      field: this.fields,
+      fields: this.fields,
       value: this.value
     }
   }

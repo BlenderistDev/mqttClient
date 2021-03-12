@@ -8,7 +8,7 @@ export class Api extends ApiPrototype {
   cmdIndex() {
     const list = new List()
     list.addField('interval', 'number')
-    this.setInterface(list)
+    return list.getInterface()
   }
   /**
    * Получаем список счетчиков

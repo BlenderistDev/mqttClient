@@ -1,7 +1,7 @@
-import { Prototype } from './Prototype'
+import { Prototype } from './Prototype.js'
 
 export class List extends Prototype {
   getType() {
-    return 'list'
+    return 'List'
   }
 }

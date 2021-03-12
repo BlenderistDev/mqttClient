@@ -1,9 +1,14 @@
 <template lang="pug">
-div {{ moduleName }}
+div
+  component(
+    v-if="ui"
+    :is="interface"
+    :ui="ui"
+  ) 
 </template>
 
 <script>
-import { computed } from 'vue'
+import { computed, ref  } from 'vue'
 import { useRoute } from 'vue-router'
 import Form from './Form'
 import List from './List'
@@ -15,16 +20,21 @@ export default {
     Form,
     List
   },
-  props: ['name'],
-  async setup () {
+  setup () {
     const router = useRoute()
-    const ui = await axios.post('http://localhost:4000/api', {
-        module: this.name,
-        cmd: 'index'
-      }).then(res => res.data)
+    const ui = ref(null)
+    axios.post('http://localhost:4000/api', {
+        cmd: 'index',
+        module: router.params.name
+      }).then(res => ui.value = res.data)
     return {
       moduleName: computed(() => router.params.name),
-      ui: computed(() => ui)
+      ui: ui
+    }
+  },
+  computed: {
+    interface () {
+      return this.ui.type
     }
   }
 }
