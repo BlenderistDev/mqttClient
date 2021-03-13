@@ -1,23 +1,26 @@
 <template lang="pug">
 div
-  div(@click="add") Add
+  div(v-for="button in ui.buttons")
+    Button(:button="button")
+
   div(v-for="field in ui.fields" ) {{ field.name }}
     input(
       :type="field.type"
       :name="field.name"
   )
-  div(@click="save")
 </template>
 
 <script>
+import Button from "./Button";
 
 export default {
-  name: 'List',
-  props: ['ui'],
+  name: "List",
+  components: {
+    Button,
+  },
+  props: ["ui"],
   methods: {
-    add () {
-
-    }
-  }
-}
+    add() {},
+  },
+};
 </script>
