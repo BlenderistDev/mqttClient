@@ -1,4 +1,4 @@
-import {mqttClient} from '../../core/index.js';
+import { mqttClient, getConfigOption} from '../../core/index.js';
 
 /**
  * Прототип для модулей
@@ -8,8 +8,9 @@ export class ModulePrototype {
    * Сохраняем топик модуля
    * @param {string} moduleTopic
    */
-  constructor(moduleTopic) {
+  constructor(moduleTopic, moduleName) {
     this.setTopic(moduleTopic);
+    this.moduleName = moduleName
   }
 
   /**

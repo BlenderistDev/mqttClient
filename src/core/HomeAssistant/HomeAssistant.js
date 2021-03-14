@@ -1,6 +1,8 @@
-import {mqttClient, mqttPrefix} from '../../core/index.js';
+import { mqttClient, getConfigOption } from '../../core/index.js';
 import md5 from 'md5';
 
+const getMqttOption = getConfigOption('mqtt', false)
+const mqttPrefix = getMqttOption('topic')
 /**
  * Отправляем сообщение для автообнаружения в HomeAssistant
  * @param {string} name имя устройства

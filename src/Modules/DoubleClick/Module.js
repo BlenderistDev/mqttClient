@@ -1,5 +1,4 @@
-import {DoubleClick} from './model/DoubleClick.js';
-import {ModulePrototype} from '../../core/index.js';
+import { ModulePrototype } from '../../core/index.js';
 import md5 from 'md5';
 import {ClickWatcher} from './Click.js';
 

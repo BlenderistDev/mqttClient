@@ -1,4 +1,5 @@
 import {mqttClient, mqttPrefix} from '../index.js';
+import { getConfigOption } from '../Config/Config.js'
 import fs from 'fs';
 import path from 'path';
 
@@ -42,6 +43,7 @@ class ModuleManager {
       const oModule = new Module.Module(`${mqttPrefix}/${sModuleDir}`)
       oModule.Api = await fs.promises.access(sApiFilePath, fs.constants.R_OK).catch(() => false)
       oModule.name = sModuleDir
+      oModule.getConfigOption = getConfigOption(sModuleDir)
       this.aModules.push(oModule);
     }).catch((err) => {
       if (err.code !== 'ENOENT') {

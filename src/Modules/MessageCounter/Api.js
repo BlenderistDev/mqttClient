@@ -7,8 +7,14 @@ import {MessagesCounter} from './model/MessagesCounter.js';
 export class Api extends ApiPrototype {
   cmdIndex() {
     const list = new List()
+    list.addField('id', 'string')
     list.addField('interval', 'number')
+    list.addButton('add', 'add')
     return list.getInterface()
+  }
+
+  cmdAdd() {
+    console.log("AZAZA")
   }
   /**
    * Получаем список счетчиков
