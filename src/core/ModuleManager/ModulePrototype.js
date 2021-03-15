@@ -10,6 +10,7 @@ export class ModulePrototype {
    */
   constructor(moduleTopic, moduleName) {
     this.setTopic(moduleTopic);
+    this.getConfigOption = getConfigOption(moduleName)
     this.moduleName = moduleName
   }
 
