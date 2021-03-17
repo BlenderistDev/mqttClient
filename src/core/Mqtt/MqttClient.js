@@ -1,11 +1,10 @@
 import mqtt from 'mqtt';
 import EventEmitter from 'events';
-import { getConfigOption } from '../index.js'
+import { getConfig } from '../index.js'
 
-const getMqttOption = getConfigOption('mqtt', false)
+const config = getConfig('mqtt')
 
-
-export const mqttPrefix = getMqttOption('topic')
+export const mqttPrefix = config.topic
 
 /**
  * Клиент для mqtt
@@ -24,9 +23,9 @@ class MqttClient extends EventEmitter {
    * Установка соеденения с mqtt
    */
   async setConnection() {
-    this._connection = mqtt.connect(getMqttOption('host'), {
-      username: getMqttOption('username'),
-      password: getMqttOption('password')
+    this._connection = mqtt.connect(config.host, {
+      username: config.username,
+      password: config.password
     });
     this._connection.on('connect', () => {
       this._connection.subscribe('#');

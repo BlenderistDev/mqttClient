@@ -1,8 +1,8 @@
 import Sequelize from 'sequelize';
-import { getConfigOption } from '../index.js'
+import { getConfig } from '../index.js'
 import _ from 'lodash'
 
-const getDatabaseOption = getConfigOption('database', false)
+const config = getConfig('database')
 
 let connection;
 
@@ -12,9 +12,9 @@ let connection;
  */
 export function getConnection() {
   if (!_.isUndefined(connection)) {
-    connection = new Sequelize(getDatabaseOption(dbname), getDatabaseOption(username), getDatabaseOption(password), {
-      dialect: getDatabaseOption(dialect),
-      host: getDatabaseOption(host),
+    connection = new Sequelize(config.dbname, config.username, config.password, {
+      dialect: config.dialect,
+      host: config.host,
       logging: false,
       define: {
         timestamps: false,
