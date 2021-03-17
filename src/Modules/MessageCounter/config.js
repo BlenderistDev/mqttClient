@@ -1,6 +1,9 @@
 export default {
-  interval: {
-    type: 'Number',
-    name: 'interval'
+  type: 'multiple',
+  fields: {
+    interval: {
+      type: 'Number',
+      name: 'interval'
+    }
   }
 }

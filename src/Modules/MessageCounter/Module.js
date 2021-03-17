@@ -11,15 +11,12 @@ export class Module extends ModulePrototype {
    * Создаем массив счетчиков
    */
   constructor(moduleTopic, config) {
-    super(moduleTopic);
-    this.aCounters = [];
-
-    _.map(this.config, row => {
+    super(moduleTopic, config);
+    this.aCounters = _.map(this.config, row => {
       const counterName = `messages_in_${row.interval}_sec`;
       const counterTopic = `${this.getTopic()}/${counterName}`;
-      this.aCounters.push(new Counter(counterTopic, row.interval, counterName));
+      return new Counter(counterTopic, row.interval, counterName);
     })
-
   }
 
   /**
