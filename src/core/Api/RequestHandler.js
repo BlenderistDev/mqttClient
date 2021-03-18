@@ -2,6 +2,7 @@ import path from 'path';
 import fs from 'fs';
 const fsPromises = fs.promises;
 import {ApiError} from './ApiError.js';
+import { getModuleConfig } from './ModuleApi.js'
 
 /**
  * Класс для обработки запроса Api
@@ -21,6 +22,7 @@ export class RequestHandler {
   * @return {Promise}
   */
   async handleRequest() {
+    return getModuleConfig(this.moduleName)
     const oController = await this.getModuleApi();
     return this.executeCmd(oController);
   }

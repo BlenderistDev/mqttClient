@@ -1,5 +1,5 @@
 export default {
-  type: 'multiple',
+  type: 'List',
   fields: {
     interval: {
       type: 'Number',
