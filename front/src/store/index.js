@@ -1,21 +1,13 @@
 import { createStore } from 'vuex'
-import axios from 'axios'
+
+import state from './state'
+import * as getters from './getters'
+import * as mutations from './mutations'
+import * as actions from './actions'
 
 export default createStore({
-  state: {
-    moduleList: []
-  },
-  mutations: {
-    setModuleList: (state, moduleList) => state.moduleList = moduleList 
-  },
-  actions: {
-    fetchModuleList ({ commit }) {
-      axios.post('http://localhost:4000/api', {
-        module: 'main',
-        cmd: 'moduleList'
-      }).then(res => commit('setModuleList', res.data))
-    }
-  },
-  modules: {
-  }
+  state,
+  mutations,
+  actions,
+  getters
 })

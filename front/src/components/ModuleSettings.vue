@@ -1,41 +1,42 @@
 <template lang="pug">
 div
   component(
-    v-if="ui"
+    v-if="module"
     :is="interface"
-    :ui="ui"
+    :ui="module"
   ) 
 </template>
 
 <script>
-import { computed, ref  } from 'vue'
-import { useRoute } from 'vue-router'
-import Form from './Form'
-import List from './List'
-import axios from 'axios'
+import { computed } from "vue";
+import { useRoute } from "vue-router";
+import Form from "./Form";
+import List from "./List";
+import { mapState, useStore } from "vuex";
 
 export default {
-  name: 'ModuleList',
+  name: "ModuleList",
   components: {
     Form,
-    List
+    List,
   },
-  setup () {
-    const router = useRoute()
-    const ui = ref(null)
-    axios.post('http://localhost:4000/api', {
-        cmd: 'index',
-        module: router.params.name
-      }).then(res => ui.value = res.data)
+  setup() {
+    const router = useRoute();
+    const store = useStore();
+    store.dispatch("fetchModule", router.params.name);
     return {
       moduleName: computed(() => router.params.name),
-      ui: ui
-    }
+    };
   },
   computed: {
-    interface () {
-      return this.ui.type
-    }
-  }
-}
+    ...mapState(["module"]),
+    interface() {
+      if (this.module) {
+        console.log(this.module);
+        return this.module.type;
+      }
+      return null;
+    },
+  },
+};
 </script>
