@@ -1,5 +1,5 @@
 import { mqttClient} from '../../core/index.js';
-
+import _ from 'lodash'
 /**
  * Прототип для модулей
  */
@@ -10,7 +10,14 @@ export class ModulePrototype {
    */
   constructor(moduleTopic, config) {
     this.setTopic(moduleTopic);
-    this.config = config;
+    if (_.isArray(config)) {
+      this.config = _.map(config, (config, key) => {
+        config.id = key
+        return config
+      })
+    } else {
+      this.config = config
+    }
   }
 
   /**

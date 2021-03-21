@@ -32,7 +32,6 @@ export default {
     ...mapState(["module"]),
     interface() {
       if (this.module) {
-        console.log(this.module);
         return this.module.type;
       }
       return null;

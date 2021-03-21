@@ -41,9 +41,7 @@ class ModuleManager {
     fs.promises.access(sModuleFilePath, fs.constants.R_OK).then(async () => {
       const Module = await import(sModuleFilePath);
       const oModule = new Module.Module(`${mqttPrefix}/${sModuleDir}`, getConfig(sModuleDir))
-      oModule.Api = await fs.promises.access(sApiFilePath, fs.constants.R_OK).catch(() => false)
       oModule.name = sModuleDir
-      oModule.config = getConfig(sModuleDir)
       this.aModules.push(oModule);
     }).catch((err) => {
       if (err.code !== 'ENOENT') {

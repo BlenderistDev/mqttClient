@@ -18,6 +18,6 @@ export const getModuleConfig = function(moduleName) {
   });
 }
 
-export const setModuleConfig = function(module, config) {
-
+export const setModuleConfig = function(config) {
+  console.log(config)
 }

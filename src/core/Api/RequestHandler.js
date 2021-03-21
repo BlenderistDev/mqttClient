@@ -2,7 +2,7 @@ import path from 'path';
 import fs from 'fs';
 const fsPromises = fs.promises;
 import {ApiError} from './ApiError.js';
-import { getModuleConfig } from './ModuleApi.js'
+import { getModuleConfig, setModuleConfig } from './ModuleApi.js'
 
 /**
  * Класс для обработки запроса Api
@@ -22,9 +22,14 @@ export class RequestHandler {
   * @return {Promise}
   */
   async handleRequest() {
-    return getModuleConfig(this.moduleName)
-    const oController = await this.getModuleApi();
-    return this.executeCmd(oController);
+    if (this.cmd === 'Index') {
+      return getModuleConfig(this.moduleName)
+    } else if (this.cmd === 'Set') {
+      return setModuleConfig(this.request.body.config)
+    } else {
+      const oController = await this.getModuleApi();
+      return this.executeCmd(oController);
+    }
   }
 
   /**

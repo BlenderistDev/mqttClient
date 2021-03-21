@@ -3,8 +3,10 @@ div
   div(v-for="button in ui.buttons")
     Button(:button="button")
 
-  div(v-for="field in ui.fields" ) {{ field.name }}
-    ConfigRow(:field="field")
+  div(v-for="configRow in ui.value" )
+    ConfigRow(
+      :id="configRow.id"
+    )
 </template>
 
 <script>
