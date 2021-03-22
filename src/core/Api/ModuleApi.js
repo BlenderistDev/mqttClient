@@ -1,6 +1,6 @@
 import fs from 'fs'
 import path from 'path'
-import { getManager } from '../index.js'
+import { getManager, setConfig } from '../index.js'
 import _ from 'lodash'
 
 export const getModuleConfig = function(moduleName) {
@@ -19,5 +19,8 @@ export const getModuleConfig = function(moduleName) {
 }
 
 export const setModuleConfig = function(config) {
-  console.log(config)
+  setConfig(config.name, _.map(config.value, value => {
+    delete value.id
+    return value
+  }))
 }

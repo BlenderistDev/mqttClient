@@ -23,13 +23,24 @@ const loadConfig = () => {
     return yaml.safeLoad(fs.readFileSync('./config/config.yml', 'utf8'));
   } catch (e) {
     console.log('config not found, create new');
-    fs.writeFileSync('./config/config.yml', yaml.safeDump(defaultConfig), (err) => {
-      if (err) throw err;
-      throw Error('Config is empty');
-    });
+    writeConfig(defaultConfig)
     return defaultConfig
   }
 }
 
+const writeConfig = (config) => {
+  fs.writeFileSync('./config/config.yml', yaml.safeDump(config), err => {
+    if (err) {
+      throw err
+    }
+  });
+}
+
 const config = loadConfig()
+
 export const getConfig = (module) =>config[module]
+
+export const setConfig = (module, moduleConfig) => {
+  config[module] = moduleConfig
+  writeConfig(config)
+}
