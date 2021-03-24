@@ -1,5 +1,6 @@
 import yaml from 'js-yaml';
 import fs from 'fs';
+import _ from "lodash";
 
 const defaultConfig = {
   database: {
@@ -20,7 +21,17 @@ const defaultConfig = {
 
 const loadConfig = () => {
   try {
-    return yaml.safeLoad(fs.readFileSync('./config/config.yml', 'utf8'));
+    let config = yaml.safeLoad(fs.readFileSync('./config/config.yml', 'utf8'))
+    return _.forIn(config, config => {
+      if (_.isArray(config)) {
+        return _.map(config, (config, key) => {
+          config.id = key
+          return config
+        })
+      } else {
+        return config
+      }
+    })
   } catch (e) {
     console.log('config not found, create new');
     writeConfig(defaultConfig)
@@ -36,11 +47,13 @@ const writeConfig = (config) => {
   });
 }
 
-const config = loadConfig()
-
-export const getConfig = (module) =>config[module]
+let config = loadConfig()
+export const getConfig = (module) => {
+  return config[module]
+}
 
 export const setConfig = (module, moduleConfig) => {
   config[module] = moduleConfig
   writeConfig(config)
+  config = loadConfig()
 }

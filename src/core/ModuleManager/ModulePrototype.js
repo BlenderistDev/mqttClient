@@ -10,14 +10,6 @@ export class ModulePrototype {
    */
   constructor(moduleTopic, config) {
     this.setTopic(moduleTopic);
-    if (_.isArray(config)) {
-      this.config = _.map(config, (config, key) => {
-        config.id = key
-        return config
-      })
-    } else {
-      this.config = config
-    }
   }
 
   /**
