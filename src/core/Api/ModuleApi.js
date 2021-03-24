@@ -9,9 +9,9 @@ export const getModuleConfig = function(moduleName) {
     return import(configPath).then(module => _.merge(module.default, { value: getConfig(moduleName) }))
   }).catch((err) => {
     if (err.code !== 'ENOENT') {
-      throw err;
+      throw err
     }
-  });
+  })
 }
 
 export const setModuleConfig = (config) => setConfig(config.name, _.map(config.value, value => _.omit(value, ['id'])))
