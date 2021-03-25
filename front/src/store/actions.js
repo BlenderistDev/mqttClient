@@ -15,11 +15,35 @@ export function fetchModule ({commit}, module) {
   }).then((res) => commit('setModule', res.data))
 }
 
-export function updateConfig({state}, config) {
+export async function updateConfig({state, dispatch}, config) {
   const module = {...state.module}
-  module.value = _.map(module.value, value => value.id === config.id ? config : value)
-  axios.post('http://localhost:4000/api', {
+  if (_.isUndefined(config.id)) {
+    module.value.push(config)
+  } else {
+    module.value = _.map(module.value, value => value.id === config.id ? config : value)
+  }
+  await axios.post('http://localhost:4000/api', {
     cmd: "set",
     config: module
   })
+  dispatch('fetchModule', state.module.name)
+}
+
+export function addConfig({state, commit}) {
+  const module = {...state.module}
+  // const config = _
+  //   .chain(module.fields)
+  //   .omit(['name'])
+  //   .value()
+
+  //   console.log(config)
+
+  const config = _.reduce(module.fields, (config, field) => {
+    config[field.name] = ''
+    return config
+  }, {})
+  console.log(config)
+  module.value.push(config)
+  console.log(module)
+  commit('setModule', module)
 }
