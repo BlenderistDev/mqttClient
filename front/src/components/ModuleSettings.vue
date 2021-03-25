@@ -4,20 +4,18 @@ div
     v-if="module"
     :is="interface"
     :ui="module"
-  ) 
+  )
 </template>
 
 <script>
 import { computed } from "vue";
 import { useRoute } from "vue-router";
-import Form from "./Form";
 import List from "./List";
 import { mapState, useStore } from "vuex";
 
 export default {
   name: "ModuleList",
   components: {
-    Form,
     List,
   },
   setup() {
