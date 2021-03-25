@@ -29,21 +29,11 @@ export async function updateConfig({state, dispatch}, config) {
   dispatch('fetchModule', state.module.name)
 }
 
-export function addConfig({state, commit}) {
+export function addConfig({state, dispatch}) {
   const module = {...state.module}
-  // const config = _
-  //   .chain(module.fields)
-  //   .omit(['name'])
-  //   .value()
-
-  //   console.log(config)
-
   const config = _.reduce(module.fields, (config, field) => {
     config[field.name] = ''
     return config
   }, {})
-  console.log(config)
-  module.value.push(config)
-  console.log(module)
-  commit('setModule', module)
+  dispatch('updateConfig', config)
 }

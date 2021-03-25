@@ -4,7 +4,7 @@ div
 
   div(v-for="configRow in ui.value" )
     ConfigRow(
-      :id="configRow.id"
+      :configRow="configRow"
     )
 </template>
 
@@ -21,8 +21,5 @@ export default {
     AddButton,
   },
   props: ["ui"],
-  methods: {
-    add() {},
-  },
 };
 </script>

@@ -8,7 +8,6 @@ import { mapActions } from "vuex";
 
 export default {
   methods: {
-    add() {},
     ...mapActions(["addConfig"]),
   },
 };

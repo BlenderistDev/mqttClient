@@ -10,18 +10,16 @@ div
 
 <script>
 import Field from "./Field";
-import { computed } from "vue";
 import { useStore } from "vuex";
 
 export default {
   props: {
-    id: Number,
+    configRow: Object,
   },
-  setup(props) {
+  setup() {
     const store = useStore();
     const updateConfig = (config) => store.dispatch("updateConfig", config);
     return {
-      configRow: computed(() => store.getters.getConfigRow(props.id)),
       updateConfig,
     };
   },
