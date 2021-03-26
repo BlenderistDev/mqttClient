@@ -37,3 +37,13 @@ export function addConfig({state, dispatch}) {
   }, {})
   dispatch('updateConfig', config)
 }
+
+export async function deleteConfig({state, dispatch}, id) {
+  const module = {...state.module}
+  module.value = _.filter(module.value, value => value.id !== id)
+  await axios.post('http://localhost:4000/api', {
+    cmd: "set",
+    config: module
+  })
+  dispatch('fetchModule', state.module.name)
+}

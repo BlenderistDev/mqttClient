@@ -6,6 +6,7 @@ div
     :name="name"
     @changeConfig="change($event)"
   )
+  span(@click="delete") delete
 </template>
 
 <script>
@@ -19,8 +20,10 @@ export default {
   setup() {
     const store = useStore();
     const updateConfig = (config) => store.dispatch("updateConfig", config);
+    const deleteConfig = (config) => store.dispatch("deleteConfig", config);
     return {
       updateConfig,
+      deleteConfig,
     };
   },
   components: {
@@ -31,6 +34,9 @@ export default {
       const configRow = { ...this.configRow };
       configRow[event.name] = event.value;
       this.updateConfig(configRow);
+    },
+    delete() {
+      this.deleteConfig(this.configRow.id);
     },
   },
 };
