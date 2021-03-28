@@ -1,6 +1,6 @@
 <template lang="pug">
 div {{ name }}
-  input(v-model="value" @change="change($event)")
+  input(v-model="value" @change="change($event)" class="form-control")
 </template>
 
 <script>

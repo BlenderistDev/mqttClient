@@ -6,7 +6,8 @@ div
     :name="name"
     @changeConfig="change($event)"
   )
-  span(@click="delete") delete
+  .d-grid.gap-2
+    .btn.btn-danger(@click="delete") delete
 </template>
 
 <script>
