@@ -1,6 +1,7 @@
 import { ModulePrototype } from '../../core/index.js';
 import md5 from 'md5';
 import {ClickWatcher} from './Click.js';
+import _ from 'lodash'
 
 /**
  * Модуль для обработки двойных кликов
@@ -10,15 +11,13 @@ export class Module extends ModulePrototype {
    * @param {string} moduleTopic
    * Создаем массив счетчиков
    */
-  constructor(moduleTopic) {
-    super(moduleTopic);
+  constructor(moduleTopic, config) {
+    super(moduleTopic, config);
     this.clickWatcherList = [];
-    DoubleClick.getTable().then((res) => {
-      res.forEach((oRow) => {
-        const click = new ClickWatcher(oRow, this.getResultTopic(oRow.in_topic));
-        this.clickWatcherList.push(click);
-      });
-    });
+    _.map(this.config, row => {
+      const click = new ClickWatcher(oRow, this.getResultTopic(oRow.in_topic));
+      this.clickWatcherList.push(click);
+    })
   }
 
   /**

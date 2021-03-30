@@ -1,6 +1,4 @@
 import {mqttClient, sendDiscoveryMessage} from '../../core/index.js';
-// eslint-disable-next-line no-unused-vars
-import {DoubleClick} from './model/DoubleClick.js';
 
 const singleClickType = 'single';
 const doubleClickType = 'double';
@@ -16,7 +14,6 @@ const payloadOff = 0;
 export class ClickWatcher {
   /**
    * Создаем объекты одиночного и двойного клика
-   * @param {DoubleClick} doubleClick
    * @param {string} rootTopic
    */
   constructor(doubleClick, rootTopic) {
