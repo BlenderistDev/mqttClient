@@ -17,8 +17,8 @@ export function fetchModule ({commit}, module) {
 
 export async function updateConfig({state, dispatch}, config) {
   const module = {...state.module}
-  if (_.isUndefined(config.id)) {
-    module.value.push(config)
+  if (_.isNull(config.id)) {
+    _.isArray(module.value) ? module.value.push(config) : module.value = [config]
   } else {
     module.value = _.map(module.value, value => value.id === config.id ? config : value)
   }
@@ -33,6 +33,7 @@ export function addConfig({state, dispatch}) {
   const module = {...state.module}
   const config = _.reduce(module.fields, (config, field) => {
     config[field.name] = ''
+    config.id = null
     return config
   }, {})
   dispatch('updateConfig', config)

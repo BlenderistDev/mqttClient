@@ -3,12 +3,19 @@ import path from 'path'
 import { setConfig, getConfig } from '../index.js'
 import _ from 'lodash'
 
+const defaultFields = {
+  id: {
+    name: 'id',
+    type: 'hidden'
+  }
+}
 export const getModuleConfig = function(moduleName) {
   const configPath = path.join(process.env.MODULE_DIR, moduleName, 'config.js');
   return fs.promises.access(configPath, fs.constants.R_OK).then(() => {
     return import(configPath).then(module => {
       const moduleConfig = module.default
       moduleConfig.value = getConfig(moduleName)
+      moduleConfig.fields = {...defaultFields, ...moduleConfig.fields}
       return moduleConfig
     })
   }).catch((err) => {
