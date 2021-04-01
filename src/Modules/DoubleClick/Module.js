@@ -15,7 +15,7 @@ export class Module extends ModulePrototype {
     super(moduleTopic, config);
     this.clickWatcherList = [];
     _.map(this.config, row => {
-      const click = new ClickWatcher(oRow, this.getResultTopic(oRow.in_topic));
+      const click = new ClickWatcher(row, this.getResultTopic(row.in_topic));
       this.clickWatcherList.push(click);
     })
   }

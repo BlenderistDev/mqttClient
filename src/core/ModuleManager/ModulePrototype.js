@@ -10,6 +10,7 @@ export class ModulePrototype {
    */
   constructor(moduleTopic, config) {
     this.setTopic(moduleTopic);
+    this.config = config
   }
 
   /**
