@@ -5,7 +5,6 @@ import {ModelPrototype} from './Database/ModelPrototype.js';
 import {ApiPrototype, ApiServer} from './Api/index.js';
 import {getManager, ModulePrototype} from './ModuleManager/index.js';
 import {sendDiscoveryMessage} from './HomeAssistant/HomeAssistant.js';
-import {Form, List} from './Admin/index.js';
 
 
 export {
@@ -18,8 +17,6 @@ export {
   getManager,
   ModulePrototype,
   sendDiscoveryMessage,
-  Form,
-  List,
   getConfig,
   setConfig
 }
