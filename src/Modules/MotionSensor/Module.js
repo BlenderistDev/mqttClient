@@ -1,5 +1,5 @@
+import _ from 'lodash';
 import {ModulePrototype} from '../../core/index.js';
-import {MotionSensors} from './model/MotionSensors.js';
 import {MotionSensor} from './MotionSensor.js';
 
 /**
@@ -10,22 +10,21 @@ export class Module extends ModulePrototype {
    * @param {string} moduleTopic
    * Конструктор модуля датчика движения
    */
-  constructor(moduleTopic) {
-    super(moduleTopic);
-    this.setMotionSensors();
+  constructor(moduleTopic, config) {
+    super(moduleTopic, config);
     this.motionSensors = [];
     this.topicList = [];
+    this.setMotionSensors();
   }
 
   /**
    * Инициализируем датчики
    */
   async setMotionSensors() {
-    const aSensors = await MotionSensors.getTable();
-    aSensors.forEach((sensor) => {
+    _.map(this.config, sensor => {
       this.motionSensors.push(new MotionSensor(sensor, this.getTopic()));
       this.topicList.push(sensor.in_topic);
-    });
+    })
   }
 
 

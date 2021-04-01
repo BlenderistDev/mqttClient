@@ -1,6 +1,3 @@
-// eslint-disable-next-line no-unused-vars
-import {MotionSensors} from './model/MotionSensors.js';
-
 /**
  * Класс для датчика движения
  * которы подается на вход модулю

@@ -1,6 +1,4 @@
 import {mqttClient, sendDiscoveryMessage} from '../../core/index.js';
-// eslint-disable-next-line no-unused-vars
-import {MotionSensors} from './model/MotionSensors.js';
 
 /**
  * Исходящий сенсор движения
