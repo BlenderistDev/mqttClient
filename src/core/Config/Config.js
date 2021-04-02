@@ -3,13 +3,6 @@ import fs from 'fs';
 import _ from "lodash";
 
 const defaultConfig = {
-  database: {
-    host: '',
-    dbname: '',
-    username: '',
-    password: '',
-    dialect: 'mysql',
-  },
   mqtt: {
     host: '',
     username: '',
