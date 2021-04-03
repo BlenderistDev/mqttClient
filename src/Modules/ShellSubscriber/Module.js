@@ -14,6 +14,7 @@ export class Module extends ModulePrototype {
     _.chain(this.config)
       .filter(config => config.topic === topic)
       .map(config => this.executeCommand(config.commandTemplate, JSON.parse(sMessage)))
+      .value()
   }
 
   /**
