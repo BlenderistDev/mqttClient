@@ -1,8 +1,5 @@
-import path from 'path';
-import fs from 'fs';
-const fsPromises = fs.promises;
-import {ApiError} from './ApiError.js';
 import { getModuleConfig, setModuleConfig } from './ModuleApi.js'
+import { getManager } from '../../core/index.js'
 
 /**
  * Класс для обработки запроса Api
@@ -22,54 +19,24 @@ export class RequestHandler {
   * @return {Promise}
   */
   async handleRequest() {
-    if (this.cmd === 'Index') {
+    if (this.cmd === 'index') {
       return getModuleConfig(this.moduleName)
-    } else if (this.cmd === 'Set') {
+    } else if (this.cmd === 'set') {
       return setModuleConfig(this.request.body.config)
+    } else if (this.cmd === 'moduleList') {
+      return getManager().aModules
     } else {
-      const oController = await this.getModuleApi();
-      return this.executeCmd(oController);
+      console.error(this.cmd)
     }
   }
 
-  /**
-   * Возвращает контроллер Api модуля
-   * @return {Promise}
-   */
-  getModuleApi() {
-    const sControllerPath = path.join(process.env.MODULE_DIR, this.moduleName, 'Api.js');
-    return fsPromises.access(sControllerPath).then(async ()=>{
-      const oApi = await import(sControllerPath);
-      return new oApi.Api(this.request);
-    }).catch((error) => {
-      console.error(error);
-      throw new ApiError(`Undefined module ${this.moduleName}`);
-    });
-  }
-
-  /**
-  * Выполняет комманду
-  * @param {ApiPrototype} oController
-  * @param {string} sCmd
-  * @return {mixed}
-  */
-  executeCmd(oController) {
-    const sMethodName = `cmd${this.cmd}`;
-    if (!(sMethodName in oController)) {
-      throw new ApiError(`Command ${this.cmd} not found`);
-    }
-    return oController[sMethodName]();
-  }
 
   /**
   * Возвращает запращиваемую команду
   * @return {string}
   */
   get cmd() {
-    if (this.request.body.cmd == undefined) {
-      throw new Error('undefined cmd');
-    }
-    return this.toUpperCaseFirstLetter(this.request.body.cmd);
+    return this.request.body.cmd;
   }
 
   /**

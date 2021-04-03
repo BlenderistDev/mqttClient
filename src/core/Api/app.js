@@ -12,6 +12,7 @@ const app = express();
 const accessLogStream = fs.createWriteStream(path.join(process.cwd(), 'log', 'access.log'), {flags: 'a'});
 // запускаем логгер
 app.use(logger('combined', {stream: accessLogStream}));
+app.use(express.static('front/dist'));
 // обработка
 app.use(express.json());
 // urlencodим данные
