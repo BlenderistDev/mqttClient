@@ -5,6 +5,7 @@ import logger from 'morgan';
 import fs from 'fs';
 import {router} from './router.js';
 import cors from 'cors';
+import http from 'http'
 
 const app = express();
 
@@ -12,6 +13,7 @@ const app = express();
 const accessLogStream = fs.createWriteStream(path.join(process.cwd(), 'log', 'access.log'), {flags: 'a'});
 // запускаем логгер
 app.use(logger('combined', {stream: accessLogStream}));
+// подключаем папку со статикой
 app.use(express.static('front/dist'));
 // обработка
 app.use(express.json());
@@ -23,6 +25,13 @@ app.use(cookieParser());
 app.use(cors());
 // подключаем обработчик маршрутов
 app.use('/', router);
+
+const port = process.env.PORT || 4000
+app.set('port', port);
+
+const server = http.createServer(app);
+server.listen(port);
+server.on('error', (error) => console.error(error));
 
 export {app};
 

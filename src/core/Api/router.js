@@ -1,37 +1,18 @@
 import express from 'express';
-// eslint-disable-next-line new-cap
 const router = express.Router();
-import {ApiError} from './ApiError.js';
-import {RequestHandler} from './RequestHandler.js';
+import { getManager } from '../../core/index.js'
+import { getModuleConfig, setModuleConfig } from './ModuleApi.js'
 
-/**
- * обработка маршрутов api
- */
-router.post('/api', async function(req, res, next) {
-  let result;
-  const oRequestHandler = new RequestHandler(req, res);
-  try {
-    result = await oRequestHandler.handleRequest();
-  } catch (error) {
-    result = handleError(error);
-    res.status(500);
-  } finally {
-    res.send(result);
-  }
+router.get('/api/module/list', async function(req, res, next) {
+  res.send(getManager().aModules);
 });
 
-/**
- * Обрабатываем ошибку
- * @param {Error} error
- * @return {string}
- */
-function handleError(error) {
-  if (error instanceof ApiError) {
-    return error.message;
-  } else {
-    console.error(error);
-    return 'Internal server error';
-  }
-}
+router.get('/api/module/:moduleName', async function(req, res, next) {
+  res.send(await getModuleConfig(req.params.moduleName))
+});
+
+router.post('/api/module/:moduleName', async function(req, res, next) {
+  res.send(await setModuleConfig(req.body.config))
+});
 
 export {router};
