@@ -2,6 +2,7 @@ import {mqttClient, mqttPrefix} from '../index.js';
 import { getConfig } from '../Config/Config.js'
 import fs from 'fs';
 import path from 'path';
+import { setModuleConfig } from '../Api/ModuleApi.js';
 
 /**
  * Класс для инициализации
@@ -24,7 +25,7 @@ class ModuleManager {
    * Инициализируем подписчиков и отправителей модулей
    */
   async setModules() {
-    const aModuleDirList = await fs.promises.readdir(process.env.MODULE_DIR);
+    const aModuleDirList = await fs.promises.readdir('src/Modules');
     aModuleDirList.forEach((sModuleDir) => {
       this.setModule(sModuleDir);
     });
@@ -36,14 +37,14 @@ class ModuleManager {
    * @param {string} sModuleDir
    */
   setModule(sModuleDir) {
-    const sModuleFilePath = path.join(process.env.MODULE_DIR, sModuleDir, 'Module.js');
-    const sApiFilePath = path.join(process.env.MODULE_DIR, sModuleDir, 'Api.js');
+    const sModuleFilePath = path.join(process.cwd(), 'src', 'Modules', sModuleDir, 'Module.js');
     fs.promises.access(sModuleFilePath, fs.constants.R_OK).then(async () => {
       const Module = await import(sModuleFilePath);
       const oModule = new Module.Module(`${mqttPrefix}/${sModuleDir}`, getConfig(sModuleDir))
       oModule.name = sModuleDir
       this.aModules.push(oModule);
     }).catch((err) => {
+      console.log(err);
       if (err.code !== 'ENOENT') {
         throw err;
       }
