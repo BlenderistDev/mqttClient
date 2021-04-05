@@ -2,69 +2,37 @@ import {mqttClient, mqttPrefix} from '../index.js';
 import { getConfig } from '../Config/Config.js'
 import fs from 'fs';
 import path from 'path';
-import { setModuleConfig } from '../Api/ModuleApi.js';
+import _ from 'lodash';
+
+const modules = [];
 
 /**
- * Класс для инициализации
- * и координации подписчиков
+ * Проверяем существование модуля в директории модуля
+ * Если модуль есть - инициализируем и кэшируем
+ * @param {string} sModuleDir
  */
-class ModuleManager {
-  /**
-   * Инициализируем модули
-   * и устанавливаем обработчик сообщений
-   */
-  start () {
-    this.aModules = [];
-    this.setModules();
-    this.setMessageHandler();
-  }
-
-  /**
-   * Инициализация модулей
-   * Сканируем директорию модулей
-   * Инициализируем подписчиков и отправителей модулей
-   */
-  async setModules() {
-    const aModuleDirList = await fs.promises.readdir('src/Modules');
-    aModuleDirList.forEach((sModuleDir) => {
-      this.setModule(sModuleDir);
-    });
-  }
-
-  /**
-   * Проверяем существование модуля в директории модуля
-   * Если модуль есть - инициализируем и кэшируем
-   * @param {string} sModuleDir
-   */
-  setModule(sModuleDir) {
-    const sModuleFilePath = path.join(process.cwd(), 'src', 'Modules', sModuleDir, 'Module.js');
-    fs.promises.access(sModuleFilePath, fs.constants.R_OK).then(async () => {
-      const Module = await import(sModuleFilePath);
-      const oModule = new Module.Module(`${mqttPrefix}/${sModuleDir}`, getConfig(sModuleDir))
-      oModule.name = sModuleDir
-      this.aModules.push(oModule);
-    }).catch((err) => {
-      console.log(err);
-      if (err.code !== 'ENOENT') {
-        throw err;
-      }
-    });
-  }
-
-  /**
-   * Устанавливаем обработчик сообщений
-   */
-  async setMessageHandler() {
-    mqttClient.on('message', (topic, message) => {
-      this.aModules.forEach((oModule) => {
-        if (oModule.isTopicInSubscription(topic.toString())) {
-          oModule.handleMessage(topic, message);
-        }
-      });
-    });
-  }
+function setModule(sModuleDir) {
+  const sModuleFilePath = path.join(process.cwd(), 'src', 'Modules', sModuleDir, 'Module.js');
+  fs.promises.access(sModuleFilePath, fs.constants.R_OK).then(async () => {
+    const Module = await import(sModuleFilePath);
+    const oModule = new Module.Module(`${mqttPrefix}/${sModuleDir}`, getConfig(sModuleDir))
+    oModule.name = sModuleDir
+    modules.push(oModule);
+  }).catch((err) => {
+    console.log(err);
+    if (err.code !== 'ENOENT') {
+      throw err;
+    }
+  });
 }
-const manager = new ModuleManager();
-export const getManager = () => manager
+fs.promises.readdir('src/Modules').then(modules => _.map(modules, setModule))
 
+mqttClient.on('message', (topic, message) => {
+  _.chain(modules)
+  .filter(module => module.isTopicInSubscription(topic.toString()))
+  .map(module => module.handleMessage(topic, message))
+  .value()
+});
+
+export const getModules = () => modules
 

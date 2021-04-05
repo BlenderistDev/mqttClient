@@ -1,7 +1,7 @@
-import { getManager } from './src/core/index.js';
+import {getModules} from './src/core/index.js';
 import {app} from './src/core/index.js';
 
-getManager().start()
+getModules()
 
 const api = app;
 
