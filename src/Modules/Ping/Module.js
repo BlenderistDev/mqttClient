@@ -1,14 +1,26 @@
 import {sendDiscoveryMessage} from '../../core/HomeAssistant/HomeAssistant.js';
+import {mqttClient} from "../../core/Mqtt/MqttClient.js";
+
+/**
+ * Возвращает топик для отправки данных для замера
+ * @return {string}
+ */
+function getMeasureTopic() {
+  return this.getTopic() + measureSubTopic;
+}
 
 const measureSubTopic = '/measure';
 const resultSubTopic = '/result';
-
-mqttClient.on('message', (topic, message) => {
-  _.chain(modules)
-  .filter(module => module.isTopicInSubscription(topic.toString()))
-  .map(module => module.handleMessage(topic, message))
-  .value()
+console.log(JSON.parse(process.argv[2]));
+process.on('message', (m) => {
+  console.log(m);
 });
+// mqttClient.on('message', (topic, message) => {
+//   _.chain(modules)
+//   .filter(module => module.isTopicInSubscription(topic.toString()))
+//   .map(module => module.handleMessage(topic, message))
+//   .value()
+// });
 
 /**
  * Отправляем сообщение для обнаружения в Home Assistant
@@ -42,7 +54,9 @@ function sendPingData() {
 }
 
 mqttClient.on('message', (topic, message) => {
-  if ()
+  if (topic === getMeasureTopic()) {
+
+  }
 });
 
 /**
