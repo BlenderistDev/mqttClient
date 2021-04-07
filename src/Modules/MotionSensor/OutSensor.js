@@ -1,4 +1,5 @@
-import {mqttClient, sendDiscoveryMessage} from '../../core/index.js';
+import {mqttClient} from '../../core/Mqtt/MqttClient.js'
+import {sendDiscoveryMessage} from '../../core/HomeAssistant/HomeAssistant.js'
 
 /**
  * Исходящий сенсор движения

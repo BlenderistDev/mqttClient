@@ -1,6 +1,6 @@
 import mqtt from 'mqtt';
 import EventEmitter from 'events';
-import { getConfig } from '../index.js'
+import { getConfig } from '../Config/Config.js'
 
 const config = getConfig('mqtt')
 
@@ -46,5 +46,7 @@ class MqttClient extends EventEmitter {
   }
 }
 
-export const mqttClient = new MqttClient();
+const mqttClient = new MqttClient();
+
+export {mqttClient}
 

@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import {ModulePrototype} from '../../core/index.js';
+import {ModulePrototype} from '../../core/ModuleManager/ModulePrototype.js';
 import {MotionSensor} from './MotionSensor.js';
 
 /**

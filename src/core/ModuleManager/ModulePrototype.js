@@ -1,4 +1,4 @@
-import { mqttClient} from '../../core/index.js';
+import { mqttClient} from '../../core/Mqtt/MqttClient.js';
 import _ from 'lodash'
 /**
  * Прототип для модулей
@@ -43,7 +43,7 @@ export class ModulePrototype {
    * @return {mixed}
    */
   handleMessage(sTopic, sMessage) {
-    return null;
+    // return null;
   }
 
   /**

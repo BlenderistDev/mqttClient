@@ -1,5 +1,6 @@
 import shell from 'shelljs';
-import {ModulePrototype, sendDiscoveryMessage} from '../../core/index.js';
+import {ModulePrototype} from '../../core/ModuleManager/ModulePrototype.js';
+import {sendDiscoveryMessage} from '../../core/HomeAssistant/HomeAssistant.js';
 import _ from 'lodash';
 
 /**
