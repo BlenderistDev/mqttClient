@@ -1,11 +1,11 @@
 import express from 'express';
-import { getModules } from '../../core/ModuleManager/ModuleManager.js'
+import fs from 'fs'
 import { getModuleConfig, setModuleConfig } from './ModuleApi.js'
 
 const router = express.Router();
 
 router.get('/api/module/list', async function(req, res, next) {
-  res.send(getModules());
+  res.send(await fs.promises.readdir('src/Modules').then(module => module))
 });
 
 router.get('/api/module/:moduleName', async function(req, res, next) {
