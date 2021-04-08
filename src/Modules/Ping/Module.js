@@ -1,144 +1,19 @@
 import {sendDiscoveryMessage} from '../../core/HomeAssistant/HomeAssistant.js';
 import {mqttClient} from "../../core/Mqtt/MqttClient.js";
 
-/**
- * Возвращает топик для отправки данных для замера
- * @return {string}
- */
-function getMeasureTopic() {
-  return this.getTopic() + measureSubTopic;
-}
+const config = JSON.parse(process.argv[2]);
 
-const measureSubTopic = '/measure';
-const resultSubTopic = '/result';
-console.log(JSON.parse(process.argv[2]));
-process.on('message', (m) => {
-  console.log(m);
-});
-// mqttClient.on('message', (topic, message) => {
-//   _.chain(modules)
-//   .filter(module => module.isTopicInSubscription(topic.toString()))
-//   .map(module => module.handleMessage(topic, message))
-//   .value()
-// });
+const measureSubTopic = config.topic + '/measure';
+const resultSubTopic = config.topic + '/result';
 
-/**
- * Отправляем сообщение для обнаружения в Home Assistant
- */
-function homeAssistantDiscover() {
-  const oParams = {
-    unit_of_measurement: 'c',
-  };
-  sendDiscoveryMessage('ping', this.getResultTopic(), 'sensor', oParams);
-}
+sendDiscoveryMessage('ping', resultSubTopic, 'sensor', { unit_of_measurement: 'c' });
 
-/**
- * Устанавливает отправителя для модуля
- * Интервал - секунда
- */
-function setPingSender() {
-  setInterval(() => {
-    this.sendPingData();
-  }, 1000);
-}
+setInterval(() => mqttClient.sendMessage(measureSubTopic, JSON.stringify({ timestamp: Date.now() })), 1000);
 
-/**
- * Отправляет mqtt сообщение для пинга
- * В топик для замера
- */
-function sendPingData() {
-  const oPing = {
-    timestamp: Date.now(),
-  };
-  this.sendMessage(JSON.stringify(oPing), this.getMeasureTopic());
-}
-
-mqttClient.on('message', (topic, message) => {
-  if (topic === getMeasureTopic()) {
-
+process.on('message', (mqttMessage) => {
+  if (mqttMessage.topic === measureSubTopic) {
+    const message = JSON.parse(mqttMessage.message);
+    const ping = (Date.now() - message.timestamp)/1000;
+    mqttClient.sendMessage(resultSubTopic, ping.toString());
   }
 });
-
-/**
- * Класс для модуля пинга
- */
-export class Module {
-  /**
-   * @param {string} moduleTopic
-   * Конструктор модуля пинга
-   */
-  constructor(moduleTopic) {
-    this.homeAssistantDiscover();
-    this.setPingSender();
-  }
-
-  /**
-   * Устанавливает отправителя для модуля
-   * Интервал - секунда
-   */
-  setPingSender() {
-    setInterval(() => {
-      this.sendPingData();
-    }, 1000);
-  }
-
-  /**
-   * Отправляет mqtt сообщение для пинга
-   * В топик для замера
-   */
-  sendPingData() {
-    const oPing = {
-      timestamp: Date.now(),
-    };
-    this.sendMessage(JSON.stringify(oPing), this.getMeasureTopic());
-  }
-
-  /**
-   * Считаем разницу между отправкой и получением
-   * И переводим в секунды
-   * Результат отправляем в топик для реузльтатов
-   * @param {string} sTopic
-   * @param {string} sMessage
-   */
-  handleMessage(sTopic, sMessage) {
-    const oMessage = JSON.parse(sMessage);
-    const iPing = (Date.now() - oMessage.timestamp)/1000;
-    this.sendMessage(iPing.toString(), this.getResultTopic());
-  }
-
-  /**
-   * Модуль подписан только на топик для замеров
-   * @param {string} sTopic
-   * @return {bool}
-   */
-  isTopicInSubscription(sTopic) {
-    return sTopic === this.getMeasureTopic();
-  }
-
-  /**
-   * Отправляем сообщение для обнаружения в Home Assistant
-   */
-  homeAssistantDiscover() {
-    const oParams = {
-      unit_of_measurement: 'c',
-    };
-    sendDiscoveryMessage('ping', this.getResultTopic(), 'sensor', oParams);
-  }
-
-  /**
-   * Возвращает топик для отправки результата
-   * @return {string}
-   */
-  getResultTopic() {
-    return this.getTopic() + resultSubTopic;
-  }
-
-  /**
-   * Возвращает топик для отправки данных для замера
-   * @return {string}
-   */
-  getMeasureTopic() {
-    return this.getTopic() + measureSubTopic;
-  }
-}
-

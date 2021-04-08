@@ -37,8 +37,8 @@ class MqttClient extends EventEmitter {
 
   /**
    * Отправляет mqtt сообщение
-   * @param {mixed} sTopic
-   * @param {mixed} sMessage
+   * @param {string} sTopic
+   * @param {string} sMessage
    * @param {bool} bRetain
    */
   sendMessage(sTopic, sMessage, bRetain = false) {
