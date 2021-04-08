@@ -1,35 +1,25 @@
 import shell from 'shelljs';
-import {ModulePrototype} from '../../core/ModuleManager/ModulePrototype.js';
 import _ from "lodash";
 
-/**
- * Класс для модуля командной строки
- */
-export class Module extends ModulePrototype {
-  /**
-   * @param {string} topic
-   * @param {string} sMessage
-   */
-  handleMessage(topic, sMessage) {
-    _.chain(this.config)
-      .filter(config => config.topic === topic)
-      .map(config => this.executeCommand(config.commandTemplate, JSON.parse(sMessage)))
-      .value()
-  }
+const config = JSON.parse(process.argv[2]);
 
-  /**
-   * Производит замену меток и выполняет команду
-   * @param {string} sCommandTemplate
-   * @param {object} oReplaceData
-   */
-  executeCommand(sCommandTemplate, oReplaceData) {
-    for (const sLabel in oReplaceData) {
-      if ({}.hasOwnProperty.call(oReplaceData, sLabel)) {
-        sCommandTemplate = sCommandTemplate.replace(`{{${sLabel}}}`, oReplaceData[sLabel]);
-      }
+/**
+* Производит замену меток и выполняет команду
+* @param {string} sCommandTemplate
+* @param {object} oReplaceData
+*/
+function executeCommand(sCommandTemplate, oReplaceData) {
+  for (const sLabel in oReplaceData) {
+    if ({}.hasOwnProperty.call(oReplaceData, sLabel)) {
+      sCommandTemplate = sCommandTemplate.replace(`{{${sLabel}}}`, oReplaceData[sLabel]);
     }
-    shell.exec(sCommandTemplate, {
-      // 'silent': true
-    });
   }
+  shell.exec(sCommandTemplate);
 }
+
+process.on('message', (mqttMessage) => {
+  _.chain(config.config)
+    .filter(config => config.topic === mqttMessage.topic)
+    .map(config => executeCommand(config.commandTemplate, JSON.parse(mqttMessage.message)))
+    .value()
+});
