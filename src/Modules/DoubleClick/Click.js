@@ -38,7 +38,7 @@ export class ClickWatcher {
    * Обрабатывает сообщение о клике
    * @param {object} oMessage
    */
-  hangleClick(oMessage) {
+  handleClick(oMessage) {
     if (!this.currentState) {
       this.currentState = oMessage;
     }
