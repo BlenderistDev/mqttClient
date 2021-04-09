@@ -16,5 +16,4 @@ router.post('/api/module/:moduleName', async function(req, res, next) {
   res.send(await setModuleConfig(req.body.config))
 });
 
-// router.get()
 export {router};
