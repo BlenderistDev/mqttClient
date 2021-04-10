@@ -26,9 +26,7 @@ app.use(cors());
 // подключаем обработчик маршрутов
 app.use('/', router);
 
-app.use(async function(req, res){
-  res.send(fs.readFileSync('front/dist/index.html'))
-});
+app.use(async (req, res) => res.send(fs.readFileSync('front/dist/index.html')));
 
 const port = process.env.PORT || 4000
 app.set('port', port);
