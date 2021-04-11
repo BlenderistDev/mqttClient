@@ -9,7 +9,8 @@
     "./core": "./src/core/index.js"
   },
   "scripts": {
-    "test": "nyc --reporter=text mocha --recursive"
+    "dev": "node main.js & ./utils/frontDev.sh",
+    "prod": "./utils/frontProd.sh & node main.js"
   },
   "author": "",
   "license": "ISC",

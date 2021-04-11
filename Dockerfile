@@ -5,4 +5,4 @@ RUN npm install
 RUN npm run build
 WORKDIR /app
 RUN npm install
-ENTRYPOINT [ "./start.sh" ]
+ENTRYPOINT [ "./utils/start.sh" ]
