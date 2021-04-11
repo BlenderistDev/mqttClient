@@ -1,5 +1,5 @@
-import {mqttClient, mqttPrefix} from '../Mqtt/MqttClient.js'
-import { getConfig } from '../Config/Config.js'
+import {mqttClient, mqttPrefix} from './MqttClient.js'
+import { getConfig } from './Config.js'
 import fs from 'fs'
 import path from 'path'
 import _ from 'lodash'

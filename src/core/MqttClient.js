@@ -1,6 +1,6 @@
 import mqtt from 'mqtt';
 import EventEmitter from 'events';
-import { getConfig } from '../Config/Config.js'
+import { getConfig } from './Config.js'
 
 const config = getConfig('mqtt')
 const mqttClient = new EventEmitter()

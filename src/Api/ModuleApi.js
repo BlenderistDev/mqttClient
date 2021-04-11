@@ -1,6 +1,6 @@
 import fs from 'fs'
 import path from 'path'
-import { setConfig, getConfig } from '../Config/Config.js'
+import { setConfig, getConfig } from '../core/Config.js'
 import _ from 'lodash'
 
 const defaultFields = {

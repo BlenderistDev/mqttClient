@@ -1,6 +1,6 @@
 import shell from 'shelljs';
-import {sendDiscoveryMessage} from '../../core/HomeAssistant/HomeAssistant.js';
-import {mqttClient} from '../../core/Mqtt/MqttClient.js';
+import {sendDiscoveryMessage} from '../../core/HomeAssistant.js';
+import {mqttClient} from '../../core/MqttClient.js';
 import _ from 'lodash';
 import md5 from 'md5'
 

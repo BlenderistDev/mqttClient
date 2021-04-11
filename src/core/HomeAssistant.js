@@ -1,5 +1,5 @@
-import {getConfig} from '../Config/Config.js';
-import {mqttClient} from '../Mqtt/MqttClient.js';
+import {getConfig} from './Config.js';
+import {mqttClient} from './MqttClient.js';
 import md5 from 'md5';
 
 const mqttConfig = getConfig('mqtt')
