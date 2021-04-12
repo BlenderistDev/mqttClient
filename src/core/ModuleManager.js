@@ -13,9 +13,9 @@ const modules = [];
  * @param {string} sModuleDir
  */
 function setModule(sModuleDir) {
-  const sModuleFilePath = path.join('src', 'Modules', sModuleDir, 'Module.js');
-  fs.promises.access(sModuleFilePath, fs.constants.R_OK).then(async () => {
-    const module = fork(sModuleFilePath, [JSON.stringify({
+  const modulePath = path.join('src', 'Modules', sModuleDir, 'Module.js');
+  fs.promises.access(modulePath, fs.constants.R_OK).then(async () => {
+    const module = fork(modulePath, [JSON.stringify({
       name: sModuleDir,
       topic: `${mqttPrefix}/${sModuleDir}`,
       config: getConfig(sModuleDir)
