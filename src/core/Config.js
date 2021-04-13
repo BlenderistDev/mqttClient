@@ -11,6 +11,7 @@ const defaultConfig = {
   },
 }
 
+const writeConfig = config => fs.writeFileSync('./config/config.yml', yaml.safeDump(config))
 
 const loadConfig = () => {
   try {
@@ -32,26 +33,16 @@ const loadConfig = () => {
   }
 }
 
-const writeConfig = (config) => {
-  fs.writeFileSync('./config/config.yml', yaml.safeDump(config), err => {
-    if (err) {
-      throw err
-    }
-  });
-}
-
 let config = loadConfig()
 
 export const reloadConfig = () => {
-  config = loadConfig();
+  config = loadConfig()
 }
 
-export const getConfig = (module) => {
-  return config[module]
-}
+export const getConfig = module => config[module]
 
 export const setConfig = (module, moduleConfig) => {
   config[module] = moduleConfig
   writeConfig(config)
-  config = loadConfig()
+  reloadConfig()
 }
