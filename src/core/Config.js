@@ -41,6 +41,11 @@ const writeConfig = (config) => {
 }
 
 let config = loadConfig()
+
+export const reloadConfig = () => {
+  config = loadConfig();
+}
+
 export const getConfig = (module) => {
   return config[module]
 }

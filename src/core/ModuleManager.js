@@ -1,5 +1,5 @@
 import {mqttClient, mqttPrefix} from './MqttClient.js'
-import { getConfig } from './Config.js'
+import { getConfig, reloadConfig } from './Config.js'
 import fs from 'fs'
 import path from 'path'
 import _ from 'lodash'
@@ -26,7 +26,10 @@ function setModule(sModuleDir) {
         message: message
       })
     });
-    modules.push(module)
+    modules.push({
+      name: sModuleDir,
+      process: module
+    })
   }).catch((err) => {
     console.log(err);
     if (err.code !== 'ENOENT') {
@@ -37,4 +40,8 @@ function setModule(sModuleDir) {
 fs.promises.readdir('src/Modules').then(modules => _.map(modules, setModule))
 
 export const getModules = () => modules
-
+export const restartModule = (moduleName) => {
+  _.find(modules, { 'name': moduleName })?.process?.kill()
+  reloadConfig()
+  setModule(moduleName)
+}
