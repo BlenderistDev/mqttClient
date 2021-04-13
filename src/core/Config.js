@@ -34,6 +34,6 @@ export const getConfig = module => config[module]
 
 export const setConfig = (module, moduleConfig) => {
   config[module] = moduleConfig
-  writeConfig(config)
+  writeConfig(_.mapValues(config, config => _.isArray(config) ? _.map(config, config => _.omit(config, ['id'])) : config))
   reloadConfig()
 }
