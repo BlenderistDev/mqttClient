@@ -1,18 +1,20 @@
 <template>
   <div>
-    <div>name: {{ displayName }}</div>
+    <div>name: </div>
   </div>
 </template>
 
 <script>
-import { useSocketIo, useSocketName } from "../services/socket.js";
+import openSocket from "socket.io-client";
 export default {
   setup() {
-    const socket = useSocketIo("http://localhost:4000", { transports: ["websocket"] });
-    const [displayName] = useSocketName(socket);
-    return {
-      displayName,
-    };
+    const socket = openSocket("http://localhost:3000", { transports: ["websocket"] });
+    socket.on("mqtt", serverName => {
+      console.log(serverName)
+    });
+    setInterval(() => {
+      socket.emit("mqtt", 'azazaza');
+    }, 2000)
   },
 };
 </script>
