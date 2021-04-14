@@ -1,20 +1,22 @@
-<template>
-  <div>
-    <div>name: </div>
-  </div>
+<template lang="pug">
+div
+  .card(v-for="message in messages")
+    .card-header {{ message.topic }}
+    .card-body {{ message.message }}
 </template>
 
 <script>
 import openSocket from "socket.io-client";
+import { ref } from "vue";
+
 export default {
   setup() {
+    const messages = ref([]);
     const socket = openSocket("http://localhost:3000", { transports: ["websocket"] });
-    socket.on("mqtt", serverName => {
-      console.log(serverName)
+    socket.on("mqtt", (message) => {
+      messages.value.unshift(message);
     });
-    setInterval(() => {
-      socket.emit("mqtt", 'azazaza');
-    }, 2000)
+    return { messages };
   },
 };
 </script>

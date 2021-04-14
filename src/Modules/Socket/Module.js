@@ -1,6 +1,5 @@
 import { createServer } from "http";
 import { Server } from "socket.io";
-import _ from "lodash";
 
 const httpServer = createServer();
 export const io = new Server(httpServer, {

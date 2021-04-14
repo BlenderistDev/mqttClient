@@ -6,8 +6,6 @@ import fs from 'fs';
 import {router} from './router.js';
 import cors from 'cors';
 import http from 'http'
-import { Server } from "socket.io"
-// import { io } from './socket.js'
 
 const app = express();
 
@@ -35,35 +33,6 @@ app.set('port', port);
 
 const server = http.createServer(app);
 
-// const io = new Server(server, {
-//   cors: {
-//     origin: "http://localhost:8080",
-//     methods: ["GET", "POST"],
-//     credentials: true
-//   }
-// });
-//
-// io.on("connection", (socket) => {
-//   console.log("connect")
-//   setInterval(() => {
-//     socket.emit('name', 'test')
-//   }, 1000)
-//
-//   socket.on("name", (...args) => {
-//     console.log('getMessage')
-//   });
-//
-// });
-
-
-
-// io.onAny((eventName, ...args) => {
-//   console.log(args)
-// });
-//
-// io.on("disconnect", (reason) => {
-//   console.log("disconnect"); // "ping timeout"
-// });
 server.listen(port);
 server.on('error', (error) => console.error(error));
 
