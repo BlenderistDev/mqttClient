@@ -11,12 +11,14 @@ div
 import { computed } from "vue";
 import { useRoute } from "vue-router";
 import List from "./List";
+import Socket from "./Socket.vue";
 import { mapState, useStore } from "vuex";
 
 export default {
   name: "ModuleList",
   components: {
     List,
+    Socket,
   },
   setup() {
     const router = useRoute();
