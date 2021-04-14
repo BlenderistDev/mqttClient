@@ -11,7 +11,6 @@ const defaultConfig = {
   },
 }
 
-
 const loadConfig = () => {
   try {
     let config = yaml.safeLoad(fs.readFileSync('./config/config.yml', 'utf8'))
