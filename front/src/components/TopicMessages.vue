@@ -2,7 +2,7 @@
 .card
   .card-header(@click="showMessages = !showMessages") {{ topic }}
   .card-body(v-if="showMessages")
-    div(v-for="message in messages") {{ message.message }}
+    div(v-for="message in messages") {{ message.message }} {{ message.date }}
 </template>
 
 <script>

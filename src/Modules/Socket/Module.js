@@ -12,6 +12,8 @@ export const io = new Server(httpServer, {
 
 io.on("connection", (socket) => {
   process.on('message', (mqttMessage) => {
+    const now = new Date()
+    mqttMessage.date = now.toLocaleString('en-US', { hour12: false } )
     socket.emit('mqtt', mqttMessage)
   });
 });

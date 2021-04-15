@@ -8,7 +8,7 @@ div
 
   .card(v-if="currentView === 'all'" v-for="message in messages")
     .card-header {{ message.topic }}
-    .card-body {{ message.message }}
+    .card-body {{ message.message }}  {{ message.date }}
 
   TopicMessages(
     v-if="currentView === 'topic'" 
