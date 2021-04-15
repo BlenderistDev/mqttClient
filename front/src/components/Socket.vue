@@ -1,9 +1,10 @@
 <template lang="pug">
 div
-  div all {{ groupedMessages.value }}
-    input(type="radio" v-model="currentView" value="all")
-  div topic
-    input(type="radio" v-model="currentView" value="topic")
+  ul(class="nav nav-tabs nav-fill")
+    li(class="nav-item")
+      a(:class="getTabClass('all')" @click="setActiveTab('all')") All
+    li(class="nav-item")
+      a(:class="getTabClass('topic')" @click="setActiveTab('topic')") Topic
 
   .card(v-if="currentView === 'all'" v-for="message in messages")
     .card-header {{ message.topic }}
@@ -41,6 +42,18 @@ export default {
       groupedMessages.value[message.topic].unshift(message);
     });
     return { messages, groupedMessages, currentView };
+  },
+  methods: {
+    setActiveTab(tab) {
+      this.currentView = tab;
+    },
+    getTabClass(tab) {
+      let tabClass = "nav-link";
+      if (tab === this.currentView) {
+        tabClass += " active";
+      }
+      return tabClass;
+    },
   },
 };
 </script>

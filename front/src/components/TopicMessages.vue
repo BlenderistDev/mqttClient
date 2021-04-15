@@ -1,7 +1,8 @@
 <template lang="pug">
 .card
   .card-header(@click="showMessages = !showMessages") {{ topic }}
-  .card-body(v-if="showMessages") {{ messages }}
+  .card-body(v-if="showMessages")
+    div(v-for="message in messages") {{ message.message }}
 </template>
 
 <script>
