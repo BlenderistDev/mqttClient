@@ -1,21 +1,21 @@
 <template lang="pug">
 .container
   .row
-    .col-3
+    .col-2
       ModuleList
-    .col-md-9
+    .col-md-10
       ModuleSettings
 </template>
 
 <script>
-import ModuleList from '@/components/ModuleList'
-import ModuleSettings from '@/components/ModuleSettings'
+import ModuleList from "@/components/ModuleList";
+import ModuleSettings from "@/components/ModuleSettings";
 
 export default {
-  name: 'Home',
+  name: "Home",
   components: {
     ModuleList,
-    ModuleSettings
-  }
-}
+    ModuleSettings,
+  },
+};
 </script>

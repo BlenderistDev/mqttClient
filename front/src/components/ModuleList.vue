@@ -1,10 +1,11 @@
-<template lang="pug">|
-div
-  router-link(
-    v-for="module in moduleList"
-    :to="{ name: 'module', params: { name: module } }"
-  )
-    div {{ module }}
+<template lang="pug">
+ul(class="list-group")
+  li(class="list-group-item" aria-current="true" v-for="module in moduleList")
+    router-link(
+      :to="{ name: 'module', params: { name: module } }"
+    )
+      div {{ module }}
+
 </template>
 
 <script>
