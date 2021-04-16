@@ -10,8 +10,8 @@ div
 <script>
 import { computed } from "vue";
 import { useRoute } from "vue-router";
-import List from "./List";
-import Socket from "./Socket.vue";
+import List from "./ListForm/List";
+import Socket from "./Messages/Socket.vue";
 import { mapState, useStore } from "vuex";
 
 export default {
