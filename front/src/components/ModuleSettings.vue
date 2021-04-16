@@ -8,7 +8,7 @@ div
 </template>
 
 <script>
-import { computed } from "vue";
+import { watch } from "vue";
 import { useRoute } from "vue-router";
 import List from "./ListForm/List";
 import Socket from "./Messages/Socket.vue";
@@ -24,9 +24,9 @@ export default {
     const router = useRoute();
     const store = useStore();
     store.dispatch("fetchModule", router.params.name);
-    return {
-      moduleName: computed(() => router.params.name),
-    };
+    watch(() => router.params, (params) => {
+      store.dispatch("fetchModule", params.name);
+    })
   },
   computed: {
     ...mapState(["module"]),

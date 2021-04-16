@@ -3,7 +3,7 @@ div
   router-link(
     v-for="module in moduleList"
     :to="{ name: 'module', params: { name: module } }"
-  ) 
+  )
     div {{ module }}
 </template>
 
