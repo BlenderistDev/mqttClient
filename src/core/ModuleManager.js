@@ -4,6 +4,7 @@ import fs from 'fs'
 import path from 'path'
 import _ from 'lodash'
 import { fork } from 'child_process'
+import { socketEmitter } from './Socket.js'
 
 const modules = [];
 
@@ -26,6 +27,7 @@ function setModule(sModuleDir) {
         message: message
       })
     });
+    module.on('message', message => socketEmitter.emit('message', message))
     modules.push({
       name: sModuleDir,
       process: module
