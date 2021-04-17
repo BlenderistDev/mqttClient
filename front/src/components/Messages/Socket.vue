@@ -6,15 +6,13 @@ div
     li(class="nav-item")
       a(:class="getTabClass('topic')" @click="setActiveTab('topic')") Topic
 
-  .card(v-if="currentView === 'all'" v-for="message in messages")
-    .card-header {{ message.topic }}
-    .card-body {{ message.message }}  {{ message.date }}
-
+  AllMessages(
+    v-if="currentView === 'all'"
+    :messages="messages"
+  )
   TopicMessages(
     v-if="currentView === 'topic'" 
-    v-for="(messages, topic) in groupedMessages"
-    :messages="messages"
-    :topic="topic"
+    :messages="groupedMessages"
   )
 </template>
 
@@ -23,10 +21,12 @@ import openSocket from "socket.io-client";
 import { ref } from "vue";
 import _ from "lodash";
 import TopicMessages from "./TopicMessages";
+import AllMessages from "./AllMessages";
 
 export default {
   components: {
     TopicMessages,
+    AllMessages,
   },
   setup() {
     const messages = ref([]);
