@@ -11,22 +11,25 @@ div
 import { watch } from "vue";
 import { useRoute } from "vue-router";
 import List from "./ListForm/List";
-import Socket from "./Messages/Socket.vue";
+import Messages from "./Messages/Messages";
 import { mapState, useStore } from "vuex";
 
 export default {
   name: "ModuleList",
   components: {
     List,
-    Socket,
+    Messages,
   },
   setup() {
     const router = useRoute();
     const store = useStore();
     store.dispatch("fetchModule", router.params.name);
-    watch(() => router.params, (params) => {
-      store.dispatch("fetchModule", params.name);
-    })
+    watch(
+      () => router.params,
+      (params) => {
+        store.dispatch("fetchModule", params.name);
+      }
+    );
   },
   computed: {
     ...mapState(["module"]),
