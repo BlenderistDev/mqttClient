@@ -1,4 +1,4 @@
 export default {
-  type: 'Socket',
+  type: 'Messages',
   name: 'Socket',
 }
