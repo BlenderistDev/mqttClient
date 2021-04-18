@@ -1,6 +1,7 @@
 import yaml from 'js-yaml';
 import fs from 'fs';
 import _ from "lodash";
+import {Some, None} from 'monet'
 
 const defaultConfig = {
   mqtt: {
@@ -16,10 +17,8 @@ const writeConfig = config => fs.writeFileSync('./config/config.yml', yaml.safeD
 const loadConfig = () => {
   try {
     let config = yaml.safeLoad(fs.readFileSync('./config/config.yml', 'utf8'))
-    // console.log(config.MessageCounter)
     return _.forIn(config, config => _.isArray(config) ? _.map(config, (config, key) => _.merge(config, { id: key })) : config)
   } catch (e) {
-    console.log('config not found, create new');
     writeConfig(defaultConfig)
     return defaultConfig
   }
@@ -32,8 +31,6 @@ export const reloadConfig = () => {
 }
 
 export const getConfig = module => {
-  // console.log(module)
-  // console.log(config[module])
   return config[module]
 }
 
