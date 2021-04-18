@@ -16,6 +16,7 @@ const writeConfig = config => fs.writeFileSync('./config/config.yml', yaml.safeD
 const loadConfig = () => {
   try {
     let config = yaml.safeLoad(fs.readFileSync('./config/config.yml', 'utf8'))
+    // console.log(config.MessageCounter)
     return _.forIn(config, config => _.isArray(config) ? _.map(config, (config, key) => _.merge(config, { id: key })) : config)
   } catch (e) {
     console.log('config not found, create new');
@@ -30,7 +31,11 @@ export const reloadConfig = () => {
   config = loadConfig()
 }
 
-export const getConfig = module => config[module]
+export const getConfig = module => {
+  // console.log(module)
+  // console.log(config[module])
+  return config[module]
+}
 
 export const setConfig = (module, moduleConfig) => {
   config[module] = moduleConfig

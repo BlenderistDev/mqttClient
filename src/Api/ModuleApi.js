@@ -9,16 +9,17 @@ const defaultFields = {
     type: 'hidden'
   }
 }
+
 export const getModuleConfig = function(moduleName) {
   const configPath = path.join(process.cwd(), 'src', 'Modules', moduleName, 'config.js');
-  return fs.promises.access(configPath, fs.constants.R_OK).then(() => {
-    return import(configPath).then(module => {
-      const moduleConfig = module.default
-      moduleConfig.value = getConfig(moduleName)
-      moduleConfig.fields = {...defaultFields, ...moduleConfig.fields}
-      return moduleConfig
-    })
-  }).catch((err) => {
+  return fs.promises.access(configPath, fs.constants.R_OK)
+    .then(() => import(configPath).then(module => _
+      .chain(module.default)
+      .omit('value')
+      .set('value', getConfig(moduleName))
+      .set('fields', defaultFields)
+      .value()
+  )).catch((err) => {
     if (err.code !== 'ENOENT') {
       throw err
     }
