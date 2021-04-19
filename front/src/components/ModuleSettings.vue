@@ -1,5 +1,6 @@
 <template lang="pug">
 div
+  span(@click="restart") restart
   component(
     v-if="module"
     :is="interface"
@@ -13,6 +14,7 @@ import { useRoute } from "vue-router";
 import List from "./ListForm/List";
 import Messages from "./Messages/Messages";
 import { mapState, useStore } from "vuex";
+import axios from "axios";
 
 export default {
   name: "ModuleList",
@@ -38,6 +40,12 @@ export default {
         return this.module.type;
       }
       return null;
+    },
+  },
+  methods: {
+    restart() {
+      const VUE_APP_API_URL = process.env.VUE_APP_API_URL;
+      axios.get(VUE_APP_API_URL + `/api/restart/${this.$route.params.name}`);
     },
   },
 };
