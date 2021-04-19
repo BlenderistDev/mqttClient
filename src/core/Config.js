@@ -1,7 +1,6 @@
 import yaml from 'js-yaml';
 import fs from 'fs';
 import _ from "lodash";
-import {Some, None} from 'monet'
 
 const defaultConfig = {
   mqtt: {

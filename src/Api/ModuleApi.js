@@ -4,9 +4,11 @@ import { setConfig, getConfig } from '../core/Config.js'
 import _ from 'lodash'
 
 const defaultFields = {
-  id: {
-    name: 'id',
-    type: 'hidden'
+  fields: {
+    id: {
+      name: 'id',
+      type: 'hidden'
+    }
   }
 }
 
@@ -17,7 +19,7 @@ export const getModuleConfig = function(moduleName) {
       .chain(module.default)
       .omit('value')
       .set('value', getConfig(moduleName))
-      .set('fields', defaultFields)
+      .assignWith(defaultFields, (objValue, srcValue) => _.merge(srcValue, objValue))
       .value()
   )).catch((err) => {
     if (err.code !== 'ENOENT') {
