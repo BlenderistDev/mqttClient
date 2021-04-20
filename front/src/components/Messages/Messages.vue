@@ -11,17 +11,18 @@ div
     :messages="messages"
   )
   TopicMessages(
-    v-if="currentView === 'topic'" 
+    v-if="currentView === 'topic'"
     :messages="groupedMessages"
   )
 </template>
 
 <script>
-import openSocket from "socket.io-client";
-import { ref } from "vue";
+// import openSocket from "socket.io-client";
+import {ref, watch} from "vue";
 import _ from "lodash";
 import TopicMessages from "./TopicMessages";
 import AllMessages from "./AllMessages";
+import { getSocket } from "../../services/socket";
 
 export default {
   components: {
@@ -29,18 +30,18 @@ export default {
     AllMessages,
   },
   setup() {
-    const messages = ref([]);
+    const messages = ref([])
     const groupedMessages = ref({});
     const currentView = ref("all");
-
-    const socket = openSocket("http://localhost:3000", { transports: ["websocket"] });
-    socket.on("mqtt", (message) => {
+    const message = getSocket('mqtt')
+    watch(message, message => messages.value.unshift(message))
+    watch(message, message => {
       messages.value.unshift(message);
       if (_.isUndefined(groupedMessages.value[message.topic])) {
         groupedMessages.value[message.topic] = [];
       }
       groupedMessages.value[message.topic].unshift(message);
-    });
+    })
     return { messages, groupedMessages, currentView };
   },
   methods: {
