@@ -7,15 +7,15 @@ export default {
       name: 'interval'
     },
     in_topic: {
-      type: 'String',
+      type: 'Input',
       name: 'in_topic'
     },
     attribute: {
-      type: 'String',
+      type: 'Input',
       name: 'attribute'
     },
     name: {
-      type: 'String',
+      type: 'Input',
       name: 'name'
     },
   }

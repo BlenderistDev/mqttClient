@@ -3,11 +3,11 @@ export default {
   name: 'ShellSender',
   fields: {
     command: {
-      type: 'String',
+      type: 'Input',
       name: 'command'
     },
     topic: {
-      type: 'String',
+      type: 'Input',
       name: 'topic'
     },
     interval: {

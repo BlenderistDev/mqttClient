@@ -1,10 +1,9 @@
 <template lang="pug">
-div
-  Input(
-    :field="field"
-    :value="value"
-    type="number"
-  )
+Input(
+  :field="field"
+  :value="value"
+  type="number"
+)
 </template>
 
 <script>
@@ -21,19 +20,6 @@ export default {
     value: {
       default: null,
     },
-  },
-  computed: {
-    showField() {
-      return this.field?.type !== "hidden";
-    },
-  },
-  methods: {
-    change(event) {
-      this.$emit("changeConfig", {
-        name: this.name,
-        value: event.target.value,
-      });
-    },
-  },
+  }
 };
 </script>

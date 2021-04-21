@@ -3,11 +3,11 @@ export default {
   name: 'ShellSubscriber',
   fields: {
     topic: {
-      type: 'String',
+      type: 'Input',
       name: 'topic'
     },
     commandTemplate: {
-      type: 'String',
+      type: 'Input',
       name: 'commandTemplate'
     },
   }

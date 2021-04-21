@@ -1,11 +1,10 @@
 <template lang="pug">
 div
-  div {{ field }}
-  //- Input(v-model="value" :type="field?.type" @change="change($event)" class="form-control")
   component(
     :is="field?.type"
     :field="field"
     :value="value"
+    @change="change($event)"
   )
 </template>
 

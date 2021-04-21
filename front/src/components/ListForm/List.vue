@@ -2,9 +2,7 @@
 div
   AddButton
   div(v-for="configRow in ui.value")
-    ConfigRow(
-      :configRow="configRow"
-    )
+    ConfigRow(:configRow="configRow")
 </template>
 
 <script>
