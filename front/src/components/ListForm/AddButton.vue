@@ -1,5 +1,4 @@
 <template lang="pug">
-div
 .d-grid.gap-2
   .btn.btn-primary(@click="addConfig") Добавить
 </template>
