@@ -26,6 +26,7 @@ export async function updateConfig({state, dispatch}, config) {
 
 export function addConfig({state, dispatch}) {
   const module = {...state.module}
+  console.log(module)
   const config = _.reduce(module.fields, (config, field) => {
     config[field.name] = ''
     config.id = null

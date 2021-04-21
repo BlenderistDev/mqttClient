@@ -1,24 +1,31 @@
 <template lang="pug">
 div
-  template(v-if="showField")
-    div {{ name }}
-      input(v-model="value" :type="field?.type" @change="change($event)" class="form-control")
+  div {{ field }}
+  //- Input(v-model="value" :type="field?.type" @change="change($event)" class="form-control")
+  component(
+    :is="field?.type"
+    :field="field"
+    :value="value"
+  )
 </template>
 
 <script>
-import _ from 'lodash'
-import { mapState } from 'vuex'
+import _ from "lodash";
+import { mapState } from "vuex";
+import Input from "./fields/Input";
+import Number from "./fields/Number";
 
 export default {
   props: ["value", "name"],
+  components: {
+    Input,
+    Number,
+  },
   computed: {
-    ...mapState(['module']),
-    field () {
-      return _.find(this.module.fields, {name: this.name})
+    ...mapState(["module"]),
+    field() {
+      return _.find(this.module.fields, { name: this.name });
     },
-    showField () {
-      return this.field?.type !== 'hidden'
-    }
   },
   methods: {
     change(event) {
