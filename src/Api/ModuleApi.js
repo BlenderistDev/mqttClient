@@ -17,14 +17,9 @@ export const getModuleConfig = function(moduleName) {
   return fs.promises.access(configPath, fs.constants.R_OK)
     .then(() => import(configPath).then(module => _
       .chain(module.default)
-      // .tap(val => console.log(val))
       .omit('value')
-      // .tap(val => console.log(val))
       .set('value', getConfig(moduleName))
-      // .tap(val => console.log(val))
       .merge(defaultFields)
-      .tap(val => console.log(val))
-      // .assignWith(defaultFields, (objValue, srcValue) => _.merge(srcValue, objValue))
       .value()
   )).catch((err) => {
     if (err.code !== 'ENOENT') {
