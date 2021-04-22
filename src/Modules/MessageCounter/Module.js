@@ -13,6 +13,10 @@ _.map(config.config, row => {
   process.on('message', message => count++)
   setInterval(() => {
     mqttClient.sendMessage(topic, count.toString())
+    process.send({
+      topic: 'MessageCounter',
+      message: count.toString()
+    })
     count = 0;
   }, row.interval * 1000)
 })

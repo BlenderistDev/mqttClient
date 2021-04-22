@@ -13,12 +13,14 @@ import _ from "lodash";
 import { mapState } from "vuex";
 import Input from "./fields/Input";
 import Number from "./fields/Number";
+import Socket from "./fields/Socket";
 
 export default {
   props: ["value", "name"],
   components: {
     Input,
     Number,
+    Socket,
   },
   computed: {
     ...mapState(["module"]),
