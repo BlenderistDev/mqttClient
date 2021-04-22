@@ -17,8 +17,7 @@ div
 </template>
 
 <script>
-// import openSocket from "socket.io-client";
-import {ref, watch} from "vue";
+import { ref, watch } from "vue";
 import _ from "lodash";
 import TopicMessages from "./TopicMessages";
 import AllMessages from "./AllMessages";
@@ -30,18 +29,18 @@ export default {
     AllMessages,
   },
   setup() {
-    const messages = ref([])
+    const messages = ref([]);
     const groupedMessages = ref({});
     const currentView = ref("all");
-    const message = getSocket('mqtt')
-    watch(message, message => messages.value.unshift(message))
-    watch(message, message => {
+    const message = getSocket("mqtt");
+    watch(message, (message) => messages.value.unshift(message));
+    watch(message, (message) => {
       messages.value.unshift(message);
       if (_.isUndefined(groupedMessages.value[message.topic])) {
         groupedMessages.value[message.topic] = [];
       }
       groupedMessages.value[message.topic].unshift(message);
-    })
+    });
     return { messages, groupedMessages, currentView };
   },
   methods: {
