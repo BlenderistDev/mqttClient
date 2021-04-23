@@ -1,5 +1,7 @@
 <template lang="pug">
-div {{ message }}
+div 
+  div {{ message }}
+  div zazaza
 </template>
 
 <script>
