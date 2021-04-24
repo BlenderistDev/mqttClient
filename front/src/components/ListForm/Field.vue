@@ -9,29 +9,26 @@ div
 </template>
 
 <script>
-import _ from "lodash";
-import { mapState } from "vuex";
 import Input from "./fields/Input";
 import Number from "./fields/Number";
 import Socket from "./fields/Socket";
 
 export default {
-  props: ["value", "name"],
+  props: ["field", "configRow"],
   components: {
     Input,
     Number,
     Socket,
   },
   computed: {
-    ...mapState(["module"]),
-    field() {
-      return _.find(this.module.fields, { name: this.name });
+    value() {
+      return this.configRow[this.field.name];
     },
   },
   methods: {
     change(event) {
       this.$emit("changeConfig", {
-        name: this.name,
+        name: this.field.name,
         value: event.target.value,
       });
     },
