@@ -9,7 +9,8 @@ export default {
     socket: {
       type: 'Socket',
       name: 'socket',
-      topic: 'MessageCounter'
+      topic: 'MessageCounter',
+      virtual: true
     }
   }
 }

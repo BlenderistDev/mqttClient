@@ -7,7 +7,8 @@ const defaultFields = {
   fields: {
     id: {
       name: 'id',
-      type: 'hidden'
+      type: 'hidden',
+      virtual: true
     }
   }
 }
@@ -28,4 +29,14 @@ export const getModuleConfig = function(moduleName) {
   })
 }
 
-export const setModuleConfig = (config) => setConfig(config.name, _.map(config.value, value => _.omit(value, ['id'])))
+export const setModuleConfig = (config) => 
+  setConfig(config.name,
+    _.map(config.value, value =>
+      _.omit(value,
+        _.chain(config.fields)
+        .filter(field => field.virtual === true)
+        .map('name')
+        .value()
+      )
+  )
+)
