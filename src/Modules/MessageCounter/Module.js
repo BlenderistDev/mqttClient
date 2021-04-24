@@ -8,14 +8,16 @@ _.map(config.config, row => {
   const name = `messages_in_${row.interval}_sec`
   const topic = `${config.topic}/${name}`
   sendDiscoveryMessage(name, topic, 'sensor', { unit_of_measurement: 'messages' })
-
   let count = 0
   process.on('message', message => count++)
   setInterval(() => {
     mqttClient.sendMessage(topic, count.toString())
     process.send({
       topic: 'MessageCounter',
-      message: count.toString()
+      message: {
+        id: row.id,
+        message: count.toString()
+      }
     })
     count = 0;
   }, row.interval * 1000)

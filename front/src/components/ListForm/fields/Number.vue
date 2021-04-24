@@ -1,7 +1,7 @@
 <template lang="pug">
 Input(
   :field="field"
-  :value="value"
+  :config="config"
   type="number"
 )
 </template>
@@ -17,9 +17,9 @@ export default {
     field: {
       required: true,
     },
-    value: {
-      default: null,
+    config: {
+      default: {},
     },
-  }
+  },
 };
 </script>

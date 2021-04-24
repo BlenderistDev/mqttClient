@@ -1,9 +1,9 @@
 <template lang="pug">
-div 
-  div {{ message }}
+div {{ rowMessage }}
 </template>
 
 <script>
+import { toRefs, watch, ref } from "vue";
 import { getSocket } from "../../../services/socket";
 
 export default {
@@ -11,13 +11,20 @@ export default {
     field: {
       required: true,
     },
-    value: {
-      default: null,
+    config: {
+      default: {},
     },
   },
   setup(props) {
+    const { config } = toRefs(props);
     const message = getSocket(props.field.topic);
-    return { message };
+    const rowMessage = ref("");
+    watch(message, () => {
+      if (message.value.id === config.value.id) {
+        rowMessage.value = message.value.message;
+      }
+    });
+    return { rowMessage };
   },
 };
 </script>

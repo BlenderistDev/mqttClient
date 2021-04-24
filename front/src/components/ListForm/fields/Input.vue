@@ -4,6 +4,10 @@ div {{ field.name }}
 </template>
 
 <script>
+import { computed, toRefs } from "vue";
+import { useStore } from "vuex";
+import _ from "lodash";
+
 export default {
   props: {
     type: {
@@ -12,9 +16,20 @@ export default {
     field: {
       required: true,
     },
-    value: {
-      default: null,
+    config: {
+      default: {},
     },
-  }
+  },
+  setup(props) {
+    const store = useStore();
+    const { config, field } = toRefs(props);
+    return {
+      value: computed({
+        get: () => config.value[field.value.name],
+        set: (value) =>
+          store.dispatch("updateConfig", _.set(config.value, field.value.name, value)),
+      }),
+    };
+  },
 };
 </script>

@@ -1,8 +1,10 @@
 <template lang="pug">
 div
   AddButton
-  div(v-for="configRow in ui.value")
-    ConfigRow(:configRow="configRow")
+  ConfigRow(
+    v-for="config in ui.value"
+    :config="config"
+  )
 </template>
 
 <script>
