@@ -34,9 +34,9 @@ export const setModuleConfig = (config) =>
     _.map(config.value, value =>
       _.omit(value,
         _.chain(config.fields)
-        .filter(field => field.virtual === true)
-        .map('name')
-        .value()
+          .filter(field => field.virtual === true)
+          .map('name')
+          .value()
       )
   )
 )

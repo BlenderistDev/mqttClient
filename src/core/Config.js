@@ -29,9 +29,7 @@ export const reloadConfig = () => {
   config = loadConfig()
 }
 
-export const getConfig = module => {
-  return config[module]
-}
+export const getConfig = module => config[module]
 
 export const setConfig = (module, moduleConfig) => {
   config[module] = moduleConfig
