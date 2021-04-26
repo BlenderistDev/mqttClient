@@ -1,6 +1,6 @@
-import yaml from 'js-yaml';
-import fs from 'fs';
-import _ from "lodash";
+import yaml from 'js-yaml'
+import fs from 'fs'
+import _ from "lodash"
 
 const defaultConfig = {
   mqtt: {
@@ -8,7 +8,7 @@ const defaultConfig = {
     username: '',
     password: '',
     topic: 'mqttClient',
-  },
+  }
 }
 
 const writeConfig = config => fs.writeFileSync('./config/config.yml', yaml.safeDump(config))
