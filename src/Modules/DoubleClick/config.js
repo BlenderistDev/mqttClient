@@ -4,19 +4,23 @@ export default {
   fields: {
     interval: {
       type: 'Number',
-      name: 'interval'
+      name: 'interval',
+      width: 4
     },
     in_topic: {
       type: 'Input',
-      name: 'in_topic'
+      name: 'in_topic',
+      width: 8
     },
     attribute: {
       type: 'Input',
-      name: 'attribute'
+      name: 'attribute',
+      width: 6
     },
     name: {
       type: 'Input',
-      name: 'name'
+      name: 'name',
+      width: 6
     },
   }
 }

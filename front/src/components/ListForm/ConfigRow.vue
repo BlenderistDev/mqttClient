@@ -1,5 +1,5 @@
 <template lang="pug">
-div
+.row
   Field(
     v-for="field in fields"
     :field="field"
