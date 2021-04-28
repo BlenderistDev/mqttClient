@@ -1,12 +1,13 @@
 <template lang="pug">
 .row
-  Field(
-    v-for="field in fields"
-    :field="field"
-    :config="config"
-  )
-  .d-grid.gap-2
-    .btn.btn-danger(@click="deleteConfig") delete
+  template(v-for="field in fields")
+    Field(
+      v-if="!field.virtual"
+      :field="field"
+      :config="config"
+    )
+  .col
+     .btn.btn-danger(@click="deleteConfig") delete
 </template>
 
 <script>
@@ -32,3 +33,14 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.row {
+  margin-top: 10px;
+}
+.col {
+  display: flex;
+  align-items: flex-end;
+
+}
+</style>

@@ -1,6 +1,11 @@
 <template lang="pug">
-div {{ field.name }}
-  input(v-model="value" :type="type" class="form-control")
+div
+  div(v-if="!field.width")
+    .input-group
+      .input-group-prepend {{ field.name }}
+      input(v-model="value" :type="type" class="form-control")
+  div(v-else) {{ field.name }}
+    input(v-model="value" :type="type" class="form-control")
 </template>
 
 <script>
@@ -33,3 +38,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.input-group-prepend {
+  margin-right: 10px;
+}
+</style>
