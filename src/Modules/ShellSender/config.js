@@ -4,15 +4,18 @@ export default {
   fields: {
     command: {
       type: 'Input',
-      name: 'command'
+      name: 'command',
+      width: 4
     },
     topic: {
       type: 'Input',
-      name: 'topic'
+      name: 'topic',
+      width: 4
     },
     interval: {
       type: 'Number',
-      name: 'interval'
+      name: 'interval',
+      width: 2
     },
   }
 }
