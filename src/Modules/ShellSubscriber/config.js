@@ -4,11 +4,13 @@ export default {
   fields: {
     topic: {
       type: 'Input',
-      name: 'topic'
+      name: 'topic',
+      width: 5
     },
     commandTemplate: {
       type: 'Input',
-      name: 'commandTemplate'
+      name: 'commandTemplate',
+      width: 5
     },
   }
 }
