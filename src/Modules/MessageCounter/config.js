@@ -4,13 +4,15 @@ export default {
   fields: {
     interval: {
       type: 'Number',
-      name: 'interval'
+      name: 'interval',
+      width: 8
     },
     socket: {
       type: 'Socket',
       name: 'socket',
       topic: 'MessageCounter',
-      virtual: true
+      virtual: true,
+      width: 2
     }
   }
 }

@@ -1,5 +1,6 @@
 <template lang="pug">
-div {{ rowMessage }}
+.socket-container.d-flex.justify-content-center
+  .badge.bg-light {{ rowMessage }}
 </template>
 
 <script>
@@ -28,3 +29,14 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.socket-container {
+  height: 100%;
+  align-items: flex-end;
+  font-size: xx-large;
+}
+.badge {
+  color: chocolate;
+}
+</style>

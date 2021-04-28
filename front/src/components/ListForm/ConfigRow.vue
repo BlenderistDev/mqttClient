@@ -2,7 +2,7 @@
 .row
   template(v-for="field in fields")
     Field(
-      v-if="!field.virtual"
+      v-if="!field.hidden"
       :field="field"
       :config="config"
     )
@@ -41,6 +41,5 @@ export default {
 .col {
   display: flex;
   align-items: flex-end;
-
 }
 </style>

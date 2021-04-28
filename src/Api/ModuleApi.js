@@ -8,7 +8,8 @@ const defaultFields = {
     id: {
       name: 'id',
       type: 'hidden',
-      virtual: true
+      virtual: true,
+      hidden: 'true'
     }
   }
 }
