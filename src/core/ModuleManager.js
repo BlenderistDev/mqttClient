@@ -4,7 +4,7 @@ import fs from 'fs'
 import path from 'path'
 import _ from 'lodash'
 import { fork } from 'child_process'
-import { socketEmitter } from './Socket.js'
+import { socketEmitter } from '../Api/app.js'
 
 let modules = [];
 

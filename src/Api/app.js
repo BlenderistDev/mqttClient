@@ -6,6 +6,8 @@ import fs from 'fs';
 import {router} from './router.js';
 import cors from 'cors';
 import http from 'http'
+import { Server } from "socket.io";
+import EventEmitter from 'events';
 
 const app = express();
 
@@ -32,6 +34,22 @@ const port = process.env.PORT || 4000
 app.set('port', port);
 
 const server = http.createServer(app);
+
+export const socketEmitter = new EventEmitter();
+
+const io = new Server(server, {
+  cors: {
+    origin: "http://localhost:8080",
+    methods: ["GET", "POST"],
+    credentials: true
+  }
+});
+
+io.on("connection", (socket) => {
+  socketEmitter.on('message', (socketMessage) => {
+    socket.emit(socketMessage.topic, socketMessage.message)
+  });
+});
 
 server.listen(port);
 server.on('error', (error) => console.error(error));
