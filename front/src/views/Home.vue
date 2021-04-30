@@ -2,19 +2,19 @@
 .container
   .row
     .col-2
-      ModuleList
+      Menu
     .col-md-10
       ModuleSettings
 </template>
 
 <script>
-import ModuleList from "@/components/ModuleList";
+import Menu from "@/components/Menu/Menu";
 import ModuleSettings from "@/components/ModuleSettings";
 
 export default {
   name: "Home",
   components: {
-    ModuleList,
+    Menu,
     ModuleSettings,
   },
 };
