@@ -7,10 +7,10 @@ div
 </template>
 
 <script>
-import ModuleList from './ModuleList';
-import DesktopMenu from './DesktopMenu'
-import MobileMenu from './MobileMenu'
-import {computed, ref} from 'vue';
+import ModuleList from "./ModuleList";
+import DesktopMenu from "./DesktopMenu";
+import MobileMenu from "./MobileMenu";
+import { computed, ref } from "vue";
 
 export default {
   name: "Menu",
@@ -20,11 +20,11 @@ export default {
     MobileMenu,
   },
   setup() {
-    const windowWidth = ref(window.innerWidth)
-    window.addEventListener("resize", () => windowWidth.value = window.innerWidth);
+    const windowWidth = ref(window.innerWidth);
+    window.addEventListener("resize", () => (windowWidth.value = window.innerWidth));
     return {
-      isMobile: computed(() => windowWidth.value < 768)
-    }
-  }
-}
+      isMobile: computed(() => windowWidth.value < 992),
+    };
+  },
+};
 </script>

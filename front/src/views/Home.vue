@@ -1,5 +1,5 @@
 <template lang="pug">
-.container
+.container-xxl
   .row
     .col-2
       Menu

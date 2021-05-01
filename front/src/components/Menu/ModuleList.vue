@@ -1,10 +1,10 @@
 <template lang="pug">
-ul(class="list-group")
+ul(class="list-group-flush")
   li(class="list-group-item" aria-current="true" v-for="module in moduleList")
     router-link(
       :to="{ name: 'module', params: { name: module } }"
-    )
-      div {{ module }}
+    ) 
+      .menu-item {{ module }}
 </template>
 
 <script>
@@ -25,3 +25,10 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.menu-item {
+  font-size: larger;
+  color: black;
+}
+</style>
