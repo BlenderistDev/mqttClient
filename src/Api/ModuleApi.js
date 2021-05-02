@@ -32,12 +32,13 @@ export const getModuleConfig = function(moduleName) {
 
 export const setModuleConfig = (config) => 
   setConfig(config.name,
-    _.map(config.value, value =>
-      _.omit(value,
-        _.chain(config.fields)
-          .filter(field => field.virtual === true)
-          .map('name')
-          .value()
+    config.type === 'Form' ? config.value :
+      _.map(config.value, value =>
+        _.omit(value,
+          _.chain(config.fields)
+            .filter(field => field.virtual === true)
+            .map('name')
+            .value()
+        )
       )
   )
-)
