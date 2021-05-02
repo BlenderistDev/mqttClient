@@ -1,19 +1,23 @@
 <template lang="pug">
 .card
-  .card-header(@click="showMessages = !showMessages") {{ topic }}
+  .card-header.row(@click="showMessages = !showMessages") 
+    .col-11 {{ topic }}
+    .col-1 {{ messageCount }}
   .card-body(v-if="showMessages")
     div(v-for="message in messages") {{ message.message }} {{ message.date }}
 </template>
 
 <script>
-import { ref } from "vue";
+import { computed, ref, toRefs } from "vue";
 
 export default {
   props: ["messages", "topic"],
-  setup() {
+  setup(props) {
+    const { messages } = toRefs(props);
     const showMessages = new ref(false);
     return {
       showMessages,
+      messageCount: computed(() => messages.value.length),
     };
   },
 };
