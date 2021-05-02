@@ -13,10 +13,15 @@ export function fetchModule ({commit}, module) {
 
 export async function updateConfig({state, dispatch}, config) {
   const module = {...state.module}
-  if (_.isNull(config.id)) {
-    _.isArray(module.value) ? module.value.push(config) : module.value = [config]
-  } else {
-    module.value = _.map(module.value, value => value.id === config.id ? config : value)
+
+  if (module.type === 'Form') {
+    module.value = config
+  } else if (module.type === 'List') {
+    if (_.isNull(config.id)) {
+      _.isArray(module.value) ? module.value.push(config) : module.value = [config]
+    } else {
+      module.value = _.map(module.value, value => value.id === config.id ? config : value)
+    }
   }
   await axios.post(VUE_APP_API_URL + `/api/module/${module.name}`, {
     config: module
