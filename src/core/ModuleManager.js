@@ -27,7 +27,7 @@ function setModule(sModuleDir) {
       process: module
     })
   }).catch((err) => {
-    console.log(err);
+    console.log(`Module without logic: ${sModuleDir}`);
     if (err.code !== 'ENOENT') {
       throw err;
     }
