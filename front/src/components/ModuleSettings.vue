@@ -12,6 +12,7 @@ import { watch } from "vue";
 import { useRoute } from "vue-router";
 import List from "./ListForm/List";
 import Messages from "./Messages/Messages";
+import Form from "./Form/Form";
 import { mapState, useStore } from "vuex";
 
 export default {
@@ -19,6 +20,7 @@ export default {
   components: {
     List,
     Messages,
+    Form,
   },
   setup() {
     const router = useRoute();
