@@ -2,7 +2,7 @@ import {getConfig} from './Config.js';
 import {mqttClient} from './MqttClient.js';
 import md5 from 'md5';
 
-const mqttConfig = getConfig('mqtt')
+const mqttConfig = getConfig('Mqtt')
 const mqttPrefix = mqttConfig.topic
 /**
  * Отправляем сообщение для автообнаружения в HomeAssistant
