@@ -9,7 +9,7 @@ div
 </template>
 
 <script>
-import ConfigRow from "../ListForm/ConfigRow";
+import ConfigRow from "../FormBuilder/ConfigRow";
 import axios from "axios";
 
 export default {

@@ -9,12 +9,14 @@ div
     v-for="config in ui.value"
     :config="config"
   )
+    .col
+     .btn.btn-danger(@click="deleteConfig(config.id)") delete
 </template>
 
 <script>
-import ConfigRow from "./ConfigRow";
+import ConfigRow from "../FormBuilder/ConfigRow";
 import axios from "axios";
-import { mapActions } from "vuex";
+import { mapActions, useStore } from "vuex";
 
 export default {
   name: "List",
@@ -22,6 +24,13 @@ export default {
     ConfigRow,
   },
   props: ["ui"],
+  setup() {
+    const store = useStore();
+    const deleteConfig = (configId) => store.dispatch("deleteConfig", configId);
+    return {
+      deleteConfig,
+    };
+  },
   methods: {
     ...mapActions(["addConfig"]),
     restart() {

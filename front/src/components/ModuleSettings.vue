@@ -10,9 +10,9 @@ div
 <script>
 import { watch } from "vue";
 import { useRoute } from "vue-router";
-import List from "./ListForm/List";
+import List from "./FormBuilder/List";
 import Messages from "./Messages/Messages";
-import Form from "./Form/Form";
+import Form from "./FormBuilder/Form";
 import { mapState, useStore } from "vuex";
 
 export default {

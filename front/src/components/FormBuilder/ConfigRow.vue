@@ -6,8 +6,8 @@
       :field="field"
       :config="config"
     )
-  .col
-     .btn.btn-danger(@click="deleteConfig") delete
+  slot
+    
 </template>
 
 <script>
