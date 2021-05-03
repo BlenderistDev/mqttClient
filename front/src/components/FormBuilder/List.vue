@@ -15,8 +15,11 @@ div
 
 <script>
 import ConfigRow from "../FormBuilder/ConfigRow";
-import axios from "axios";
-import { mapActions, useStore } from "vuex";
+import { restartModule } from "@/services/api.js";
+import { mapActions } from "vuex";
+import { useRoute } from "vue-router";
+import { ref } from "vue";
+import { watch } from "vue";
 
 export default {
   name: "List",
@@ -25,18 +28,20 @@ export default {
   },
   props: ["ui"],
   setup() {
-    const store = useStore();
-    const deleteConfig = (configId) => store.dispatch("deleteConfig", configId);
+    const route = useRoute();
+    const moduleName = ref(route.params.name);
+    watch(
+      () => route.params.name,
+      async (newModuleName) => {
+        moduleName.value = newModuleName;
+      }
+    );
     return {
-      deleteConfig,
+      restart: () => restartModule(moduleName.value),
     };
   },
   methods: {
-    ...mapActions(["addConfig"]),
-    restart() {
-      const VUE_APP_API_URL = process.env.VUE_APP_API_URL;
-      axios.get(VUE_APP_API_URL + `/api/restart/${this.$route.params.name}`);
-    },
+    ...mapActions(["addConfig", "deleteConfig"]),
   },
 };
 </script>
