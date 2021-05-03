@@ -2,11 +2,12 @@ import axios from 'axios'
 
 const VUE_APP_API_URL = process.env.VUE_APP_API_URL
 
-export const getModuleList = () => axios.get(VUE_APP_API_URL + '/api/module/list')
+const MODULE_LINK = VUE_APP_API_URL + '/api/module'
 
-export const getModule = (module) => axios.get(VUE_APP_API_URL + `/api/module/${module}`)
+export const getModuleList = () => axios.get(MODULE_LINK + '/list')
 
-export const updateModule = (module) =>
-  axios.post(VUE_APP_API_URL + `/api/module/${module.name}`, { config: module })
+export const getModule = (module) => axios.get(`${MODULE_LINK}/${module}`)
+
+export const updateModule = (module) => axios.post(`${MODULE_LINK}/${module.name}`, { config: module })
 
 export const restartModule = (moduleName) => axios.get(VUE_APP_API_URL + `/api/restart/${moduleName}`)
