@@ -1,5 +1,7 @@
 import {sendDiscoveryMessage} from '../../core/HomeAssistant.js';
-import {mqttClient} from '../../core/MqttClient.js';
+import { getMqttClient } from '../../core/SocketClient.js'
+
+const mqttClient = getMqttClient()
 
 const singleClickType = 'single';
 const doubleClickType = 'double';

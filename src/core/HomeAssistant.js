@@ -1,6 +1,8 @@
 import {getConfig} from './Config.js';
-import {mqttClient} from './MqttClient.js';
+import { getMqttClient } from './SocketClient.js'
 import md5 from 'md5';
+
+const mqttClient = getMqttClient()
 
 const mqttConfig = getConfig('Mqtt')
 const mqttPrefix = mqttConfig.topic

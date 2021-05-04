@@ -1,5 +1,7 @@
-import {mqttClient} from '../../core/MqttClient.js'
+import { getMqttClient } from '../../core/SocketClient.js'
 import {sendDiscoveryMessage} from '../../core/HomeAssistant.js'
+
+const mqttClient = getMqttClient()
 
 /**
  * Исходящий сенсор движения
@@ -71,7 +73,6 @@ export class OutSensor {
       mqttClient.sendMessage(this.topic, this.motionMessage);
     }
   }
-
 
   /**
   * Движения не обнаружено

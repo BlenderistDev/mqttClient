@@ -1,5 +1,8 @@
 import shell from 'shelljs';
 import _ from "lodash";
+import {getMqttClient} from "../../core/SocketClient.js";
+
+const mqttClient = getMqttClient()
 
 const config = JSON.parse(process.argv[2]);
 
@@ -17,7 +20,7 @@ function executeCommand(sCommandTemplate, oReplaceData) {
   shell.exec(sCommandTemplate);
 }
 
-process.on('message', (mqttMessage) => {
+mqttClient.on('message', (mqttMessage) => {
   _.chain(config.config)
     .filter(config => config.topic === mqttMessage.topic)
     .map(config => executeCommand(config.commandTemplate, JSON.parse(mqttMessage.message)))

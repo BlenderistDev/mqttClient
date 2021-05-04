@@ -1,10 +1,13 @@
-import {mqttClient, mqttPrefix} from './MqttClient.js'
 import { getConfig, reloadConfig } from './Config.js'
 import fs from 'fs'
 import path from 'path'
 import _ from 'lodash'
 import { fork } from 'child_process'
 import { socketEmitter } from '../Api/app.js'
+
+const config = getConfig('Mqtt')
+
+const mqttPrefix = config.topic
 
 let modules = [];
 
@@ -35,13 +38,6 @@ function setModule(sModuleDir) {
 }
 
 fs.promises.readdir('src/Modules').then(modules => _.map(modules, setModule))
-
-mqttClient.on('message', (topic, message) => _.map(modules,
-  module => module.process.send({
-    topic: topic,
-    message: message
-  })
-))
 
 export const getModules = () => modules
 

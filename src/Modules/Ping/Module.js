@@ -1,5 +1,7 @@
 import {sendDiscoveryMessage} from '../../core/HomeAssistant.js';
-import {mqttClient} from "../../core/MqttClient.js";
+import {getMqttClient} from "../../core/SocketClient.js";
+
+const mqttClient = getMqttClient()
 
 const config = JSON.parse(process.argv[2]);
 
@@ -10,7 +12,7 @@ sendDiscoveryMessage('ping', resultSubTopic, 'sensor', { unit_of_measurement: 'c
 
 setInterval(() => mqttClient.sendMessage(measureSubTopic, JSON.stringify({ timestamp: Date.now() })), 1000);
 
-process.on('message', (mqttMessage) => {
+mqttClient.on('message', (mqttMessage) => {
   if (mqttMessage.topic === measureSubTopic) {
     const message = JSON.parse(mqttMessage.message);
     const ping = (Date.now() - message.timestamp)/1000;
