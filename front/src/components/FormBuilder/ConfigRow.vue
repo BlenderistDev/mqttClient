@@ -7,7 +7,7 @@
       :config="config"
     )
   slot
-    
+
 </template>
 
 <script>
@@ -37,9 +37,5 @@ export default {
 <style scoped>
 .row {
   margin-top: 10px;
-}
-.col {
-  display: flex;
-  align-items: flex-end;
 }
 </style>

@@ -50,4 +50,8 @@ export default {
 .btn {
   width: 100%;
 }
+.col {
+  display: flex;
+  align-items: flex-end;
+}
 </style>
