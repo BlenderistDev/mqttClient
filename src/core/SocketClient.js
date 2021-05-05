@@ -1,7 +1,13 @@
 import { io } from "socket.io-client";
 import EventEmitter from 'events';
 
-export const socket = io('http://localhost:4000');
+const config = JSON.parse(process.argv[2]);
+
+export const socket = io('http://localhost:4000', {
+  query: {
+    module: config.name
+  }
+});
 
 export const getMqttClient = () => {
   const mqttClient = new EventEmitter()

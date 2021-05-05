@@ -46,11 +46,12 @@ const io = new Server(server, {
 });
 
 io.on("connection", (socket) => {
-  socketEmitter.on('message', (socketMessage) => {
-    socket.emit(socketMessage.topic, socketMessage.message)
-  });
+  socket.join('mqtt')
+  if (socket.handshake.query.module) {
+    socket.join(socket.handshake.query.module)
+  }
   socket.onAny((path, data) => {
-    socket.emit(path, data)
+    socket.to(path).emit(path, data)
   })
 });
 
