@@ -1,5 +1,6 @@
-import {getModules} from './src/core/ModuleManager.js';
 import {app} from './src/Api/app.js';
+import {getModules} from './src/core/ModuleManager.js';
+
 
 getModules()
 

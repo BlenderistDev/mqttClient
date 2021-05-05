@@ -1,6 +1,6 @@
 import { sendDiscoveryMessage } from '../../core/HomeAssistant.js'
 import _ from 'lodash'
-import { getMqttClient } from '../../core/SocketClient.js'
+import { getMqttClient, socket } from '../../core/SocketClient.js'
 
 const config = JSON.parse(process.argv[2])
 const mqttClient = getMqttClient()
@@ -13,13 +13,12 @@ _.map(config.config, row => {
   mqttClient.on('message', message => count++)
   setInterval(() => {
     mqttClient.sendMessage(topic, count.toString())
-    process.send({
-      topic: 'MessageCounter',
-      message: {
+    socket.emit('MessageCounter', 
+      {
         id: row.id,
         message: count.toString()
       }
-    })
+    )
     count = 0;
   }, row.interval * 1000)
 })

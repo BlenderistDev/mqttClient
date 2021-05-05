@@ -49,6 +49,9 @@ io.on("connection", (socket) => {
   socketEmitter.on('message', (socketMessage) => {
     socket.emit(socketMessage.topic, socketMessage.message)
   });
+  socket.onAny((path, data) => {
+    socket.emit(path, data)
+  })
 });
 
 server.listen(port);
