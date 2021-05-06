@@ -1,8 +1,6 @@
 import {getConfig} from './Config.js';
-import { getMqttClient } from './SocketClient.js'
+import { mqttClient } from './SocketClient.js'
 import md5 from 'md5';
-
-const mqttClient = getMqttClient()
 
 const mqttConfig = getConfig('Mqtt')
 const mqttPrefix = mqttConfig.topic
@@ -29,5 +27,5 @@ export function sendDiscoveryMessage(name, stateTopic, deviceType, params = {}) 
     },
   };
   const oHomeAssistantDiscoveryConfig = {...params, ...oMinimalConfig};
-  mqttClient.sendMessage(`homeassistant/${deviceType}/${topicHash}/${name}/config`, JSON.stringify(oHomeAssistantDiscoveryConfig), true);
+  mqttClient.send(`homeassistant/${deviceType}/${topicHash}/${name}/config`, JSON.stringify(oHomeAssistantDiscoveryConfig), true);
 }

@@ -1,7 +1,5 @@
-import { getMqttClient } from '../../core/SocketClient.js'
+import { mqttClient } from '../../core/SocketClient.js'
 import {sendDiscoveryMessage} from '../../core/HomeAssistant.js'
-
-const mqttClient = getMqttClient()
 
 /**
  * Исходящий сенсор движения
@@ -70,7 +68,7 @@ export class OutSensor {
     if (this.motion !== true) {
       this.motion = true;
       this.sinceMotionDetected = new Date;
-      mqttClient.sendMessage(this.topic, this.motionMessage);
+      mqttClient.send(this.topic, this.motionMessage);
     }
   }
 
@@ -80,7 +78,7 @@ export class OutSensor {
   setNoMotion() {
     if (this.motion !== false) {
       this.motion = false;
-      mqttClient.sendMessage(this.topic, this.noMotionMessage);
+      mqttClient.send(this.topic, this.noMotionMessage);
     }
   }
 

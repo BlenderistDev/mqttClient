@@ -21,7 +21,7 @@ import { ref, watch } from "vue";
 import _ from "lodash";
 import TopicMessages from "./TopicMessages";
 import AllMessages from "./AllMessages";
-import { getSocket } from "../../services/socket";
+import { getMqttSocket } from "../../services/socket";
 
 export default {
   components: {
@@ -32,7 +32,7 @@ export default {
     const messages = ref([]);
     const groupedMessages = ref({});
     const currentView = ref("all");
-    const message = getSocket("mqtt");
+    const message = getMqttSocket();
     watch(message, (message) => messages.value.unshift(message));
     watch(message, (message) => {
       messages.value.unshift(message);

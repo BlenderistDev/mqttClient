@@ -1,7 +1,5 @@
 import {sendDiscoveryMessage} from '../../core/HomeAssistant.js';
-import { getMqttClient } from '../../core/SocketClient.js'
-
-const mqttClient = getMqttClient()
+import { mqttClient } from '../../core/SocketClient.js'
 
 const singleClickType = 'single';
 const doubleClickType = 'double';
@@ -94,9 +92,9 @@ class Click {
    * Отправляем сообщение о клике
    */
   sendClickMessage() {
-    mqttClient.sendMessage(this.topic, 1);
+    mqttClient.send(this.topic, 1);
     setTimeout(() => {
-      mqttClient.sendMessage(this.topic, 0);
+      mqttClient.send(this.topic, 0);
     }, 600);
   }
 

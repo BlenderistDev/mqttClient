@@ -1,8 +1,6 @@
 import _ from 'lodash';
 import {MotionSensor} from './MotionSensor.js';
-import { getMqttClient } from '../../core/SocketClient.js'
-
-const mqttClient = getMqttClient()
+import { mqttClient } from '../../core/SocketClient.js'
 
 const config = JSON.parse(process.argv[2])
 

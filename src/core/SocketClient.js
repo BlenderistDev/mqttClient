@@ -9,15 +9,19 @@ export const socket = io('http://localhost:4000', {
   }
 });
 
-export const getMqttClient = () => {
-  const mqttClient = new EventEmitter()
-  socket.on("mqtt", (data) => {
-    mqttClient.emit('message', data.topic, data.message);
-  })
-  mqttClient.sendMessage = (topic, message, retain = false) => socket.emit('sendMqtt', {
+const getClient = (path, send) => {
+  const client = new EventEmitter()
+  socket.on(path, data => client.emit('message', data))
+  client.send = send
+  return client;
+}
+
+export const moduleClient = getClient('data', (data) => socket.emit('data', data))
+
+export const mqttClient = getClient('mqtt',
+  (topic, message, retain = false) => socket.emit('mqtt/send', {
     topic: topic,
     message: message,
     retain: retain
   })
-  return mqttClient
-}
+)

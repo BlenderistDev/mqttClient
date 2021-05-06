@@ -1,8 +1,6 @@
 import shell from 'shelljs';
 import _ from "lodash";
-import {getMqttClient} from "../../core/SocketClient.js";
-
-const mqttClient = getMqttClient()
+import {mqttClient} from "../../core/SocketClient.js";
 
 const config = JSON.parse(process.argv[2]);
 
