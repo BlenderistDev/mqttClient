@@ -10,7 +10,10 @@ const connection = mqtt.connect(config.host, {
   password: config.password
 })
 connection.on('connect', () => connection.subscribe('#'))
-connection.on('message', (topic, message) => mqttClient.emit('message', topic.toString(), message.toString()))
+connection.on('message', (topic, message) => mqttClient.emit('message', {
+  topic: topic.toString(),
+  message: message.toString()
+}))
 connection.on('error', (error) => console.error(error.message))
 
 mqttClient.sendMessage = (topic, message, retain = false) =>{
