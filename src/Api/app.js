@@ -7,7 +7,6 @@ import {router} from './router.js';
 import cors from 'cors';
 import http from 'http'
 import { Server } from "socket.io";
-import EventEmitter from 'events';
 import { mqttClient } from "../core/MqttClient.js";
 
 const app = express();
@@ -45,8 +44,8 @@ const io = new Server(server, {
 });
 
 io.on("connection", (socket) => {
-  mqttClient.on('message', data => socket.broadcast.emit('mqtt', data))
-  socket.on('mqtt/send', data => mqttClient.sendMessage(data.topic, data.message, data.retain))
+  mqttClient.on('message', data => socket.emit('mqtt', data))
+  socket.on('mqtt', data => mqttClient.sendMessage(data.topic, data.message, data.retain))
 
   const module = socket.handshake.query.module
   if (module) {

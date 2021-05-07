@@ -19,7 +19,7 @@ const getClient = (path, send) => {
 export const moduleClient = getClient('data', (data) => socket.emit('data', data))
 
 export const mqttClient = getClient('mqtt',
-  (topic, message, retain = false) => socket.emit('mqtt/send', {
+  (topic, message, retain = false) => socket.emit('mqtt', {
     topic: topic,
     message: message,
     retain: retain
