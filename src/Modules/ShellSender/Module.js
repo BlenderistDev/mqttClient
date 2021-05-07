@@ -3,13 +3,12 @@ import {sendDiscoveryMessage} from '../../core/HomeAssistant.js';
 import _ from 'lodash';
 import md5 from 'md5'
 import {mqttClient} from "../../core/SocketClient.js";
+import { config, topic } from "../../Components/ModuleConfig.js";
 
-const config = JSON.parse(process.argv[2]);
-
-_.map(config.config, sender => {
-  const topic = `${config.topic}/${sender.topic}`
-  sendDiscoveryMessage(md5(topic), topic, 'sensor', {});
+_.map(config, sender => {
+  const moduleTopic = `${topic}/${sender.topic}`
+  sendDiscoveryMessage(md5(moduleTopic), moduleTopic, 'sensor', {});
   if (sender.command) {
-    setInterval(() => mqttClient.send(topic, shell.exec(sender.command, {'silent': true}).toString()), sender.interval);
+    setInterval(() => mqttClient.send(moduleTopic, shell.exec(sender.command, {'silent': true}).toString()), sender.interval);
   }
 })

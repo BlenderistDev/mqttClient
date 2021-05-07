@@ -1,10 +1,9 @@
 import {sendDiscoveryMessage} from '../../core/HomeAssistant.js';
 import {mqttClient} from "../../core/SocketClient.js";
+import { topic } from "../../Components/ModuleConfig.js";
 
-const config = JSON.parse(process.argv[2]);
-
-const measureSubTopic = config.topic + '/measure';
-const resultSubTopic = config.topic + '/result';
+const measureSubTopic = topic + '/measure';
+const resultSubTopic = topic + '/result';
 
 sendDiscoveryMessage('ping', resultSubTopic, 'sensor', { unit_of_measurement: 'c' });
 
