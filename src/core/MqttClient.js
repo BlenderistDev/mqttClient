@@ -16,9 +16,7 @@ connection.on('message', (topic, message) => mqttClient.emit('message', {
 }))
 connection.on('error', (error) => console.error(error.message))
 
-mqttClient.sendMessage = (topic, message, retain = false) =>{
-  connection.publish(topic.toString(), message.toString(), { retain: retain })
-}
+mqttClient.sendMessage =
+  (topic, message, retain = false) => connection.publish(topic.toString(), message.toString(), { retain: retain })
 
 export {mqttClient}
-export const mqttPrefix = config.topic
