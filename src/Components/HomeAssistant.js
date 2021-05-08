@@ -1,4 +1,4 @@
-import {getConfig} from './Config.js';
+import {getConfig} from '../core/Config.js';
 import { mqttClient } from './SocketClient.js'
 import md5 from 'md5';
 

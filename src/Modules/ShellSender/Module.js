@@ -1,8 +1,8 @@
 import shell from 'shelljs';
-import {sendDiscoveryMessage} from '../../core/HomeAssistant.js';
+import {sendDiscoveryMessage} from '../../Components/HomeAssistant.js';
 import _ from 'lodash';
 import md5 from 'md5'
-import {mqttClient} from "../../core/SocketClient.js";
+import { mqttClient } from '../../Components/SocketClient.js'
 import { config, topic } from "../../Components/ModuleConfig.js";
 
 _.map(config, sender => {

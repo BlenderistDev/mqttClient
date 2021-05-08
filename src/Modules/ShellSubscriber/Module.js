@@ -1,6 +1,6 @@
 import shell from 'shelljs';
 import _ from "lodash";
-import {mqttClient} from "../../core/SocketClient.js";
+import { mqttClient } from '../../Components/SocketClient.js'
 import { config } from "../../Components/ModuleConfig.js";
 
 /**

@@ -1,6 +1,6 @@
-import { sendDiscoveryMessage } from '../../core/HomeAssistant.js'
+import { sendDiscoveryMessage } from '../../Components/HomeAssistant.js'
 import _ from 'lodash'
-import { mqttClient, moduleClient } from '../../core/SocketClient.js'
+import { mqttClient, moduleClient } from '../../Components/SocketClient.js'
 import { config, topic } from "../../Components/ModuleConfig.js";
 
 _.map(config, row => {

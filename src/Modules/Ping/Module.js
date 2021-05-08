@@ -1,5 +1,5 @@
-import {sendDiscoveryMessage} from '../../core/HomeAssistant.js';
-import { mqttClient, moduleClient } from "../../core/SocketClient.js";
+import {sendDiscoveryMessage} from '../../Components/HomeAssistant.js';
+import { mqttClient, moduleClient } from "../../Components/SocketClient.js";
 import { topic } from "../../Components/ModuleConfig.js";
 
 const measureSubTopic = topic + '/measure';
