@@ -1,10 +1,10 @@
 <template lang="pug">
 .socket-container.d-flex.justify-content-center
-  .badge.bg-light {{ message }}
+  .badge.bg-light {{ rowMessage }}
 </template>
 
 <script>
-import { toRefs } from "vue";
+import { toRefs, watch, ref } from "vue";
 import { getSocket } from "../../../services/socket";
 
 export default {
@@ -17,9 +17,15 @@ export default {
     },
   },
   setup(props) {
-    const { field } = toRefs(props);
-    const message = getSocket(field.value.topic);
-    return { message };
+    const { config } = toRefs(props);
+    const message = getSocket(props.field.topic);
+    const rowMessage = ref("");
+    watch(message, () => {
+      if (message.value.id === config.value.id) {
+        rowMessage.value = message.value.message;
+      }
+    });
+    return { rowMessage };
   },
 };
 </script>

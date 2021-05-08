@@ -8,7 +8,7 @@ export default {
       width: 8
     },
     socket: {
-      type: 'Socket',
+      type: 'SocketList',
       name: 'socket',
       topic: 'MessageCounter',
       virtual: true,

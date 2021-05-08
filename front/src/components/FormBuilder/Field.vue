@@ -11,8 +11,9 @@ div(:class='fieldClass')
 import Input from "./fields/Input";
 import Number from "./fields/Number";
 import Socket from "./fields/Socket";
-import {toRefs, computed} from "vue";
-import _ from 'lodash'
+import SocketList from "./fields/SocketList";
+import { toRefs, computed } from "vue";
+import _ from "lodash";
 
 export default {
   props: ["field", "config"],
@@ -20,19 +21,20 @@ export default {
     Input,
     Number,
     Socket,
+    SocketList,
   },
   setup(props) {
-    const { field } = toRefs(props)
+    const { field } = toRefs(props);
     const fieldClass = computed(() => {
       if (!_.isUndefined(field.value.width)) {
-        return `col-md-${field.value.width}`
+        return `col-md-${field.value.width}`;
       } else {
-        return 'col-md'
+        return "col-md";
       }
-    })
+    });
     return {
-      fieldClass
-    }
-  }
+      fieldClass,
+    };
+  },
 };
 </script>
