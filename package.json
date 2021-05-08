@@ -5,8 +5,7 @@
   "description": "",
   "main": "main.js",
   "exports": {
-    ".": "./main.js",
-    "./core": "./src/core/index.js"
+    ".": "./main.js"
   },
   "scripts": {
     "dev": "node main.js & ./utils/frontDev.sh",
