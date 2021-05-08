@@ -5,20 +5,12 @@ import { restartModule } from '../core/ModuleManager.js'
 
 const router = express.Router();
 
-router.get('/api/module/list', async function(req, res, next) {
-  res.send(await fs.promises.readdir('src/Modules').then(module => module))
-});
+router.get('/api/module/list', async (req, res,) =>res.send(await fs.promises.readdir('src/Modules').then(module => module)));
 
-router.get('/api/module/:moduleName', async function(req, res, next) {
-  res.send(await getModuleConfig(req.params.moduleName))
-});
+router.get('/api/module/:moduleName', async (req, res) => res.send(await getModuleConfig(req.params.moduleName)));
 
-router.post('/api/module/:moduleName', async function(req, res, next) {
-  res.send(await setModuleConfig(req.body.config))
-});
+router.post('/api/module/:moduleName', async (req, res) => res.send(await setModuleConfig(req.body.config)));
 
-router.get('/api/restart/:moduleName', function(req, res, next) {
-  res.send(restartModule(req.params.moduleName))
-});
+router.get('/api/restart/:moduleName', (req, res) => res.send(restartModule(req.params.moduleName)));
 
-export {router};
+export { router };
