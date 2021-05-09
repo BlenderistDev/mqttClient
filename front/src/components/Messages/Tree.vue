@@ -20,7 +20,12 @@ export default {
     const topicTree = computed(() => {
       return _.chain(groupedMessages.value)
         .keys()
-        .map((topic) => _.split(topic, "/"))
+        .map((topic) =>
+          _.chain(topic)
+            .split("/")
+            .map((topic) => (topic === "" ? "root" : topic))
+            .value()
+        )
         .value();
     });
     return {
