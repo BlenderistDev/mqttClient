@@ -6,9 +6,11 @@ import { createStore } from 'vuex'
 // import * as actions from './actions'
 
 import modules from './Modules/index'
+import messages from './Messages/index'
 
 export default createStore({
   modules: {
     modules: modules,
+    messages: messages
   }
 })

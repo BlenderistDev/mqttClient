@@ -25,11 +25,11 @@ div
 
 <script>
 import { ref, watch } from "vue";
-import _ from "lodash";
 import TopicMessages from "./TopicMessages";
 import AllMessages from "./AllMessages";
 import Tree from "./Tree";
 import { getMqttSocket } from "../../services/socket";
+import { useStore } from "vuex";
 
 export default {
   components: {
@@ -38,19 +38,17 @@ export default {
     Tree,
   },
   setup() {
-    const messages = ref([]);
-    const groupedMessages = ref({});
+    const store = useStore();
     const currentView = ref("all");
     const message = getMqttSocket();
-    watch(message, (message) => messages.value.unshift(message));
     watch(message, (message) => {
-      messages.value.unshift(message);
-      if (_.isUndefined(groupedMessages.value[message.topic])) {
-        groupedMessages.value[message.topic] = [];
-      }
-      groupedMessages.value[message.topic].unshift(message);
+      store.commit("messages/addMessage", message);
     });
-    return { messages, groupedMessages, currentView };
+    return {
+      messages: store.state.messages.messages,
+      groupedMessages: store.state.messages.groupedMessages,
+      currentView,
+    };
   },
   methods: {
     setActiveTab(tab) {
