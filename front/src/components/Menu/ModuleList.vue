@@ -18,9 +18,9 @@ export default {
   },
   setup() {
     const store = useStore();
-    store.dispatch("fetchModuleList");
+    store.dispatch("modules/fetchModuleList");
     return {
-      moduleList: computed(() => store.state.moduleList),
+      moduleList: computed(() => store.state.modules.moduleList),
     };
   },
 };

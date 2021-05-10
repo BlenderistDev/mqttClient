@@ -25,16 +25,16 @@ export default {
   setup() {
     const router = useRoute();
     const store = useStore();
-    store.dispatch("fetchModule", router.params.name);
+    store.dispatch("modules/fetchModule", router.params.name);
     watch(
       () => router.params,
       (params) => {
-        store.dispatch("fetchModule", params.name);
+        store.dispatch("modules/fetchModule", params.name);
       }
     );
   },
   computed: {
-    ...mapState(["module"]),
+    ...mapState("modules", ["module"]),
     interface() {
       if (this.module) {
         return this.module.type;

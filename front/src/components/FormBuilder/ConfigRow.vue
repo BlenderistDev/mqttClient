@@ -25,10 +25,10 @@ export default {
   setup(props) {
     const store = useStore();
     const { config } = toRefs(props);
-    const deleteConfig = () => store.dispatch("deleteConfig", config.value.id);
+    const deleteConfig = () => store.dispatch("modules/deleteConfig", config.value.id);
     return {
       deleteConfig,
-      fields: computed(() => store.state.module.fields),
+      fields: computed(() => store.state.modules.module.fields),
     };
   },
 };

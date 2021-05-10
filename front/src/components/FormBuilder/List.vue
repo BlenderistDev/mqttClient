@@ -41,7 +41,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["addConfig", "deleteConfig"]),
+    ...mapActions("modules", ["addConfig", "deleteConfig"]),
   },
 };
 </script>

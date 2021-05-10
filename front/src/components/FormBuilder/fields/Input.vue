@@ -32,7 +32,10 @@ export default {
       value: computed({
         get: () => config.value[field.value.name],
         set: (value) =>
-          store.dispatch("updateConfig", _.set(config.value, field.value.name, value)),
+          store.dispatch(
+            "modules/updateConfig",
+            _.set(config.value, field.value.name, value)
+          ),
       }),
     };
   },
