@@ -16,9 +16,8 @@ export default {
   },
   props: ["topic", "name"],
   setup() {
-    const show = ref(false);
     return {
-      show,
+      show: ref(false),
     };
   },
 };
