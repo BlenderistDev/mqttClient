@@ -7,12 +7,18 @@ Topic(
 </template>
 
 <script>
+import { useStore } from "vuex";
 import Topic from "./Topic";
 
 export default {
-  props: ["messages"],
   components: {
     Topic,
+  },
+  setup() {
+    const store = useStore();
+    return {
+      messages: store.state.messages.groupedMessages,
+    };
   },
 };
 </script>

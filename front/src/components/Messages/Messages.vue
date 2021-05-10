@@ -9,10 +9,7 @@ div
       a(:class="getTabClass('tree')" @click="setActiveTab('tree')") Tree
 
   AllMessages(v-if="currentView === 'all'")
-  TopicMessages(
-    v-if="currentView === 'topic'"
-    :messages="groupedMessages"
-  )
+  TopicMessages(v-if="currentView === 'topic'")
   Tree(
     v-if="currentView === 'tree'"
     :groupedMessages="groupedMessages"
