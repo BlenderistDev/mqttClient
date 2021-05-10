@@ -10,11 +10,7 @@ div
 
   AllMessages(v-if="currentView === 'all'")
   TopicMessages(v-if="currentView === 'topic'")
-  Tree(
-    v-if="currentView === 'tree'"
-    :groupedMessages="groupedMessages"
-    :messages="messages"
-  )
+  Tree(v-if="currentView === 'tree'")
 </template>
 
 <script>
