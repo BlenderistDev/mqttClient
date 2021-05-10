@@ -15,9 +15,9 @@ div
 
 <script>
 import { ref, watch } from "vue";
-import TopicMessages from "./TopicMessages";
-import AllMessages from "./AllMessages";
-import Tree from "./Tree";
+import TopicMessages from "./Topic/TopicMessages";
+import AllMessages from "./AllMessages/AllMessages";
+import Tree from "./Tree/Tree";
 import { getMqttSocket } from "../../services/socket";
 import { useStore } from "vuex";
 
