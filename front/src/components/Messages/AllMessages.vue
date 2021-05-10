@@ -11,19 +11,22 @@ div
 
 <script>
 import { ref, computed } from "vue";
+import { useStore } from "vuex";
 import _ from "lodash";
 
 export default {
-  props: ["messages"],
-  setup(props) {
+  setup() {
+    const store = useStore();
+    const messages = computed(() => store.state.messages.messages);
     const filterTopic = ref("");
     const filtredMessages = computed(() =>
       _.filter(
-        props.messages,
+        messages.value,
         (message) => !filterTopic.value || message.topic.includes(filterTopic.value)
       )
     );
     return {
+      messages,
       filterTopic,
       filtredMessages,
     };
