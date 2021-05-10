@@ -1,5 +1,6 @@
 import { ref } from "vue"
 import openSocket from "socket.io-client"
+import { useStore } from "vuex"
 
 const VUE_APP_SOCKET_URL = process.env.VUE_APP_SOCKET_URL
 
@@ -20,8 +21,7 @@ export function getSocket(module) {
   return data
 }
 
-export function getMqttSocket() {
-  const data = ref('')
-  socket.on('mqtt', message => data.value = message)
-  return data
+export function startMqttSocket() {
+  const store = useStore();
+  socket.on('mqtt', message => store.commit("messages/addMessage", message))
 }
