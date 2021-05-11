@@ -1,6 +1,8 @@
 <template lang="pug">
 div
-  div(@click="show = !show") {{ name }}
+  li(class='list-group-item' @click="show = !show") 
+    span(v-if="name") {{ name }}
+    span(v-else) /
   div(v-if="show")
     slot
 </template>

@@ -12,7 +12,8 @@ const connection = mqtt.connect(config.host, {
 connection.on('connect', () => connection.subscribe('#'))
 connection.on('message', (topic, message) => mqttClient.emit('message', {
   topic: topic.toString(),
-  message: message.toString()
+  message: message.toString(),
+  date: new Date()
 }))
 connection.on('error', (error) => console.error(error.message))
 

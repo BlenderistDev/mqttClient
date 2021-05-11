@@ -1,5 +1,6 @@
 <template lang="pug">
-TreeTopic(:topicTree="topicTree")
+ul(class="list-group")
+  TreeTopic(:topicTree="topicTree")
 </template>
 
 <script>
@@ -22,7 +23,7 @@ export default {
         .map((topic) =>
           _.chain(topic)
             .split("/")
-            .map((topic) => (topic === "" ? "/" : topic))
+            .map((topic) => (topic ? topic : "/"))
             .value()
         )
         .value();
