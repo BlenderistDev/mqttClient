@@ -1,5 +1,6 @@
 <template lang="pug">
 div
+  SendForm
   ul(class="nav nav-tabs nav-fill")
     li(class="nav-item" v-for="tab, name in tabs")
       a(:class="getTabClass(name)" @click="setActiveTab(name)") {{ name }}
@@ -11,6 +12,7 @@ import { computed, ref } from "vue";
 import TopicMessages from "./Topic/TopicMessages";
 import AllMessages from "./AllMessages/AllMessages";
 import Tree from "./Tree/Tree";
+import SendForm from "./SendForm";
 import { startMqttSocket } from "../../services/socket";
 
 export default {
@@ -18,6 +20,7 @@ export default {
     TopicMessages,
     AllMessages,
     Tree,
+    SendForm
   },
   setup() {
     startMqttSocket();
