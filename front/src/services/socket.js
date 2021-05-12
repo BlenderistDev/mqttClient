@@ -25,3 +25,11 @@ export function startMqttSocket() {
   const store = useStore();
   socket.on('mqtt', message => store.commit("messages/addMessage", message))
 }
+
+export function sendMqttMessage(topic, message, retain = false) {
+  socket.emit('mqtt', {
+    topic: topic,
+    message: message,
+    retain: retain
+  })
+}
