@@ -3,14 +3,14 @@
   .col-3
     div Topic:
     input(class="form-control" v-model="topic")
+  .col-6
+      div Message:
+      textarea(class="form-control" v-model="message")
   .col-1
     div Retain:
-    input(class="form-check-input" v-model="retain" type="checkbox")
-  .col-6
-    .input-group
-      .input-group-prepend Message:
-      textarea(class="form-control" v-model="message")
-  span.col-2.btn.btn-success(@click="send") Send
+    input.form-check-input(v-model="retain" type="checkbox")
+  .col-2
+    span.btn.btn-success(@click="send") Send
 </template>
 
 <script>
@@ -35,15 +35,27 @@ export default {
 
 <style scoped>
 .row {
+  margin-top: 10px;
   margin-bottom: 20px;
 }
-.input-group-prepend {
-  padding-right: 10px;
-}
 .btn {
-  height: 60px;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-top: 0px;
+}
+.col-2 {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  height: 60px;
+}
+.form-check-input {
+  width: 40px;
+  height: 40px;
+}
+textarea {
+  height: 40px;
 }
 </style>
