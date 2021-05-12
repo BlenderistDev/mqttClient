@@ -1,20 +1,16 @@
 <template lang="pug">
-.container-xxl
-  .row
-    .col-2
-      Menu
-    .col-md-10
-      ModuleSettings
+Layout
+  ModuleSettings
 </template>
 
 <script>
-import Menu from "@/components/Menu/Menu";
+import Layout from "../layout/Layout";
 import ModuleSettings from "@/components/FormBuilder/ModuleSettings";
 
 export default {
   name: "Module",
   components: {
-    Menu,
+    Layout,
     ModuleSettings,
   },
 };
