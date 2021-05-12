@@ -1,9 +1,10 @@
 <template lang="pug">
 ul(class="list-group-flush")
+  li(class="list-group-item" aria-current="true")
+    router-link(:to="{ name: 'Home' }")
+      .menu-item Home
   li(class="list-group-item" aria-current="true" v-for="module in moduleList")
-    router-link(
-      :to="{ name: 'module', params: { name: module } }"
-    ) 
+    router-link(:to="{ name: 'module', params: { name: module } }")
       .menu-item {{ module }}
 </template>
 

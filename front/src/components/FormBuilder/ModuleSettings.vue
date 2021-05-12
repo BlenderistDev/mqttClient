@@ -10,16 +10,14 @@ div
 <script>
 import { watch } from "vue";
 import { useRoute } from "vue-router";
-import List from "./FormBuilder/List";
-import Messages from "./Messages/Messages";
-import Form from "./FormBuilder/Form";
+import List from "./List";
+import Form from "./Form";
 import { mapState, useStore } from "vuex";
 
 export default {
   name: "ModuleList",
   components: {
     List,
-    Messages,
     Form,
   },
   setup() {

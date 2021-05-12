@@ -4,18 +4,18 @@
     .col-2
       Menu
     .col-md-10
-      Messages
+      ModuleSettings
 </template>
 
 <script>
 import Menu from "@/components/Menu/Menu";
-import Messages from "@/components/Messages/Messages";
+import ModuleSettings from "@/components/FormBuilder/ModuleSettings";
 
 export default {
   name: "Module",
   components: {
     Menu,
-    Messages,
+    ModuleSettings,
   },
 };
 </script>
