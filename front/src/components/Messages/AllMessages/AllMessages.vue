@@ -6,7 +6,9 @@ div
       input(v-model='filterTopic')
   .card(v-for="message in filtredMessages")
     .card-header {{ message.topic }}
-    .card-body {{ message.message }}  {{ message.date }}
+    .card-body.row.justify-content-between
+      .col-10 {{ message.message }}
+      .col-2 {{ message.date }}
 </template>
 
 <script>

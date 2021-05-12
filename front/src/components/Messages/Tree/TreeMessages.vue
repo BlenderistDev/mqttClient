@@ -4,7 +4,9 @@ div
   div(v-if="show")
     .card(v-for="message in topicMessages")
       .card-header {{ message.topic }}
-      .card-body {{ message.message }}  {{ new Date(message.date).toLocaleString() }}
+      .card-body.row.justify-content-between
+        .col-10 {{ message.message }}
+        .col-2 {{ new Date(message.date).toLocaleString() }}
 </template>
 
 <script>

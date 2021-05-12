@@ -1,10 +1,12 @@
 <template lang="pug">
 .card
-  .card-header.row(@click="showMessages = !showMessages") 
+  .card-header.row(@click="showMessages = !showMessages")
     .col-11 {{ topic }}
     .col-1 {{ messageCount }}
   .card-body(v-if="showMessages")
-    div(v-for="message in messages") {{ message.message }} {{ message.date }}
+    .row.justify-content-between(v-for="message in messages")
+      .col-10 {{ message.message }}
+      .col-2 {{ message.date }}
 </template>
 
 <script>
