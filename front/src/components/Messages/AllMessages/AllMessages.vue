@@ -7,7 +7,9 @@ div
   .card(v-for="message in filtredMessages")
     .card-header {{ message.topic }}
     .card-body.row.justify-content-between
-      .col-10 {{ message.message }}
+      .col-6 {{ message.message }}
+      .col-2 Retain: {{ message.retain }}
+      .col-2 Qos: {{ message.qos }}
       .col-2 {{ message.date }}
 </template>
 
