@@ -1,15 +1,15 @@
 <template lang="pug">
 .row
-  .col-3
+  .col-md-3
     div Topic:
     input(class="form-control" v-model="topic")
-  .col-6
+  .col-sm-6
       div Message:
       textarea(class="form-control" v-model="message")
-  .col-1
+  .col-sm-1
     div Retain:
     input.form-check-input(v-model="retain" type="checkbox")
-  .col-2
+  .col-sm-2
     span.btn.btn-success(@click="send") Send
 </template>
 
@@ -41,7 +41,7 @@ export default {
 .btn {
   justify-content: center;
 }
-.col-2 {
+.col-sm-2 {
   display: flex;
   align-items: flex-end;
   height: 60px;
