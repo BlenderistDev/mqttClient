@@ -39,19 +39,16 @@ export default {
   margin-bottom: 20px;
 }
 .btn {
-  height: 40px;
-  display: flex;
-  align-items: center;
   justify-content: center;
-  margin-top: 0px;
 }
 .col-2 {
   display: flex;
   align-items: flex-end;
-  justify-content: flex-end;
   height: 60px;
 }
+
 .form-check-input {
+  margin-top: 0px;
   width: 40px;
   height: 40px;
 }
