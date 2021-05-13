@@ -27,6 +27,7 @@ export default {
     return {
       topic,
       message,
+      retain,
       send,
     }
   }
