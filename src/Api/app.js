@@ -45,7 +45,7 @@ const io = new Server(server, {
 
 io.on("connection", (socket) => {
   mqttClient.on('message', data => socket.emit('mqtt', data))
-  socket.on('mqtt', data => mqttClient.sendMessage(data.topic, data.message, data.retain))
+  socket.on('mqtt', data => mqttClient.sendMessage(data))
 
   const module = socket.handshake.query.module
   if (module) {

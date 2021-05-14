@@ -3,12 +3,18 @@
   .col-md-3
     div Topic:
     input(class="form-control" v-model="topic")
-  .col-sm-6
+  .col-sm-5
       div Message:
       textarea(class="form-control" v-model="message")
   .col-sm-1
     div Retain:
     input.form-check-input(v-model="retain" type="checkbox")
+  .col-sm-1
+    div Qos:
+    select(v-model="qos")
+      option 0
+      option 1
+      option 2
   .col-sm-2
     span.btn.btn-success(@click="send") Send
 </template>
@@ -20,18 +26,26 @@ import { sendMqttMessage } from "../../services/socket";
 export default {
   name: "SendForm",
   setup() {
-    const topic = ref('');
-    const message = ref('');
+    const topic = ref("");
+    const message = ref("");
     const retain = ref(false);
-    const send = () => sendMqttMessage(topic.value, message.value, retain.value)
+    const qos = ref(0);
+    const send = () =>
+      sendMqttMessage({
+        topic: topic.value,
+        message: message.value,
+        retain: retain.value,
+        qos: qos.value,
+      });
     return {
       topic,
       message,
       retain,
       send,
-    }
-  }
-}
+      qos,
+    };
+  },
+};
 </script>
 
 <style scoped>
@@ -55,5 +69,9 @@ export default {
 }
 textarea {
   height: 40px;
+}
+select {
+  height: 40px;
+  width: 100%;
 }
 </style>

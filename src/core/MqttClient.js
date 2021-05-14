@@ -10,23 +10,21 @@ const connection = mqtt.connect(config.host, {
   password: config.password
 })
 
-connection.on('connect', () => connection.subscribe('#'))
-connection.on('message', (topic, message, packet) => {
-  console.log(packet)
-  mqttClient.emit('message', {
-      topic: topic.toString(),
-      message: message.toString(),
-      retain: packet.retain,
-      qos: packet.qos,
-      date: new Date()
-    })
-  }
+connection.on('connect', () => connection.subscribe('#', { qos: 2 }))
+connection.on('message', (topic, message, packet) => mqttClient.emit('message', {
+    topic: topic.toString(),
+    message: message.toString(),
+    retain: packet.retain,
+    qos: packet.qos,
+    date: new Date()
+  })
 )
 connection.on('error', (error) => console.error(error.message))
 
-mqttClient.sendMessage =
-  (topic, message, retain = true) => {
-    connection.publish(topic.toString(), message.toString(), { qos: 2, retain: true })
-  }
+mqttClient.sendMessage = (message) => {
+  connection.publish(message.topic, message.message, { 
+  qos: message.qos ? message.qos : 0,
+  retain: message.retain ? message.retain : false
+})}
 
 export {mqttClient}
