@@ -21,10 +21,9 @@ connection.on('message', (topic, message, packet) => mqttClient.emit('message', 
 )
 connection.on('error', (error) => console.error(error.message))
 
-mqttClient.sendMessage = (message) => {
-  connection.publish(message.topic, message.message, { 
+mqttClient.sendMessage = (message) => connection.publish(message.topic, message.message, { 
   qos: message.qos ? message.qos : 0,
   retain: message.retain ? message.retain : false
-})}
+})
 
 export {mqttClient}
