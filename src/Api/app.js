@@ -7,7 +7,7 @@ import {router} from './router.js';
 import cors from 'cors';
 import http from 'http'
 import { Server } from "socket.io";
-import { mqttClient } from "../core/MqttClient.js";
+import { socketHandler } from './socket.js'
 
 const app = express();
 
@@ -17,7 +17,7 @@ const accessLogStream = fs.createWriteStream(path.join(process.cwd(), 'log', 'ac
 app.use(logger('combined', {stream: accessLogStream}));
 // подключаем папку со статикой
 app.use(express.static('front/dist'));
-// обработка
+// обработка json
 app.use(express.json());
 // urlencodим данные
 app.use(express.urlencoded({extended: false}));
@@ -43,25 +43,9 @@ const io = new Server(server, {
   }
 });
 
-io.on("connection", (socket) => {
-  mqttClient.on('message', data => socket.emit('mqtt', data))
-  socket.on('mqtt', data => mqttClient.sendMessage(data))
-
-  const module = socket.handshake.query.module
-  if (module) {
-    socket.on('data', (data) => socket.to('frontend').emit('data', {
-      module: module,
-      data: data
-    }))
-  }
-  if (socket.handshake.query.frontend) {
-    socket.join('frontend')
-    socket.on('data', data => socket.to(data.module).emit('data'. data.data))
-  }
-});
+io.on("connection", socketHandler);
 
 server.listen(port);
 server.on('error', (error) => console.error(error));
 
-export {app};
-
+export { app };
