@@ -28,11 +28,12 @@ function setModule(sModuleDir) {
       process: module
     })
   }).catch((err) => {
-    console.log(`Module without logic: ${sModuleDir}`);
-    if (err.code !== 'ENOENT') {
-      throw err;
+    if (err.code === 'ENOENT') {
+      console.log(`Module without logic: ${sModuleDir}`)
+    } else {
+      throw err
     }
-  });
+  })
 }
 
 fs.promises.readdir('src/Modules').then(modules => _.map(modules, setModule))
