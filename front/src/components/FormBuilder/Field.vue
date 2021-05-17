@@ -1,7 +1,7 @@
 <template lang="pug">
-div(:class='fieldClass')
+div(:class="fieldClass")
   component(
-    :is="field?.type"
+    :is="field.type"
     :field="field"
     :config="config"
   )
@@ -13,7 +13,7 @@ import Number from "./fields/Number";
 import Socket from "./fields/Socket";
 import SocketList from "./fields/SocketList";
 import { toRefs, computed } from "vue";
-import _ from "lodash";
+import * as R from "ramda";
 
 export default {
   props: ["field", "config"],
@@ -25,15 +25,13 @@ export default {
   },
   setup(props) {
     const { field } = toRefs(props);
-    const fieldClass = computed(() => {
-      if (!_.isUndefined(field.value.width)) {
-        return `col-md-${field.value.width}`;
-      } else {
-        return "col-md";
-      }
-    });
+    const getClass = R.ifElse(
+      R.has("width"),
+      R.compose((width) => "col-md-" + width, R.prop("width")),
+      () => "col-md"
+    );
     return {
-      fieldClass,
+      fieldClass: computed(() => getClass(field.value)),
     };
   },
 };

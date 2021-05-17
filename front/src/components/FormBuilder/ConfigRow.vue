@@ -25,9 +25,8 @@ export default {
   setup(props) {
     const store = useStore();
     const { config } = toRefs(props);
-    const deleteConfig = () => store.dispatch("modules/deleteConfig", config.value.id);
     return {
-      deleteConfig,
+      deleteConfig: () => store.dispatch("modules/deleteConfig", config.value.id),
       fields: computed(() => store.state.modules.module.fields),
     };
   },
