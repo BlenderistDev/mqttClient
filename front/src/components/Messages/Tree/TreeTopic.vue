@@ -37,12 +37,12 @@ export default {
     if (topicName.value !== "/" && topicName.value.length) {
       topicName.value = topicName.value + "/";
     }
-    const tree = computed(() => {
-      return _.chain(topicTree.value)
+    const tree = computed(() =>
+      _.chain(topicTree.value)
         .groupBy((topic) => _.nth(topic))
         .mapValues((values) => _.map(values, (topic) => _.slice(topic, 1)))
-        .value();
-    });
+        .value()
+    );
     return {
       tree,
       topicName,
