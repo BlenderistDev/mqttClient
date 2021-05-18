@@ -1,6 +1,7 @@
 import yaml from 'js-yaml'
 import fs from 'fs'
 import _ from "lodash"
+import * as R from "ramda";
 
 const defaultConfig = {
   mqtt: {
@@ -31,8 +32,6 @@ export const reloadConfig = () => {
 
 export const getConfig = module => config[module]
 
-export const setConfig = (module, moduleConfig) => {
-  config[module] = moduleConfig
-  writeConfig(config)
-  reloadConfig()
-}
+const setModuleConfig = (module, moduleConfig) => R.over(R.lensProp(module, config), () => moduleConfig, config)
+
+export const setConfig = R.compose(reloadConfig, writeConfig, setModuleConfig)
