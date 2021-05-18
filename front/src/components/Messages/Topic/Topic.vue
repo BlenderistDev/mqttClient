@@ -4,16 +4,19 @@
     .col-11 {{ topic }}
     .col-1 {{ messageCount }}
   .card-body(v-if="showMessages")
-    .row.justify-content-between(v-for="message in messages")
-      .col-10 {{ message.message }}
-      .col-2 {{ message.date }}
+    .justify-content-between(v-for="message in messages")
+      Message(:message="message")
 </template>
 
 <script>
 import { computed, ref, toRefs } from "vue";
+import Message from "../Message";
 
 export default {
   props: ["messages", "topic"],
+  components: {
+    Message,
+  },
   setup(props) {
     const { messages } = toRefs(props);
     const showMessages = new ref(false);

@@ -6,19 +6,20 @@ div
       input(v-model='filterTopic')
   .card(v-for="message in filtredMessages")
     .card-header {{ message.topic }}
-    .card-body.row.justify-content-between
-      .col-6 {{ message.message }}
-      .col-2 Retain: {{ message.retain }}
-      .col-2 Qos: {{ message.qos }}
-      .col-2 {{ message.date }}
+    .card-body.justify-content-between
+      Message(:message="message")
 </template>
 
 <script>
 import { ref, computed } from "vue";
 import { useStore } from "vuex";
+import Message from "../Message";
 import _ from "lodash";
 
 export default {
+  components: {
+    Message,
+  },
   setup() {
     const store = useStore();
     const messages = computed(() => store.state.messages.messages);

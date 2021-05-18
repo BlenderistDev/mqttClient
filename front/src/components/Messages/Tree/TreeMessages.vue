@@ -4,19 +4,22 @@ div
   div(v-if="show")
     .card(v-for="message in topicMessages")
       .card-header {{ message.topic }}
-      .card-body.row.justify-content-between
-        .col-10 {{ message.message }}
-        .col-2 {{ new Date(message.date).toLocaleString() }}
+      .card-body.justify-content-between
+        Message(:message="message")
 </template>
 
 <script>
 import { computed, toRefs, ref } from "vue";
 import { useStore } from "vuex";
+import Message from "../Message";
 import _ from "lodash";
 
 export default {
   name: "TreeMessages",
   props: ["topic"],
+  components: {
+    Message,
+  },
   setup(props) {
     const { topic } = toRefs(props);
     const store = useStore();
