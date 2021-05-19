@@ -2,11 +2,11 @@
 Layout(:field="field")
   input(v-model="value" :type="type" class="form-control")
 </template>
+
 <script>
-import { computed, toRefs } from "vue";
-import { useStore } from "vuex";
-import _ from "lodash";
+import { toRefs } from "vue";
 import Layout from "./Layout";
+import { getConfigValue } from "@/services/configValue.js";
 
 export default {
   components: {
@@ -24,17 +24,9 @@ export default {
     },
   },
   setup(props) {
-    const store = useStore();
     const { config, field } = toRefs(props);
     return {
-      value: computed({
-        get: () => config.value[field.value.name],
-        set: (value) =>
-          store.dispatch(
-            "modules/updateConfig",
-            _.set(config.value, field.value.name, value)
-          ),
-      }),
+      value: getConfigValue(config, field),
     };
   },
 };

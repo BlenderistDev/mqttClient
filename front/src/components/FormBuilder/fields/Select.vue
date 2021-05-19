@@ -5,9 +5,8 @@ Layout(:field="field")
 </template>
 
 <script>
-import { computed, toRefs } from "vue";
-import { useStore } from "vuex";
-import _ from "lodash";
+import { toRefs } from "vue";
+import { getConfigValue } from "@/services/configValue.js";
 import Layout from "./Layout";
 
 export default {
@@ -23,17 +22,9 @@ export default {
     },
   },
   setup(props) {
-    const store = useStore();
     const { config, field } = toRefs(props);
     return {
-      value: computed({
-        get: () => config.value[field.value.name],
-        set: (value) =>
-          store.dispatch(
-            "modules/updateConfig",
-            _.set(config.value, field.value.name, value)
-          ),
-      }),
+      value: getConfigValue(config, field),
     };
   },
 };
