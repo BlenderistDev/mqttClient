@@ -19,7 +19,7 @@ export default {
       width: 3
     },
     password: {
-      type: 'Input',
+      type: 'Password',
       name: 'password',
       width: 2
     },

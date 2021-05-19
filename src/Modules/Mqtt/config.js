@@ -13,7 +13,7 @@ export default {
       width: 4
     },
     password: {
-      type: 'Input',
+      type: 'Password',
       name: 'password',
       width: 2
     },
