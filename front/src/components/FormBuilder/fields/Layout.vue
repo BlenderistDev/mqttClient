@@ -1,17 +1,19 @@
 <template lang="pug">
-Layout(:field="field")
-  input(v-model="value" :type="type" class="form-control")
+div
+  div(v-if="!field.width")
+    .input-group
+      .input-group-prepend {{ field.name }}
+      slot
+  div(v-else) {{ field.name }}
+    slot
 </template>
+
 <script>
 import { computed, toRefs } from "vue";
 import { useStore } from "vuex";
 import _ from "lodash";
-import Layout from "./Layout";
 
 export default {
-  components: {
-    Layout,
-  },
   props: {
     type: {
       default: "",
@@ -39,3 +41,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.input-group-prepend {
+  margin-right: 10px;
+}
+</style>

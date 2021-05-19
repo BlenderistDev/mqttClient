@@ -10,6 +10,7 @@ div(:class="fieldClass")
 <script>
 import Input from "./fields/Input";
 import Number from "./fields/Number";
+import Select from "./fields/Select";
 import Socket from "./fields/Socket";
 import SocketList from "./fields/SocketList";
 import { toRefs, computed } from "vue";
@@ -22,6 +23,7 @@ export default {
     Number,
     Socket,
     SocketList,
+    Select,
   },
   setup(props) {
     const { field } = toRefs(props);

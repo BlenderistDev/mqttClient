@@ -1,7 +1,9 @@
 <template lang="pug">
 Layout(:field="field")
-  input(v-model="value" :type="type" class="form-control")
+  select.form-control(v-model="value")
+    option(v-for="option in field.options" :value="option") {{ option }}
 </template>
+
 <script>
 import { computed, toRefs } from "vue";
 import { useStore } from "vuex";
@@ -39,3 +41,5 @@ export default {
   },
 };
 </script>
+
+<style scoped></style>
