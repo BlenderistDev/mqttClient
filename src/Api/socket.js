@@ -1,18 +1,24 @@
-import { mqttClient } from '../core/MqttClient.js'
+const mqttGatewayGroup = 'mqttGateway'
+const mqttListenerGroup = 'mqttListener'
+const frontendGroup = 'frontend'
 
 export const socketHandler = (socket) => {
-  mqttClient.on('message', data => socket.emit('mqtt', data))
-  socket.on('mqtt', data => mqttClient.sendMessage(data))
-
   const module = socket.handshake.query.module
-  if (module) {
-    socket.on('data', (data) => socket.to('frontend').emit('data', {
-      module: module,
-      data: data
-    }))
-  }
-  if (socket.handshake.query.frontend) {
-    socket.join('frontend')
-    socket.on('data', data => socket.to(data.module).emit('data'. data.data))
+  if (module === 'Mqtt') {
+    socket.join(mqttGatewayGroup)
+    socket.on('data', data => socket.to(mqttListenerGroup).emit('mqtt', data))
+  } else {
+    socket.on('mqtt', data => socket.to(mqttGatewayGroup).emit('data', data))
+    socket.join(mqttListenerGroup)
+    if (module) {
+      socket.on('data', (data) => socket.to(frontendGroup).emit('data', {
+        module: module,
+        data: data
+      }))
+    }
+    if (socket.handshake.query.frontend) {
+      socket.join(frontendGroup)
+      socket.on('data', data => socket.to(data.module).emit('data'. data.data))
+    }
   }
 }

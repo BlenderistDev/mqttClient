@@ -4,10 +4,6 @@ import path from 'path'
 import _ from 'lodash'
 import { fork } from 'child_process'
 
-const config = getConfig('Mqtt')
-
-const mqttPrefix = config.topic
-
 let modules = [];
 
 /**
@@ -20,7 +16,6 @@ function setModule(sModuleDir) {
   fs.promises.access(modulePath, fs.constants.R_OK).then(async () => {
     const module = fork(modulePath, [JSON.stringify({
       name: sModuleDir,
-      topic: `${mqttPrefix}/${sModuleDir}`,
       config: getConfig(sModuleDir)
     })]);
     modules.push({

@@ -13,7 +13,6 @@ import TopicMessages from "./Topic/TopicMessages";
 import AllMessages from "./AllMessages/AllMessages";
 import Tree from "./Tree/Tree";
 import SendForm from "./SendForm";
-import { startMqttSocket } from "../../services/socket";
 
 export default {
   components: {
@@ -23,7 +22,6 @@ export default {
     SendForm
   },
   setup() {
-    startMqttSocket();
     const tabs = {
       all: AllMessages,
       tree: Tree,

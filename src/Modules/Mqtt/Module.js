@@ -1,9 +1,8 @@
 import mqtt from 'mqtt';
-import EventEmitter from 'events';
-import { getConfig } from './Config.js'
+import { moduleClient } from '../../Components/SocketClient.js'
+import { getConfig } from '../../core/Config.js'
 
 const config = getConfig('Mqtt')
-const mqttClient = new EventEmitter()
 
 const connection = mqtt.connect(config.host, {
   username: config.username,
@@ -11,7 +10,7 @@ const connection = mqtt.connect(config.host, {
 })
 
 connection.on('connect', () => connection.subscribe('#', { qos: 2 }))
-connection.on('message', (topic, message, packet) => mqttClient.emit('message', {
+connection.on('message', (topic, message, packet) => moduleClient.send({
     topic: topic.toString(),
     message: message.toString(),
     retain: packet.retain,
@@ -21,9 +20,7 @@ connection.on('message', (topic, message, packet) => mqttClient.emit('message', 
 )
 connection.on('error', (error) => console.error(error.message))
 
-mqttClient.sendMessage = (message) => connection.publish(message.topic, message.message, {
+moduleClient.on('message', message => connection.publish(message.topic, message.message, {
   qos: parseInt(message.qos ? message.qos : 0),
   retain: message.retain ? message.retain : false
-})
-
-export {mqttClient}
+}))
