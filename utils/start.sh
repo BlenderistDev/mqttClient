@@ -1,2 +1,2 @@
-#!/bin/bash
-node /app/main.js
+#!/bin/sh
+sh utils/frontProd.sh && node main.js
