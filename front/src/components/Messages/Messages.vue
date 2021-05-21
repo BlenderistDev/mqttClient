@@ -8,9 +8,7 @@ div
 </template>
 
 <script>
-import { computed, ref,
-  // watch
-} from "vue";
+import { computed, ref } from "vue";
 import TopicMessages from "./Topic/TopicMessages";
 import AllMessages from "./AllMessages/AllMessages";
 import Tree from "./Tree/Tree";
@@ -44,26 +42,14 @@ export default {
         count: topicCount
       },
     });
-
     const currentView = ref("all");
-    const currentTab = computed(() => tabs.value[currentView.value].component);
     return {
       tabs,
       currentView,
-      currentTab,
+      currentTab: computed(() => tabs.value[currentView.value].component),
+      setActiveTab: tab => currentView.value = tab,
+      getTabClass: tab => tab === currentView.value ? 'nav-link active' : 'nav-link',
     };
-  },
-  methods: {
-    setActiveTab(tab) {
-      this.currentView = tab;
-    },
-    getTabClass(tab) {
-      let tabClass = "nav-link";
-      if (tab === this.currentView) {
-        tabClass += " active";
-      }
-      return tabClass;
-    },
   },
 };
 </script>
