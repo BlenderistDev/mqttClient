@@ -1,2 +1,2 @@
 #!/bin/sh
-node main.js
+CONFIG_DIR=/data/ node main.js
