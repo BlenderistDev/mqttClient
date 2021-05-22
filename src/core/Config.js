@@ -3,6 +3,10 @@ import fs from 'fs'
 import _ from "lodash"
 import * as R from "ramda";
 
+const configFolder = './config/';
+const configFileName = 'config.yml';
+const configPath = configFolder + configFileName;
+
 const defaultConfig = {
   mqtt: {
     host: '',
@@ -12,11 +16,15 @@ const defaultConfig = {
   }
 }
 
-const writeConfig = config => fs.writeFileSync('./config/config.yml', yaml.safeDump(config))
+if (!fs.existsSync(configFolder)) {
+  fs.mkdirSync(configFolder);
+}
+
+const writeConfig = config => fs.writeFileSync(configPath, yaml.safeDump(config))
 
 const loadConfig = () => {
   try {
-    let config = yaml.safeLoad(fs.readFileSync('./config/config.yml', 'utf8'))
+    let config = yaml.safeLoad(fs.readFileSync(configPath, 'utf8'))
     return _.forIn(config, config => _.isArray(config) ? _.map(config, (config, key) => _.merge(config, { id: key })) : config)
   } catch (e) {
     writeConfig(defaultConfig)
