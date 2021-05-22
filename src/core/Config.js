@@ -3,7 +3,7 @@ import fs from 'fs'
 import _ from "lodash"
 import * as R from "ramda";
 
-const configFolder = './config/';
+const configFolder = _.isUndefined(process.env.CONFIG_DIR) ? './config/' : process.env.CONFIG_DIR;
 const configFileName = 'config.yml';
 const configPath = configFolder + configFileName;
 
