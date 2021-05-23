@@ -29,14 +29,14 @@ export default {
     const messagesCount = computed(() => store.getters["messages/messagesCount"]);
     const topicCount = computed(() => store.getters["messages/topicCount"]);
     const tabs = ref({
+      tree: {
+        component: "Tree",
+        name: "Tree",
+      },
       all: {
         component: "AllMessages",
         name: "All",
         count: messagesCount,
-      },
-      tree: {
-        component: "Tree",
-        name: "Tree",
       },
       topic: {
         component: "TopicMessages",
@@ -44,7 +44,7 @@ export default {
         count: topicCount,
       },
     });
-    const currentView = ref("all");
+    const currentView = ref("tree");
     return {
       tabs,
       currentView,
