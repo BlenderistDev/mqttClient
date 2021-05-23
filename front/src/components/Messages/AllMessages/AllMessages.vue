@@ -12,6 +12,7 @@ div
       .card-header {{ message.topic }}
       .card-body.justify-content-between
         Message(:message="message")
+  .btn.btn-secondary.d-flex.justify-content-center(v-if="messages.length > countToShow && page > 1" @click="page--") Less
   .btn.btn-secondary.d-flex.justify-content-center(v-if="messages.length > countToShow" @click="page++") More
 </template>
 
