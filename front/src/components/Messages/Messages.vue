@@ -3,7 +3,9 @@ div
   SendForm
   ul(class="nav nav-tabs nav-fill")
     li(class="nav-item" v-for="tab, name in tabs")
-      a(:class="getTabClass(name)" @click="setActiveTab(name)") {{ tab.name }} {{ tab.count }}
+      span(:class="getTabClass(name)" @click="setActiveTab(name)")
+        span.tabname {{ tab.name }} 
+        .badge.rounded-pill.bg-info {{ tab.count }}
   component(:is="currentTab")
 </template>
 
@@ -13,14 +15,14 @@ import TopicMessages from "./Topic/TopicMessages";
 import AllMessages from "./AllMessages/AllMessages";
 import Tree from "./Tree/Tree";
 import SendForm from "./SendForm";
-import {useStore} from "vuex";
+import { useStore } from "vuex";
 
 export default {
   components: {
     TopicMessages,
     AllMessages,
     Tree,
-    SendForm
+    SendForm,
   },
   setup() {
     const store = useStore();
@@ -28,18 +30,18 @@ export default {
     const topicCount = computed(() => store.getters["messages/topicCount"]);
     const tabs = ref({
       all: {
-        component: 'AllMessages',
-        name: 'All',
-        count: messagesCount
+        component: "AllMessages",
+        name: "All",
+        count: messagesCount,
       },
       tree: {
-        component: 'Tree',
-        name: 'Tree',
+        component: "Tree",
+        name: "Tree",
       },
       topic: {
-        component: 'TopicMessages',
-        name: 'topic',
-        count: topicCount
+        component: "TopicMessages",
+        name: "Topic",
+        count: topicCount,
       },
     });
     const currentView = ref("all");
@@ -47,9 +49,15 @@ export default {
       tabs,
       currentView,
       currentTab: computed(() => tabs.value[currentView.value].component),
-      setActiveTab: tab => currentView.value = tab,
-      getTabClass: tab => tab === currentView.value ? 'nav-link active' : 'nav-link',
+      setActiveTab: (tab) => (currentView.value = tab),
+      getTabClass: (tab) => (tab === currentView.value ? "nav-link active" : "nav-link"),
     };
   },
 };
 </script>
+
+<style scoped>
+.badge {
+  margin-left: 10px;
+}
+</style>
