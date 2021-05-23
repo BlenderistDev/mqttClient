@@ -36,7 +36,7 @@ fs.promises.readdir('src/Modules').then(modules => _.map(modules, setModule))
 export const getModules = () => modules
 
 export const restartModule = (moduleName) => {
-  _.find(modules, { 'name': moduleName })?.process?.kill()
+  _.find(modules, { 'name': moduleName }).process.kill()
   modules = _.filter(modules, module => module.name !== moduleName)
   reloadConfig()
   setModule(moduleName)
