@@ -2,12 +2,17 @@
 div
   .row
     .col-md-1 Topic:
-    .col-11
+    .col-9
       input(v-model='filterTopic')
-  .card(v-for="message in filtredMessages")
-    .card-header {{ message.topic }}
-    .card-body.justify-content-between
-      Message(:message="message")
+    .col-md-1 On page:
+    .col-md-1
+      input(v-model='prePage')
+  template(v-for="(message, key) in filtredMessages")
+    .card(v-if="key < countToShow")
+      .card-header {{ message.topic }}
+      .card-body.justify-content-between
+        Message(:message="message")
+  .btn.btn-secondary.d-flex.justify-content-center(v-if="messages.length > countToShow" @click="page++") More
 </template>
 
 <script>
@@ -30,10 +35,15 @@ export default {
         (message) => !filterTopic.value || message.topic.includes(filterTopic.value)
       )
     );
+    const page = ref(1);
+    const prePage = ref(100);
     return {
       messages,
       filterTopic,
       filtredMessages,
+      page,
+      prePage,
+      countToShow: computed(() => page.value * prePage.value),
     };
   },
 };
@@ -42,5 +52,8 @@ export default {
 <style scoped>
 input {
   width: 100%;
+}
+.btn {
+  margin-top: 20px;
 }
 </style>
