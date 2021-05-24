@@ -1,4 +1,4 @@
-import { getConfig, reloadConfig } from './Config.js'
+import { getConfig } from './Config.js'
 import fs from 'fs'
 import path from 'path'
 import _ from 'lodash'
@@ -37,6 +37,5 @@ export const startModules = () => fs.promises.readdir('src/Modules').then(module
 
 export const restartModule = (moduleName) => {
   moduleKiller.emit(moduleName)
-  reloadConfig()
   setModule(moduleName)
 }
