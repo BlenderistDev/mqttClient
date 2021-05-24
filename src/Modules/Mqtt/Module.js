@@ -1,8 +1,6 @@
 import mqtt from 'mqtt';
 import { moduleClient } from '../../Components/SocketClient.js'
-import { getConfig } from '../../core/Config.js'
-
-const config = getConfig('Mqtt')
+import { config } from "../../Components/ModuleConfig.js";
 
 const connection = mqtt.connect(config.host, {
   username: config.username,
