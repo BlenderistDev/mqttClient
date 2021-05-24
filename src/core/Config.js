@@ -8,7 +8,7 @@ const configFileName = 'config.yml';
 const configPath = configFolder + configFileName;
 
 const defaultConfig = {
-  mqtt: {
+  Mqtt: {
     host: '',
     username: '',
     password: '',
