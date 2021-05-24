@@ -1,8 +1,7 @@
 import {app} from './src/Api/app.js';
-import {getModules} from './src/core/ModuleManager.js';
+import {startModules} from './src/core/ModuleManager.js';
 
+startModules()
 
-getModules()
-
-const api = app;
+// const api = app;
 

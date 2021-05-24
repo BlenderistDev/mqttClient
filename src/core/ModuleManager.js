@@ -3,8 +3,9 @@ import fs from 'fs'
 import path from 'path'
 import _ from 'lodash'
 import { fork } from 'child_process'
+import EventEmitter from "events";
 
-let modules = [];
+const moduleKiller = new EventEmitter()
 
 /**
  * Проверяем существование модуля в директории модуля
@@ -18,10 +19,7 @@ function setModule(sModuleDir) {
       name: sModuleDir,
       config: getConfig(sModuleDir)
     })]);
-    modules.push({
-      name: sModuleDir,
-      process: module
-    })
+    moduleKiller.on(sModuleDir, () => module.kill())
   }).catch((err) => {
     if (err.code === 'ENOENT') {
       console.log(`Module without logic: ${sModuleDir}`)
@@ -31,13 +29,10 @@ function setModule(sModuleDir) {
   })
 }
 
-fs.promises.readdir('src/Modules').then(modules => _.map(modules, setModule))
-
-export const getModules = () => modules
+export const startModules = () => fs.promises.readdir('src/Modules').then(modules => _.map(modules, setModule))
 
 export const restartModule = (moduleName) => {
-  _.find(modules, { 'name': moduleName }).process.kill()
-  modules = _.filter(modules, module => module.name !== moduleName)
+  moduleKiller.emit(moduleName)
   reloadConfig()
   setModule(moduleName)
 }
