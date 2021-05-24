@@ -24,22 +24,17 @@ const writeConfig = config => fs.writeFileSync(configPath, yaml.safeDump(config)
 
 const loadConfig = () => {
   try {
-    let config = yaml.safeLoad(fs.readFileSync(configPath, 'utf8'))
+    const config = yaml.safeLoad(fs.readFileSync(configPath, 'utf8'))
     return _.forIn(config, config => _.isArray(config) ? _.map(config, (config, key) => _.merge(config, { id: key })) : config)
   } catch (e) {
     writeConfig(defaultConfig)
     return defaultConfig
   }
 }
+const setModuleConfig = (module, moduleConfig) => R.over(R.lensProp(module, config), () => moduleConfig, config)
 
 let config = loadConfig()
 
-export const reloadConfig = () => {
-  config = loadConfig()
-}
-
+export const reloadConfig = () => config = loadConfig()
 export const getConfig = module => config[module]
-
-const setModuleConfig = (module, moduleConfig) => R.over(R.lensProp(module, config), () => moduleConfig, config)
-
 export const setConfig = R.compose(reloadConfig, writeConfig, setModuleConfig)
