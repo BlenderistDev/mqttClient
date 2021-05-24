@@ -5,6 +5,9 @@ import _ from 'lodash'
 import { fork } from 'child_process'
 import EventEmitter from "events";
 
+const mqttConfig = getConfig('Mqtt')
+const mqttPrefix = mqttConfig.topic
+
 const moduleKiller = new EventEmitter()
 
 /**
@@ -17,7 +20,8 @@ function setModule(sModuleDir) {
   fs.promises.access(modulePath, fs.constants.R_OK).then(async () => {
     const module = fork(modulePath, [JSON.stringify({
       name: sModuleDir,
-      config: getConfig(sModuleDir)
+      config: getConfig(sModuleDir),
+      mqttPrefix: mqttPrefix
     })]);
     moduleKiller.on(sModuleDir, () => module.kill())
   }).catch((err) => {
