@@ -1,7 +1,7 @@
 <template lang="pug">
 Layout(:field="field")
-  img(src="@/assets/eye.png" @click="toogleVisible")
-  input(v-model="value" :type="type" class="form-control")
+  img(src="@/assets/eye.png" @click="toggleVisible")
+  input(v-model="value" :type="type" class="form-control" :placeholder="field.placeholder")
 </template>
 
 <script>
@@ -27,7 +27,7 @@ export default {
     return {
       value: getConfigValue(config, field),
       type,
-      toogleVisible: () =>
+      toggleVisible: () =>
         (type.value = type.value === "password" ? "input" : "password"),
     };
   },

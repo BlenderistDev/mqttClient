@@ -1,6 +1,6 @@
 <template lang="pug">
 Layout(:field="field")
-  input(v-model="value" :type="type" class="form-control")
+  input(v-model="value" :type="type" class="form-control" :placeholder="field.placeholder")
 </template>
 
 <script>
