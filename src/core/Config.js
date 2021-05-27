@@ -16,9 +16,8 @@ const defaultConfig = {
   }
 }
 
-if (!fs.existsSync(configFolder)) {
-  fs.mkdirSync(configFolder);
-}
+const checkDirExist = R.unless(fs.existsSync, fs.mkdirSync)
+checkDirExist(configFolder)
 
 const writeConfig = config => fs.writeFileSync(configPath, yaml.safeDump(config))
 
