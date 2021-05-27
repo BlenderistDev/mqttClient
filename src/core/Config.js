@@ -20,16 +20,13 @@ const checkDirExist = R.unless(fs.existsSync, fs.mkdirSync)
 checkDirExist(configFolder)
 
 const writeConfig = config => fs.writeFileSync(configPath, yaml.safeDump(config))
+const addId = R.when(R.is(Array), R.mapObjIndexed((config, key) => _.merge(config, { id: key })))
 
-const loadConfig = () => {
-  try {
-    const config = yaml.safeLoad(fs.readFileSync(configPath, 'utf8'))
-    return _.forIn(config, config => _.isArray(config) ? _.map(config, (config, key) => _.merge(config, { id: key })) : config)
-  } catch (e) {
-    writeConfig(defaultConfig)
-    return defaultConfig
-  }
-}
+const loadConfig = R.tryCatch(
+  () => _.forIn(yaml.safeLoad(fs.readFileSync(configPath, 'utf8')), addId),
+  () => writeConfig(defaultConfig)
+)
+
 const setModuleConfig = (module, moduleConfig) => R.over(R.lensProp(module, config), () => moduleConfig, config)
 
 let config = loadConfig()
