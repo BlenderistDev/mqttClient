@@ -19,16 +19,12 @@ const defaultConfig = {
 const checkDirExist = R.unless(fs.existsSync, fs.mkdirSync)
 const checkConfigDirExist = () => checkDirExist(configFolder)
 
-const readConfig = () => yaml.safeLoad(fs.readFileSync(configPath, 'utf8'))
 const writeConfig = config => fs.writeFileSync(configPath, yaml.safeDump(config))
 const writeDefaultConfig = () => writeConfig(defaultConfig)
 
-const addId = R.when(
-  R.is(Array),
-  R.mapObjIndexed(
-    (config, key) => _.merge(config, { id: key })
-  )
-)
+const readConfig = () => yaml.safeLoad(fs.readFileSync(configPath, 'utf8'))
+const addIdToConfig = (config, key) => config.id = key
+const addId = R.when(R.is(Array), R.mapObjIndexed(addIdToConfig))
 const getConfigWithIds = R.pipe(readConfig, R.forEachObjIndexed(addId))
 const loadConfig = R.tryCatch(
   R.compose(getConfigWithIds, checkConfigDirExist),
