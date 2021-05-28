@@ -1,10 +1,10 @@
 import yaml from 'js-yaml'
 import fs from 'fs'
-import _ from "lodash"
 import * as R from "ramda";
 
-const configFolder = _.isUndefined(process.env.CONFIG_DIR) ? './config/' : process.env.CONFIG_DIR;
-const configFileName = 'config.yml';
+const defaultConfigFolder = './config'
+const configFileName = '/config.yml';
+const configFolder = R.when(R.isNil, () => defaultConfigFolder)(process.env.CONFIG_DIR)
 const configPath = configFolder + configFileName;
 
 const defaultConfig = {
