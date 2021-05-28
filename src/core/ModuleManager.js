@@ -18,12 +18,15 @@ const moduleKiller = new EventEmitter()
 function setModule(sModuleDir) {
   const modulePath = path.join('src', 'Modules', sModuleDir, 'Module.js');
   fs.promises.access(modulePath, fs.constants.R_OK).then(async () => {
-    const module = fork(modulePath, [JSON.stringify({
-      name: sModuleDir,
-      config: getConfig(sModuleDir),
-      mqttPrefix: mqttPrefix
-    })]);
-    moduleKiller.on(sModuleDir, () => module.kill())
+    const config = getConfig(sModuleDir)
+    if (typeof config !== 'undefined') {
+      const module = fork(modulePath, [JSON.stringify({
+        name: sModuleDir,
+        config: getConfig(sModuleDir),
+        mqttPrefix: mqttPrefix
+      })]);
+      moduleKiller.on(sModuleDir, () => module.kill())
+    }
   }).catch((err) => {
     if (err.code === 'ENOENT') {
       console.log(`Module without logic: ${sModuleDir}`)
