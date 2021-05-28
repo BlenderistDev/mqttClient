@@ -17,17 +17,29 @@ const defaultConfig = {
 }
 
 const checkDirExist = R.unless(fs.existsSync, fs.mkdirSync)
-checkDirExist(configFolder)
+const checkConfigDirExist = () => checkDirExist(configFolder)
 
+const readConfig = () => yaml.safeLoad(fs.readFileSync(configPath, 'utf8'))
 const writeConfig = config => fs.writeFileSync(configPath, yaml.safeDump(config))
-const addId = R.when(R.is(Array), R.mapObjIndexed((config, key) => _.merge(config, { id: key })))
+const writeDefaultConfig = () => writeConfig(defaultConfig)
 
+const addId = R.when(
+  R.is(Array),
+  R.mapObjIndexed(
+    (config, key) => _.merge(config, { id: key })
+  )
+)
+const getConfigWithIds = R.pipe(readConfig, R.forEachObjIndexed(addId))
 const loadConfig = R.tryCatch(
-  () => _.forIn(yaml.safeLoad(fs.readFileSync(configPath, 'utf8')), addId),
-  () => writeConfig(defaultConfig)
+  R.compose(getConfigWithIds, checkConfigDirExist),
+  R.compose(getConfigWithIds, writeDefaultConfig)
 )
 
-const setModuleConfig = (module, moduleConfig) => R.over(R.lensProp(module, config), () => moduleConfig, config)
+const setModuleConfig = (module, moduleConfig) => R.over(
+  R.lensProp(module, config),
+  () => moduleConfig,
+  config
+)
 
 let config = loadConfig()
 
