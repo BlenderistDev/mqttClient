@@ -7,8 +7,9 @@ const resultSubTopic = topic + '/result';
 
 sendDiscoveryMessage('ping', resultSubTopic, 'sensor', { unit_of_measurement: 'c' });
 
-if (typeof config.interval !== 'undefined') {
-  setInterval(() => mqttClient.send(measureSubTopic, JSON.stringify({ timestamp: Date.now() })), parseInt(config.interval) * 1000);
+const interval = parseInt(config.interval)
+if (interval) {
+  setInterval(() => mqttClient.send(measureSubTopic, JSON.stringify({ timestamp: Date.now() })), parseInt(interval) * 1000);
 }
 
 mqttClient.on('message', (mqttMessage) => {
