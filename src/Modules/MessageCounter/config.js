@@ -6,7 +6,7 @@ export default {
       type: 'Number',
       name: 'interval',
       width: 8,
-      validator: 'required'
+      validator: ['required', 'positiveNumber']
     },
     socket: {
       type: 'SocketList',

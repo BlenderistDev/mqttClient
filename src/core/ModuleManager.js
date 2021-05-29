@@ -21,6 +21,7 @@ const launch = _.curry((modulePath, sModuleDir, config) => {
       })]);
       moduleKiller.on(sModuleDir, () => module.kill())      
     } else {
+      console.error(sModuleDir)
       console.error(data)
     }
   })
