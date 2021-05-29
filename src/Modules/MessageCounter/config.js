@@ -5,7 +5,8 @@ export default {
     interval: {
       type: 'Number',
       name: 'interval',
-      width: 8
+      width: 8,
+      validator: 'required'
     },
     socket: {
       type: 'SocketList',
