@@ -4,7 +4,8 @@ export default {
   fields: {
     interval: {
       type: 'Number',
-      name: 'interval'
+      name: 'interval',
+      validator: 'required'
     },
     ping: {
       type: 'Socket',

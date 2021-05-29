@@ -1,5 +1,4 @@
 import shell from 'shelljs';
-import _ from "lodash";
 import { mqttClient } from '../../Components/SocketClient.js'
 import { config } from "../../Components/ModuleConfig.js";
 
@@ -18,8 +17,7 @@ function executeCommand(sCommandTemplate, oReplaceData) {
 }
 
 mqttClient.on('message', (mqttMessage) => {
-  _.chain(config)
-    .filter(config => config.topic === mqttMessage.topic)
-    .map(config => executeCommand(config.commandTemplate, JSON.parse(mqttMessage.message)))
-    .value()
-});
+  if (config.topic === mqttMessage.topic) {
+    executeCommand(config.commandTemplate, JSON.parse(mqttMessage.message))
+  }
+})

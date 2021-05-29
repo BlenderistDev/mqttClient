@@ -1,14 +1,11 @@
-import shell from 'shelljs';
-import {sendDiscoveryMessage} from '../../Components/HomeAssistant.js';
-import _ from 'lodash';
+import shell from 'shelljs'
+import { sendDiscoveryMessage } from '../../Components/HomeAssistant.js'
 import md5 from 'md5'
 import { mqttClient } from '../../Components/SocketClient.js'
-import { config, topic } from "../../Components/ModuleConfig.js";
+import { config, topic } from "../../Components/ModuleConfig.js"
 
-_.map(config, sender => {
-  const moduleTopic = `${topic}/${sender.topic}`
-  sendDiscoveryMessage(md5(moduleTopic), moduleTopic, 'sensor', {});
-  if (sender.command) {
-    setInterval(() => mqttClient.send(moduleTopic, shell.exec(sender.command, {'silent': true}).toString()), sender.interval);
-  }
-})
+const moduleTopic = `${topic}/${config.topic}`
+sendDiscoveryMessage(md5(moduleTopic), moduleTopic, 'sensor', {})
+if (config.command) {
+  setInterval(() => mqttClient.send(moduleTopic, shell.exec(config.command, {'silent': true}).toString()), config.interval)
+}

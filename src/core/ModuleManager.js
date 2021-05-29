@@ -3,12 +3,29 @@ import fs from 'fs'
 import path from 'path'
 import _ from 'lodash'
 import { fork } from 'child_process'
-import EventEmitter from "events";
+import EventEmitter from "events"
+import { validate } from './Validator.js'
 
 const mqttConfig = getConfig('Mqtt')
 const mqttPrefix = mqttConfig.topic
 
 const moduleKiller = new EventEmitter()
+
+const launch = _.curry((modulePath, sModuleDir, config) => {
+  validate(sModuleDir, config).then(data => {
+    if (_.isEmpty(data)) {
+      const module = fork(modulePath, [JSON.stringify({
+        name: sModuleDir,
+        config: config,
+        mqttPrefix: mqttPrefix
+      })]);
+      moduleKiller.on(sModuleDir, () => module.kill())      
+    } else {
+      console.error(data)
+    }
+  })
+
+})
 
 /**
  * Проверяем существование модуля в директории модуля
@@ -19,13 +36,13 @@ function setModule(sModuleDir) {
   const modulePath = path.join('src', 'Modules', sModuleDir, 'Module.js');
   fs.promises.access(modulePath, fs.constants.R_OK).then(async () => {
     const config = getConfig(sModuleDir)
-    if (typeof config !== 'undefined') {
-      const module = fork(modulePath, [JSON.stringify({
-        name: sModuleDir,
-        config: getConfig(sModuleDir),
-        mqttPrefix: mqttPrefix
-      })]);
-      moduleKiller.on(sModuleDir, () => module.kill())
+    const launchModule = launch(modulePath, sModuleDir)
+    if (_.isUndefined(config)) {
+      console.log(`skip module ${sModuleDir}. Config is empty`)
+    } else if (_.isArray(config)) {
+      _.map(config, launchModule)
+    } else {
+      launchModule(config)
     }
   }).catch((err) => {
     if (err.code === 'ENOENT') {
