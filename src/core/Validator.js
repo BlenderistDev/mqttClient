@@ -1,5 +1,6 @@
 import { getModuleConfig } from '../Api/ModuleApi.js'
 import _ from 'lodash'
+import * as R from 'ramda'
 
 const validators = {
   required: value => !_.isEmpty(value),
@@ -16,15 +17,9 @@ export const validate = (module, config) => {
   )
 }
 
-const validateRow = (field, value) => {
-  const errors = []
-  if (field.validator) {
-    _.map(field.validator, validator => {
-      if (!validators[validator](value)) {
-        errors.push(validator)
-      }
-    })
-  }
-  return errors
-}
+const setFieldError = (field, validator) => () => R.set(R.lensProp(field.name), validator, {})
+const validateField = (field, validator) => R.ifElse(validators[validator], () => false, setFieldError(field, validator))
+const validateRow = (field, value) => _.map(field.validator,
+  validator => validateField(field, validator)(value)
+)
 
