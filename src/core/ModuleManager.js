@@ -19,13 +19,12 @@ const launch = _.curry((modulePath, sModuleDir, config) => {
         config: config,
         mqttPrefix: mqttPrefix
       })]);
-      moduleKiller.on(sModuleDir, () => module.kill())      
+      moduleKiller.on(sModuleDir, () => module.kill())
     } else {
       console.error(sModuleDir)
       console.error(data)
     }
   })
-
 })
 
 /**

@@ -3,8 +3,14 @@ import _ from 'lodash'
 import * as R from 'ramda'
 
 const validators = {
-  required: value => !_.isEmpty(value),
-  positiveNumber: value => parseInt(value) > 0
+  required: {
+    validate: value => !_.isEmpty(value),
+    message: field => `Field ${field} is required.`
+  },
+  positiveNumber: {
+    validate: value => parseInt(value) > 0,
+    message: (field, value) => `Field ${field} must be more than 0. ${value} given.`
+  }
 }
 
 export const validate = (module, config) => {
@@ -17,9 +23,12 @@ export const validate = (module, config) => {
   )
 }
 
-const setFieldError = (field, validator) => () => R.set(R.lensProp(field.name), validator, {})
-const validateField = (field, validator) => R.ifElse(validators[validator], () => false, setFieldError(field, validator))
+const validateField = (field, validator) => R.ifElse(
+  validators[validator].validate,
+  () => false,
+  R.useWith(validators[validator].message, [R.identity, R.identity])(field.name)
+)
+
 const validateRow = (field, value) => _.map(field.validator,
   validator => validateField(field, validator)(value)
 )
-
