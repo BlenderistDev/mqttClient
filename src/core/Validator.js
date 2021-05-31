@@ -4,7 +4,7 @@ import * as R from 'ramda'
 
 const validators = {
   required: {
-    validate: value => !_.isEmpty(value),
+    validate: value => !R.isEmpty(value),
     message: field => `Field ${field} is required.`
   },
   positiveNumber: {
@@ -13,22 +13,20 @@ const validators = {
   }
 }
 
-export const validate = (module, config) => {
-  return getModuleConfig(module).then(moduleConfig => _
-    .chain(moduleConfig.fields)
-    .map(field => validateRow(field, config[field.name]))
-    .flatMap()
-    .filter(error => !_.isEmpty(error))
-    .value()
-  )
-}
-
 const validateField = (field, validator) => R.ifElse(
   validators[validator].validate,
   () => false,
   R.useWith(validators[validator].message, [R.identity, R.identity])(field.name)
 )
 
-const validateRow = (field, value) => _.map(field.validator,
-  validator => validateField(field, validator)(value)
+const validateRow = (field, value) =>
+  _.map(field.validator, validator => validateField(field, validator)(value)
 )
+
+const prepareConfig = config => R.pipe(
+  R.andThen(R.prop('fields')),
+  R.andThen(R.map(field => validateRow(field, config[field.name]))),
+  R.andThen(R.reject(R.isEmpty)),
+)
+
+export const validate = (module, config) => prepareConfig(config)(getModuleConfig(module))
