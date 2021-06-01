@@ -12,34 +12,34 @@ const validators = {
   }
 }
 
-const makeValidation = R.curry((value, validator) => validator.validate(value))
+const validate = R.curry((value, validator) => validator.validate(value))
 const getValidationMessage = R.curry((field, value, validator) => validator.message(field.name, value))
 const getValidator = validator => validators[validator]
 
-const validateValue = (field, value) => R.ifElse(
-  makeValidation(value),
+const validatByValidator = (field, value) => R.ifElse(
+  validate(value),
   () => null,
   getValidationMessage(field, value)
 )
 
 const validateField = (field, value) => R.map(R.pipe(
   getValidator,
-  validateValue(field, value),
+  validatByValidator(field, value),
 ))
 
-const validateFields = (config) => R.ifElse(
-  R.has('validator'),
-  (field) => validateField(field, config[field.name])(field.validator),
-  () => []
-)
-
 const validateConfigFields = config => R.pipe(
-  R.andThen(R.prop('fields')),
-  R.andThen(R.map(R.pipe(
-    validateFields(config),
-    R.reject(R.isNil)
-  ))),
-  R.andThen(R.reject(R.isEmpty)),
+  R.prop('fields'),
+  R.map(
+    R.pipe(
+      R.ifElse(
+        R.has('validator'),
+        (field) => validateField(field, config[field.name])(field.validator),
+        () => []
+      ),
+      R.reject(R.isNil)
+    )
+  ),
+  R.reject(R.isEmpty),
 )
 
-export const validateConfig = (module, config) => validateConfigFields(config)(getModuleConfig(module))
+export const validateConfig = async (module, config) => validateConfigFields(config)(await getModuleConfig(module))
