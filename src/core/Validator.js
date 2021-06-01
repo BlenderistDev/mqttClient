@@ -18,13 +18,13 @@ const getValidator = validator => validators[validator]
 
 const validateField = (field, value) => R.ifElse(
   makeValidation(value),
-  () => false,
+  () => null,
   getValidationMessage(field, value)
 )
 
 const validateRow = (field, value) => R.map(R.pipe(
   getValidator,
-  validateField(field, value)
+  validateField(field, value),
 ))
 
 const getFieldValidators = (config) => R.ifElse(
@@ -35,7 +35,10 @@ const getFieldValidators = (config) => R.ifElse(
 
 const prepareConfig = config => R.pipe(
   R.andThen(R.prop('fields')),
-  R.andThen(R.map(getFieldValidators(config))),
+  R.andThen(R.map(R.pipe(
+    getFieldValidators(config),
+    R.reject(R.isNil)
+  ))),
   R.andThen(R.reject(R.isEmpty)),
 )
 
