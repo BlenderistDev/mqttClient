@@ -16,7 +16,7 @@ const validate = R.curry((value, validator) => validator.validate(value))
 const getValidationMessage = R.curry((field, value, validator) => validator.message(field.name, value))
 const getValidator = validator => validators[validator]
 
-const validatByValidator = (field, value) => R.ifElse(
+const validateByValidator = (field, value) => R.ifElse(
   validate(value),
   () => null,
   getValidationMessage(field, value)
@@ -24,7 +24,7 @@ const validatByValidator = (field, value) => R.ifElse(
 
 const validateField = (field, value) => R.map(R.pipe(
   getValidator,
-  validatByValidator(field, value),
+  validateByValidator(field, value),
 ))
 
 const validateConfigFields = config => R.pipe(
