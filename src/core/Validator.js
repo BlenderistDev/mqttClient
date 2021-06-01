@@ -1,5 +1,4 @@
 import { getModuleConfig } from '../Api/ModuleApi.js'
-import _ from 'lodash'
 import * as R from 'ramda'
 
 const validators = {
@@ -13,19 +12,30 @@ const validators = {
   }
 }
 
-const validateField = (field, validator) => R.ifElse(
-  validators[validator].validate,
+const makeValidation = R.curry((value, validator) => validator.validate(value))
+const getValidationMessage = R.curry((field, value, validator) => validator.message(field.name, value))
+const getValidator = validator => validators[validator]
+
+const validateField = (field, value) => R.ifElse(
+  makeValidation(value),
   () => false,
-  R.useWith(validators[validator].message, [R.identity, R.identity])(field.name)
+  getValidationMessage(field, value)
 )
 
-const validateRow = (field, value) =>
-  _.map(field.validator, validator => validateField(field, validator)(value)
+const validateRow = (field, value) => R.map(R.pipe(
+  getValidator,
+  validateField(field, value)
+))
+
+const getFieldValidators = (config) => R.ifElse(
+  R.has('validator'),
+  (field) => validateRow(field, config[field.name])(field.validator),
+  () => []
 )
 
 const prepareConfig = config => R.pipe(
   R.andThen(R.prop('fields')),
-  R.andThen(R.map(field => validateRow(field, config[field.name]))),
+  R.andThen(R.map(getFieldValidators(config))),
   R.andThen(R.reject(R.isEmpty)),
 )
 
