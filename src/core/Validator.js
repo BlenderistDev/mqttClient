@@ -16,30 +16,30 @@ const makeValidation = R.curry((value, validator) => validator.validate(value))
 const getValidationMessage = R.curry((field, value, validator) => validator.message(field.name, value))
 const getValidator = validator => validators[validator]
 
-const validateField = (field, value) => R.ifElse(
+const validateValue = (field, value) => R.ifElse(
   makeValidation(value),
   () => null,
   getValidationMessage(field, value)
 )
 
-const validateRow = (field, value) => R.map(R.pipe(
+const validateField = (field, value) => R.map(R.pipe(
   getValidator,
-  validateField(field, value),
+  validateValue(field, value),
 ))
 
-const getFieldValidators = (config) => R.ifElse(
+const validateFields = (config) => R.ifElse(
   R.has('validator'),
-  (field) => validateRow(field, config[field.name])(field.validator),
+  (field) => validateField(field, config[field.name])(field.validator),
   () => []
 )
 
-const prepareConfig = config => R.pipe(
+const validateConfigFields = config => R.pipe(
   R.andThen(R.prop('fields')),
   R.andThen(R.map(R.pipe(
-    getFieldValidators(config),
+    validateFields(config),
     R.reject(R.isNil)
   ))),
   R.andThen(R.reject(R.isEmpty)),
 )
 
-export const validate = (module, config) => prepareConfig(config)(getModuleConfig(module))
+export const validateConfig = (module, config) => validateConfigFields(config)(getModuleConfig(module))

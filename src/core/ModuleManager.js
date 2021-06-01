@@ -4,7 +4,7 @@ import path from 'path'
 import _ from 'lodash'
 import { fork } from 'child_process'
 import EventEmitter from "events"
-import { validate } from './Validator.js'
+import { validateConfig } from './Validator.js'
 
 const mqttConfig = getConfig('Mqtt')
 const mqttPrefix = mqttConfig.topic
@@ -12,7 +12,7 @@ const mqttPrefix = mqttConfig.topic
 const moduleKiller = new EventEmitter()
 
 const launch = _.curry((modulePath, sModuleDir, config) => {
-  validate(sModuleDir, config).then(data => {
+  validateConfig(sModuleDir, config).then(data => {
     if (_.isEmpty(data)) {
       const module = fork(modulePath, [JSON.stringify({
         name: sModuleDir,
