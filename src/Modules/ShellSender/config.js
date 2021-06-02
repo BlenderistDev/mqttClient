@@ -15,7 +15,8 @@ export default {
     interval: {
       type: 'Number',
       name: 'interval',
-      width: 2
+      width: 2,
+      validator: ['required', 'positiveNumber']
     },
   }
 }
