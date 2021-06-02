@@ -11,7 +11,9 @@ export default {
     host: {
       type: 'Input',
       name: 'host',
-      width: 3
+      width: 3,
+      placeholder: 'mqtt://127.0.0.1',
+      validator: ['required', 'hasProtocol']
     },
     username: {
       type: 'Input',
