@@ -6,7 +6,8 @@ export default {
       type: 'Input',
       name: 'host',
       width: 4,
-      placeholder: 'mqtt://127.0.0.1'
+      placeholder: 'mqtt://127.0.0.1',
+      validator: ['required', 'hasProtocol']
     },
     username: {
       type: 'Input',

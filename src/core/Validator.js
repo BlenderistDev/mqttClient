@@ -9,6 +9,10 @@ const validators = {
   positiveNumber: {
     validate: value => parseInt(value) > 0,
     message: (field, value) => `Field ${field} must be more than 0. ${value} given.`
+  },
+  hasProtocol: {
+    validate: value => R.test(/.+:\/\/.+/, value),
+    message: (field, value) => `Protocol is missing`
   }
 }
 
