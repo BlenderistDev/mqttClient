@@ -92,9 +92,9 @@ class Click {
    * Отправляем сообщение о клике
    */
   sendClickMessage() {
-    mqttClient.send(this.topic, 1);
+    mqttClient.send(this.topic, "1");
     setTimeout(() => {
-      mqttClient.send(this.topic, 0);
+      mqttClient.send(this.topic, "0");
     }, 600);
   }
 
