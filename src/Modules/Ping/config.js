@@ -5,7 +5,7 @@ export default {
     interval: {
       type: 'Number',
       name: 'interval',
-      validator: ['required']
+      validator: ['required', 'positiveNumber']
     },
     ping: {
       type: 'Socket',
