@@ -4,7 +4,9 @@ const mqttGatewayGroup = 'mqttGateway'
 const mqttListenerGroup = 'mqttListener'
 const frontendGroup = 'frontend'
 
-export const errorEmitter = new EventEmitter()
+const notificationEmitter = new EventEmitter()
+
+export const sendNotification = notification => notificationEmitter.emit('message', notification)
 
 export const socketHandler = (socket) => {
   const module = socket.handshake.query.module
@@ -23,7 +25,7 @@ export const socketHandler = (socket) => {
     if (socket.handshake.query.frontend) {
       socket.join(frontendGroup)
       socket.on('data', data => socket.to(data.module).emit('data'. data.data))
-      errorEmitter.on('message', error => socket.emit('notification', error))
+      notificationEmitter.on('message', notification => socket.emit('notification', notification))
     }
   }
 }

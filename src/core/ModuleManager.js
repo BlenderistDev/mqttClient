@@ -5,7 +5,7 @@ import _ from 'lodash'
 import { fork } from 'child_process'
 import EventEmitter from "events"
 import { validateConfig } from './Validator.js'
-import { errorEmitter } from '../Api/socket.js'
+import { sendNotification } from '../Api/socket.js'
 
 const mqttConfig = getConfig('Mqtt')
 const mqttPrefix = mqttConfig.topic
@@ -24,7 +24,7 @@ const launch = _.curry((modulePath, sModuleDir, config) => {
     } else {
       console.error(sModuleDir)
       console.error(data)
-      errorEmitter.emit('message', data)
+      sendNotification(data)
     }
   })
 })
