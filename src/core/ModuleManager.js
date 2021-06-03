@@ -40,7 +40,8 @@ function setModule(sModuleDir) {
     const config = getConfig(sModuleDir)
     const launchModule = launch(modulePath, sModuleDir)
     if (_.isUndefined(config)) {
-      console.log(`skip module ${sModuleDir}. Config is empty`)
+      console.log(`Skip module ${sModuleDir}. Config is empty`)
+      sendNotification(`Skip module ${sModuleDir}. Config is empty`)
     } else if (_.isArray(config)) {
       _.map(config, launchModule)
     } else {
@@ -48,7 +49,6 @@ function setModule(sModuleDir) {
     }
   }).catch((err) => {
     if (err.code === 'ENOENT') {
-      errorEmitter.emit('message', `Module without logic: ${sModuleDir}`)
       console.log(`Module without logic: ${sModuleDir}`)
     } else {
       throw err
