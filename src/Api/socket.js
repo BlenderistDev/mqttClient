@@ -1,12 +1,8 @@
-import EventEmitter from 'events';
+import { notificationEmitter } from '../core/Notification.js'
 
 const mqttGatewayGroup = 'mqttGateway'
 const mqttListenerGroup = 'mqttListener'
 const frontendGroup = 'frontend'
-
-const notificationEmitter = new EventEmitter()
-
-export const sendNotification = notification => notificationEmitter.emit('message', notification)
 
 export const socketHandler = (socket) => {
   const module = socket.handshake.query.module

@@ -5,7 +5,7 @@ import _ from 'lodash'
 import { fork } from 'child_process'
 import EventEmitter from "events"
 import { validateConfig } from './Validator.js'
-import { sendNotification } from '../Api/socket.js'
+import { sendNotification } from './Notification.js'
 
 const mqttConfig = getConfig('Mqtt')
 const mqttPrefix = mqttConfig.topic
@@ -23,7 +23,6 @@ const launch = _.curry((modulePath, sModuleDir, config) => {
       moduleKiller.on(sModuleDir, () => module.kill())
     } else {
       console.error(sModuleDir)
-      console.error(data)
       sendNotification(data)
     }
   })
@@ -40,7 +39,6 @@ function setModule(sModuleDir) {
     const config = getConfig(sModuleDir)
     const launchModule = launch(modulePath, sModuleDir)
     if (_.isUndefined(config)) {
-      console.log(`Skip module ${sModuleDir}. Config is empty`)
       sendNotification(`Skip module ${sModuleDir}. Config is empty`)
     } else if (_.isArray(config)) {
       _.map(config, launchModule)
