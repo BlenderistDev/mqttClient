@@ -5,6 +5,7 @@ import _ from 'lodash'
 import { fork } from 'child_process'
 import EventEmitter from "events"
 import { validateConfig } from './Validator.js'
+import { errorEmitter } from '../Api/socket.js'
 
 const mqttConfig = getConfig('Mqtt')
 const mqttPrefix = mqttConfig.topic
@@ -23,6 +24,7 @@ const launch = _.curry((modulePath, sModuleDir, config) => {
     } else {
       console.error(sModuleDir)
       console.error(data)
+      errorEmitter.emit('message', data)
     }
   })
 })
@@ -46,6 +48,7 @@ function setModule(sModuleDir) {
     }
   }).catch((err) => {
     if (err.code === 'ENOENT') {
+      errorEmitter.emit('message', `Module without logic: ${sModuleDir}`)
       console.log(`Module without logic: ${sModuleDir}`)
     } else {
       throw err

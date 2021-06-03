@@ -26,4 +26,9 @@ export function startMqttSocket() {
   socket.on('mqtt', message => store.commit("messages/addMessage", message))
 }
 
+export function startErrorSocket() {
+  const store = useStore();
+  socket.on('notification', message => store.commit("notifications/addNotification", message))
+}
+
 export const sendMqttMessage = (message) => socket.emit('mqtt', message)

@@ -4,11 +4,12 @@ router-view
 </template>
 
 <script>
-import {startMqttSocket} from "./services/socket";
+import {startMqttSocket, startErrorSocket} from "./services/socket";
 
 export default {
   setup() {
     startMqttSocket();
+    startErrorSocket();
   }
 }
 </script>
