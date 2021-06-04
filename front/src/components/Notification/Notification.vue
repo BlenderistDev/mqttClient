@@ -1,8 +1,11 @@
 <template lang="pug">
 div
-  div(v-for="(notification, index) in notifications")
-    span {{notification}}
-    button(@click="deleteNotification(index)") X
+  .card(v-for="(notification, index) in notifications")
+    .card-header.d-flex.justify-content-between
+      span {{ notification.module }}
+      button(@click="deleteNotification(index)") X
+    .card-body {{ notification.message }}
+    
 </template>
 
 <script>

@@ -22,8 +22,7 @@ const launch = _.curry((modulePath, sModuleDir, config) => {
       })]);
       moduleKiller.on(sModuleDir, () => module.kill())
     } else {
-      console.error(sModuleDir)
-      sendNotification(data)
+      sendNotification(sModuleDir, data)
     }
   })
 })
@@ -39,7 +38,7 @@ function setModule(sModuleDir) {
     const config = getConfig(sModuleDir)
     const launchModule = launch(modulePath, sModuleDir)
     if (_.isUndefined(config)) {
-      sendNotification(`Skip module ${sModuleDir}. Config is empty`)
+      sendNotification(sModuleDir, `Skip module ${sModuleDir}. Config is empty`)
     } else if (_.isArray(config)) {
       _.map(config, launchModule)
     } else {
