@@ -37,7 +37,7 @@ function setModule(sModuleDir) {
   fs.promises.access(modulePath, fs.constants.R_OK).then(async () => {
     const config = getConfig(sModuleDir)
     const launchModule = launch(modulePath, sModuleDir)
-    if (_.isUndefined(config)) {
+    if (_.isEmpty(config)) {
       sendNotification(sModuleDir, `Skip module ${sModuleDir}. Config is empty`)
     } else if (_.isArray(config)) {
       _.map(config, launchModule)
