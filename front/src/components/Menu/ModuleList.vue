@@ -1,9 +1,9 @@
 <template lang="pug">
-ul(class="list-group-flush")
-  li(class="list-group-item" aria-current="true")
+ul.bg-light.list-group-flush
+  li.list-group-item
     router-link(:to="{ name: 'Home' }")
       .menu-item Home
-  li(class="list-group-item" aria-current="true" v-for="module in moduleList")
+  li.list-group-item(v-for="module in moduleList")
     router-link(:to="{ name: 'module', params: { name: module } }")
       .menu-item {{ module }}
 </template>
@@ -21,7 +21,7 @@ export default {
     const store = useStore();
     store.dispatch("modules/fetchModuleList");
     return {
-      moduleList: computed(() => store.state.modules.moduleList),
+      moduleList: computed(() => store.state.modules.moduleList)
     };
   },
 };
@@ -31,5 +31,11 @@ export default {
 .menu-item {
   font-size: larger;
   color: black;
+}
+li {
+  padding-left: 0px;
+}
+.router-link-active {
+  color: red;
 }
 </style>
