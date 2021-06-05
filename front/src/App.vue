@@ -1,5 +1,5 @@
 <template lang="pug">
-.navbar.navbar-light.bg-light
+.navbar.navbar-light
 router-view
 </template>
 
@@ -16,6 +16,18 @@ export default {
 
 <style scoped>
 .navbar {
-  height: 50px;
+  height: 5vh;
+  background-color: #ced4da;
+}
+</style>
+
+<style>
+body, html {
+  height: 100vh
+}
+#app {
+  height: 95vh;
+  max-width: 1500px;
+  margin: auto;
 }
 </style>

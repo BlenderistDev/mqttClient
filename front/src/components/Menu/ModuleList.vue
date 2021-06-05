@@ -1,5 +1,5 @@
 <template lang="pug">
-ul.bg-light.list-group-flush
+ul.list-group-flush
   li.list-group-item
     router-link(:to="{ name: 'Home' }")
       .menu-item Home
@@ -34,6 +34,7 @@ export default {
 }
 li {
   padding-left: 0px;
+  background-color: inherit;
 }
 .router-link-active {
   color: red;

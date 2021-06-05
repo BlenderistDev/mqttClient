@@ -1,8 +1,8 @@
 <template lang="pug">
-.container-xxl
+.container-fluid
   Notification
   .row
-    .col-2
+    .col-2.menu
       Menu
     .col-md-10
       slot
@@ -20,3 +20,18 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.container-fluid {
+  height: 100%;
+}
+.row {
+  height: 100%;
+}
+.menu {
+  border-right: 1px solid;
+  margin-right: 0px;
+  padding-right: 0px;
+  background-color: #ced4da36;
+}
+</style>

@@ -28,3 +28,10 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+div {
+  position: sticky;
+  top: 0;
+}
+</style>
