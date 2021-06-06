@@ -1,9 +1,8 @@
 <template lang="pug">
-div
-  MobileMenu(v-if="isMobile")
-    ModuleList
-  DesktopMenu(v-else)
-    ModuleList
+MobileMenu(v-if="isMobile")
+  ModuleList
+DesktopMenu(v-else)
+  ModuleList
 </template>
 
 <script>
