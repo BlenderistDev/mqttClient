@@ -4,7 +4,7 @@
   .row
     .col-3.menu
       Menu
-    .col-md-9
+    .col-md-9.content
       slot
 </template>
 
@@ -27,5 +27,11 @@ export default {
 }
 .row {
   height: 100%;
+}
+.menu {
+  padding: 0px;
+}
+.content {
+  padding-right: 0px;
 }
 </style>
