@@ -25,9 +25,12 @@ export default {
 .container-fluid {
   height: 100%;
 }
-.row {
-  height: 100%;
+@media (min-width: 992px) {
+  .row {
+    height: 100%;
+  }
 }
+
 .menu {
   padding: 0px;
 }
