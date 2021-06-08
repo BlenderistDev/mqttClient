@@ -1,15 +1,21 @@
 <template lang="pug">
-.desktop-menu
+.desktop-menu(v-if="!isMobile")
   .desktop-menu-wrap
     ModuleList
 </template>
 
 <script>
 import ModuleList from "./ModuleList";
+import { isMobile } from '../../services/window'
 
 export default {
   components: {
     ModuleList
+  },
+  setup() {
+    return {
+      isMobile
+    }
   }
 }
 </script>

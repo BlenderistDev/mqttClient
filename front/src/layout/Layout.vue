@@ -3,19 +3,19 @@
   Notification
   .row
     .col-md-auto.menu
-      Menu
+      DesktopMenu
     .col-md.content
       slot
 </template>
 
 <script>
-import Menu from "@/components/Menu/Menu";
+import DesktopMenu from "@/components/Menu/DesktopMenu";
 import Notification from "../components/Notification/Notification";
 
 export default {
   name: "Module",
   components: {
-    Menu,
+    DesktopMenu,
     Notification,
   },
 };

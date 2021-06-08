@@ -1,8 +1,8 @@
 <template lang="pug">
-div
+div(v-if="isMobile")
   img(src="@/assets/menu.png" @click="show = !show")
   .menu(v-if="show")
-    div.mobile-menu-content(@click="show = false")
+    .mobile-menu-content(@click="show = false")
       .close X
       ModuleList
 </template>
@@ -10,12 +10,14 @@ div
 <script>
 import { ref } from "vue";
 import ModuleList from "./ModuleList";
+import { isMobile } from '../../services/window'
 
 export default {
   setup() {
     const show = ref(false);
     return {
       show,
+      isMobile
     };
   },
   components: {
