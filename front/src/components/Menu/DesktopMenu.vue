@@ -1,9 +1,18 @@
 <template lang="pug">
 .desktop-menu
-  div
-    slot
+  .desktop-menu-wrap
+    ModuleList
 </template>
 
+<script>
+import ModuleList from "./ModuleList";
+
+export default {
+  components: {
+    ModuleList
+  }
+}
+</script>
 <style scoped>
 .desktop-menu {
   height: 100%;
@@ -13,7 +22,7 @@
   padding-right: 0px;
   background-color: #ced4da36;
 }
-div {
+.desktop-menu-wrap {
   position: sticky;
   top: 0;
 }

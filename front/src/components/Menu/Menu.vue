@@ -1,8 +1,5 @@
 <template lang="pug">
-MobileMenu(v-if="isMobile")
-  ModuleList
-DesktopMenu(v-else)
-  ModuleList
+DesktopMenu(v-if="isDesktop")
 </template>
 
 <script>
@@ -22,7 +19,7 @@ export default {
     const windowWidth = ref(window.innerWidth);
     window.addEventListener("resize", () => (windowWidth.value = window.innerWidth));
     return {
-      isMobile: computed(() => windowWidth.value < 992),
+      isDesktop: computed(() => windowWidth.value > 992),
     };
   },
 };

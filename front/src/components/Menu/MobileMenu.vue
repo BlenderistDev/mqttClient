@@ -2,13 +2,14 @@
 div
   img(src="@/assets/menu.png" @click="show = !show")
   .menu(v-if="show")
-    div(@click="show = false")
+    div.mobile-menu-content(@click="show = false")
       .close X
-      slot
+      ModuleList
 </template>
 
 <script>
 import { ref } from "vue";
+import ModuleList from "./ModuleList";
 
 export default {
   setup() {
@@ -17,21 +18,27 @@ export default {
       show,
     };
   },
+  components: {
+    ModuleList
+  }
 };
 </script>
 
 <style scoped>
 .menu {
-  position: absolute;
+  position: fixed;
   left: 0;
   top: 0;
   width: 100%;
-  height: 100%;
-  background-color: white;
+  z-index: 1000;
 }
 .close {
   position: relative;
   left: 10px;
   top: 10px;
+}
+.mobile-menu-content {
+  background-color: #ced4da;
+  height: 100vh;
 }
 </style>

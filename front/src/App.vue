@@ -1,15 +1,20 @@
 <template lang="pug">
 .navbar.navbar-light
+  MobileMenu
 router-view
 </template>
 
 <script>
 import {startMqttSocket, startErrorSocket} from "./services/socket";
+import MobileMenu from '../src/components/Menu/MobileMenu.vue';
 
 export default {
   setup() {
     startMqttSocket();
     startErrorSocket();
+  },
+  components: {
+    MobileMenu
   }
 }
 </script>
