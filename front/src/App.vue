@@ -23,6 +23,7 @@ export default {
 .navbar {
   height: 5vh;
   background-color: #ced4da;
+  padding-top: 0px;
 }
 </style>
 

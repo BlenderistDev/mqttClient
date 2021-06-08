@@ -43,4 +43,7 @@ export default {
   background-color: #ced4da;
   height: 100vh;
 }
+img {
+  height: 5vh;
+}
 </style>
