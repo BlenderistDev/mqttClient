@@ -1,11 +1,12 @@
 <template lang="pug">
 ul.list-group-flush
-  li.list-group-item
-    router-link(:to="{ name: 'Home' }")
-      .menu-item Home
-  li.list-group-item(v-for="module in moduleList")
-    router-link(:to="{ name: 'module', params: { name: module } }")
-      .menu-item {{ module }}
+  router-link.list-group-item(:to="{ name: 'Home' }")
+    .menu-item Home
+  router-link.list-group-item(
+    v-for="module in moduleList"
+    :to="{ name: 'module', params: { name: module } }"
+  )
+    .menu-item {{ module }}
 </template>
 
 <script>
@@ -31,12 +32,16 @@ export default {
 .menu-item {
   font-size: larger;
   color: black;
+  margin-left: 20px;
 }
-li {
+.list-group-flush {
+  padding-left: 0px;
+}
+.list-group-item {
   padding-left: 0px;
   background-color: inherit;
 }
 .router-link-active {
-  color: red;
+  background-color: #dcd8e4;
 }
 </style>
