@@ -2,9 +2,9 @@
 .container-fluid
   Notification
   .row
-    .col-3.menu
+    .col-md-auto.menu
       Menu
-    .col-md-9.content
+    .col-md.content
       slot
 </template>
 
@@ -30,11 +30,7 @@ export default {
     height: 100%;
   }
 }
-
 .menu {
   padding: 0px;
-}
-.content {
-  padding-right: 0px;
 }
 </style>

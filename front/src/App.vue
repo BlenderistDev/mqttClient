@@ -27,7 +27,6 @@ body, html {
 }
 #app {
   height: 95vh;
-  max-width: 1500px;
   margin: auto;
 }
 </style>
