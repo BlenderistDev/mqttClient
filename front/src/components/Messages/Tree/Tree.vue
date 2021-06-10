@@ -16,7 +16,7 @@ export default {
   },
   setup() {
     const store = useStore();
-    const groupedMessages = computed(() => store.state.messages.groupedMessages);
+    const groupedMessages = computed(() => store.getters["messages/filterGroupedMessages"]);
     const topicTree = computed(() => {
       return _.chain(groupedMessages.value)
         .keys()
