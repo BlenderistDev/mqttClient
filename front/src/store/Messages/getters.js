@@ -1,7 +1,5 @@
 import _ from "lodash";
 
-export const topicCount = state => Object.keys(state.groupedMessages).length
-
 const stringIncludes = (string, substring) => _.isEmpty(substring) || string.includes(substring);
 
 export const filterMessages = state => _.filter(state.messages,

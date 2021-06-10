@@ -10,6 +10,7 @@ div
 <script>
 import { useStore } from "vuex";
 import Topic from "./Topic";
+import { computed } from "@vue/runtime-core";
 
 export default {
   components: {
@@ -18,7 +19,7 @@ export default {
   setup() {
     const store = useStore();
     return {
-      messages: store.getters["messages/filterGroupedMessages"]
+      messages: computed(() => store.getters["messages/filterGroupedMessages"])
     };
   },
 };
