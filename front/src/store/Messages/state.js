@@ -1,4 +1,7 @@
 export const state = {
   messages: [],
-  groupedMessages: {}
+  groupedMessages: {},
+  messageFilter: '',
+  topicFilter: '',
+  perPage: 100,
 }

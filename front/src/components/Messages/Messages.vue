@@ -4,7 +4,7 @@ div
   ul(class="nav nav-tabs nav-fill")
     li(class="nav-item" v-for="tab, name in tabs")
       span(:class="getTabClass(name)" @click="setActiveTab(name)")
-        span.tabname {{ tab.name }} 
+        span.tabname {{ tab.name }}
         .badge.rounded-pill.bg-info {{ tab.count }}
   component(:is="currentTab")
 </template>
@@ -26,7 +26,7 @@ export default {
   },
   setup() {
     const store = useStore();
-    const messagesCount = computed(() => store.getters["messages/messagesCount"]);
+    const messagesCount = computed(() => store.getters["messages/filterMessagesCount"]);
     const topicCount = computed(() => store.getters["messages/topicCount"]);
     const tabs = ref({
       tree: {

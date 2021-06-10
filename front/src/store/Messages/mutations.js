@@ -7,3 +7,7 @@ export const addMessage = (state, message) => {
   }
   state.groupedMessages[message.topic].unshift(message);
 }
+
+export const setMessageFilter = (state, message) => state.messageFilter = message
+export const setTopicFilter = (state, topic) => state.topicFilter = topic
+export const setPerPage = (state, perPage) => state.perPage = perPage
