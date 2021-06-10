@@ -1,6 +1,5 @@
 <template lang="pug">
 div
-  Controls
   template(v-for="(message, key) in filterMessages")
     .card(v-if="key < countToShow")
       .card-header {{ message.topic }}
