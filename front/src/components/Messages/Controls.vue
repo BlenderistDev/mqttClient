@@ -10,15 +10,19 @@ div
   .row
     .col-md-1 Message:
     .col-9
-      input(v-model='messageFilter')
+      Textarea(v-model='messageFilter')
 </template>
 
 <script>
 import { useStore } from "vuex";
 import { computed } from "@vue/runtime-core";
+import Textarea from "./Textarea";
 
 export default {
   name: "Controls",
+  components: {
+    Textarea
+  },
   setup() {
     const store = useStore();
     const messageFilter = computed({
@@ -36,7 +40,7 @@ export default {
     return {
       messageFilter,
       topicFilter,
-      perPage
+      perPage,
     }
   }
 }
@@ -45,5 +49,9 @@ export default {
 <style scoped>
 input {
   width: 100%;
+}
+textarea {
+  width: 100%;
+  height: auto;
 }
 </style>
