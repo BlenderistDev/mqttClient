@@ -24,9 +24,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.filter {
-  width: 100%;
-}
-</style>

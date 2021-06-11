@@ -1,5 +1,5 @@
 <template lang="pug">
-.filter
+div
   .row
     .col-md-1 Topic:
     .col-9
