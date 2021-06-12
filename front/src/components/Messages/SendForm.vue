@@ -5,7 +5,7 @@
     input(class="form-control" v-model="topic")
   .col-sm-5
       div Message:
-      textarea(class="form-control" v-model="message")
+      Textarea(class="form-control" v-model="message")
   .col-sm-1
     div Retain:
     input.form-check-input(v-model="retain" type="checkbox")
@@ -21,10 +21,14 @@
 
 <script>
 import { ref } from "vue";
+import Textarea from "./Textarea";
 import { sendMqttMessage } from "../../services/socket";
 
 export default {
   name: "SendForm",
+  components: {
+    Textarea,
+  },
   setup() {
     const topic = ref("");
     const message = ref("");
