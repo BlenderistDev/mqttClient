@@ -2,23 +2,20 @@
 div
   u(@click="show = !show") Messages
   div(v-if="show")
-    .card(v-for="message in topicMessages")
-      .card-header {{ message.topic }}
-      .card-body.justify-content-between
-        Message(:message="message")
+    MessageList(:messages="topicMessages")
 </template>
 
 <script>
 import { computed, toRefs, ref } from "vue";
 import { useStore } from "vuex";
-import Message from "../Message";
+import MessageList from "../MessageList";
 import _ from "lodash";
 
 export default {
   name: "TreeMessages",
   props: ["topic"],
   components: {
-    Message,
+    MessageList,
   },
   setup(props) {
     const { topic } = toRefs(props);
