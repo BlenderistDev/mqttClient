@@ -1,10 +1,8 @@
 <template lang="pug">
-div
-  li(class='list-group-item' @click="show = !show") 
-    span(v-if="name") {{ name }}
-    span(v-else) /
-  div(v-if="show")
-    slot
+li(class='list-group-item' @click="show = !show") 
+  span(v-if="name") {{ name }}
+  span(v-else) /
+slot(v-if="show")
 </template>
 
 <script>

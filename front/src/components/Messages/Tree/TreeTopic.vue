@@ -1,16 +1,15 @@
 <template lang="pug">
-div
-  div(v-for="topic, key in tree")
-    TreeSubtopic(
-      :topic="topic"
-      :name="key"
+div(v-for="topic, key in tree")
+  TreeSubtopic(
+    :topic="topic"
+    :name="key"
+  )
+    TreeMessages(:topic="topicName + key")
+    TreeTopic(
+      v-if="topic[0].length > 0"
+      :topicTree="topic"
+      :topicPrefix="topicName + key"
     )
-      TreeMessages(:topic="topicName + key")
-      TreeTopic(
-        v-if="topic[0].length > 0"
-        :topicTree="topic"
-        :topicPrefix="topicName + key"
-      )
 </template>
 
 <script>

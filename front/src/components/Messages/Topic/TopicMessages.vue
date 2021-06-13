@@ -1,10 +1,9 @@
 <template lang="pug">
-div
-  template(v-for="(topicMessages, topic) in messages")
-    Topic(
-      :messages="topicMessages"
-      :topic="topic"
-    )
+template(v-for="(topicMessages, topic) in messages")
+  Topic(
+    :messages="topicMessages"
+    :topic="topic"
+  )
 </template>
 
 <script>
@@ -19,7 +18,7 @@ export default {
   setup() {
     const store = useStore();
     return {
-      messages: computed(() => store.getters["messages/filterGroupedMessages"])
+      messages: computed(() => store.getters["messages/filterGroupedMessages"]),
     };
   },
 };
