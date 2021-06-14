@@ -1,6 +1,7 @@
 <template lang="pug">
 div
   u(@click="show = !show") Messages
+  .badge.rounded-pill.bg-secondary {{ topicMessages.length }}
   div(v-if="show")
     MessageList(:messages="topicMessages")
 </template>
@@ -39,3 +40,8 @@ export default {
   },
 };
 </script>
+<style scoped>
+.badge {
+  margin-left: 10px;
+}
+</style>
