@@ -1,5 +1,5 @@
 <template lang="pug">
-div(v-for="topic, key in tree")
+.subtopic(v-for="topic, key in tree")
   TreeSubtopic(
     :topic="topic"
     :name="key"
@@ -51,7 +51,7 @@ export default {
 </script>
 
 <style scoped>
-div {
+.subtopic {
   margin-left: 10px;
 }
 </style>
