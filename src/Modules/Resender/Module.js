@@ -1,5 +1,6 @@
 import { config } from "../../Components/ModuleConfig.js";
 import mqtt from 'mqtt';
+import match from 'mqtt-match'
 import { mqttClient } from '../../Components/SocketClient.js'
 
 const connection = mqtt.connect(config.host, {
@@ -13,8 +14,12 @@ if (config.direction === 'from') {
 }
 
 if (config.direction === 'to') {
-  mqttClient.on('message', message => connection.publish(message.topic, message.message, {
-    qos: parseInt(message.qos ? message.qos : 0),
-    retain: message.retain ? message.retain : false
-  }))
+  mqttClient.on('message', message => {
+    if (match(config.topic, message.topic)) {
+      connection.publish(message.topic, message.message, {
+        qos: parseInt(message.qos ? message.qos : 0),
+        retain: message.retain ? message.retain : false
+      })
+    }
+  })
 }
