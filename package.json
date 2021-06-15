@@ -27,7 +27,9 @@
     "shelljs": "^0.8.4",
     "socket.io": "^4.0.1",
     "socket.io-client": "^4.0.0",
-    "winston": "^3.2.1"
+    "winston": "^3.2.1",
+    "ws": ">=5.2.3",
+    "glob-parent": ">=5.1.2"
   },
   "devDependencies": {
     "eslint": "^6.7.0",
