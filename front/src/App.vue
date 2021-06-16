@@ -5,22 +5,20 @@ router-view
 </template>
 
 <script>
-import {startMqttSocket, startErrorSocket} from "./services/socket";
-import MobileMenu from '../src/components/Menu/MobileMenu.vue';
-import {useStore} from "vuex";
+import { startMqttSocket, startErrorSocket } from "./services/socket";
+import { startLocalStorageSync } from "./services/localStorage";
+import MobileMenu from "../src/components/Menu/MobileMenu.vue";
 
 export default {
   setup() {
-    const store = useStore();
-    store.commit('messages/initialiseStore');
-    window.addEventListener("storage", () => store.commit('messages/initialiseStore'), false);
+    startLocalStorageSync();
     startMqttSocket();
     startErrorSocket();
   },
   components: {
-    MobileMenu
-  }
-}
+    MobileMenu,
+  },
+};
 </script>
 
 <style scoped>
@@ -32,8 +30,9 @@ export default {
 </style>
 
 <style>
-body, html {
-  height: 100vh
+body,
+html {
+  height: 100vh;
 }
 #app {
   height: 95vh;
