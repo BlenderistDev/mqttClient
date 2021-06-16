@@ -7,9 +7,13 @@ router-view
 <script>
 import {startMqttSocket, startErrorSocket} from "./services/socket";
 import MobileMenu from '../src/components/Menu/MobileMenu.vue';
+import {useStore} from "vuex";
 
 export default {
   setup() {
+    const store = useStore();
+    store.commit('messages/initialiseStore');
+    window.addEventListener("storage", () => store.commit('messages/initialiseStore'), false);
     startMqttSocket();
     startErrorSocket();
   },
