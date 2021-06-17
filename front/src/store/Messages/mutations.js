@@ -5,6 +5,7 @@ const storeToLocalStorage = state => {
     perPage: state.perPage,
     messageFilter: state.messageFilter,
     topicFilter: state.topicFilter,
+    bufferSize: state.bufferSize,
   }))
 }
 export const initialiseStore = state => {
@@ -13,6 +14,7 @@ export const initialiseStore = state => {
     state.perPage = localConfig.perPage;
     state.messageFilter = localConfig.messageFilter;
     state.topicFilter = localConfig.topicFilter;
+    state.bufferSize = localConfig.bufferSize;
   }
 }
 
@@ -22,6 +24,10 @@ export const addMessage = (state, message) => {
     state.groupedMessages[message.topic] = [];
   }
   state.groupedMessages[message.topic].unshift(message);
+
+  while(state.messages.length > state.bufferSize) {
+    state.messages.pop()
+  }
 }
 
 export const setMessageFilter = (state, message) => {
@@ -34,5 +40,9 @@ export const setTopicFilter = (state, topic) => {
 }
 export const setPerPage = (state, perPage) => {
   state.perPage = perPage
+  storeToLocalStorage(state)
+}
+export const setBufferSize = (state, bufferSize) => {
+  state.bufferSize = bufferSize
   storeToLocalStorage(state)
 }

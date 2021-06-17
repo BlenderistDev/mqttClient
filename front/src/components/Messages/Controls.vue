@@ -11,6 +11,9 @@ div
     .col-md-1 Message:
     .col-9
       Textarea(v-model='messageFilter')
+    .col-md-1 Buffer:
+    .col-md-1
+      input(v-model='bufferSize')
 </template>
 
 <script>
@@ -37,10 +40,15 @@ export default {
       get: () => store.state.messages.perPage,
       set: perPage => store.commit('messages/setPerPage', perPage)
     })
+    const bufferSize = computed({
+      get: () => store.state.messages.bufferSize,
+      set: bufferSize => store.commit('messages/setBufferSize', bufferSize)
+    })
     return {
       messageFilter,
       topicFilter,
       perPage,
+      bufferSize
     }
   }
 }
