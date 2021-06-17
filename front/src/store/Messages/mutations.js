@@ -1,5 +1,3 @@
-import _ from 'lodash'
-
 const storeToLocalStorage = state => {
   localStorage.setItem('store.messages', JSON.stringify({
     perPage: state.perPage,
@@ -20,11 +18,6 @@ export const initialiseStore = state => {
 
 export const addMessage = (state, message) => {
   state.messages.unshift(message)
-  if (_.isUndefined(state.groupedMessages[message.topic])) {
-    state.groupedMessages[message.topic] = [];
-  }
-  state.groupedMessages[message.topic].unshift(message);
-
   while(state.messages.length > state.bufferSize) {
     state.messages.pop()
   }

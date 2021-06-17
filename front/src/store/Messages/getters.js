@@ -9,8 +9,14 @@ export const filterMessages = state => _.filter(state.messages,
 
 export const filterMessagesCount = (state, getters) => getters.filterMessages.length
 
-export const filterGroupedMessages = state => _
-  .chain(state.groupedMessages)
+export const groupedMessages = state => _
+  .chain(state.messages)
+  .sortBy('topic')
+  .groupBy('topic')
+  .value()
+
+export const filterGroupedMessages = (state, getters) => _
+  .chain(getters.groupedMessages)
   .pickBy((messages, topic) => stringIncludes(topic, state.topicFilter))
   .mapValues(messages => _.filter(messages, message => stringIncludes(message.message, state.messageFilter)))
   .omitBy(_.isEmpty)

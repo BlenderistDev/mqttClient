@@ -21,7 +21,7 @@ export default {
   setup(props) {
     const { topic } = toRefs(props);
     const store = useStore();
-    const messages = computed(() => store.state.messages.groupedMessages);
+    const messages = computed(() => store.getters["messages/groupedMessages"]);
     const topicMessages = computed(() =>
       _.chain(messages.value)
         .pickBy((message, messageTopic) => _.startsWith(messageTopic, topic.value))
