@@ -17,19 +17,20 @@
     "cookie-parser": "^1.4.4",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "glob-parent": ">=5.1.2",
     "js-yaml": "^3.14.0",
     "lodash": "^4.17.21",
     "md5": "^2.3.0",
     "morgan": "^1.9.1",
     "mqtt": "^3.0.0",
     "mqtt-match": "^2.0.3",
+    "mysql": "^2.18.1",
     "ramda": "^0.27.1",
     "shelljs": "^0.8.4",
     "socket.io": "^4.0.1",
     "socket.io-client": "^4.0.0",
     "winston": "^3.2.1",
-    "ws": ">=5.2.3",
-    "glob-parent": ">=5.1.2"
+    "ws": ">=5.2.3"
   },
   "devDependencies": {
     "eslint": "^6.7.0",
