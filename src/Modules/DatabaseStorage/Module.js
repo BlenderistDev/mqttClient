@@ -11,11 +11,11 @@ const connection = mysql.createConnection({
 
 connection.connect();
 
-const database = connection.escape(config.database)
-const table = connection.escape(config.table)
+const table = connection.escapeId(config.table)
+const database = connection.escapeId(config.database)
 
-connection.query(`USE ${config.database}`)
-connection.query(`CREATE TABLE IF NOT EXISTS ${config.table} (
+connection.query(`USE ${database};`)
+connection.query(`CREATE TABLE IF NOT EXISTS ${table} (
   id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   topic VARCHAR(512) NOT NULL,
   message TEXT NOT NULL,
@@ -23,9 +23,8 @@ connection.query(`CREATE TABLE IF NOT EXISTS ${config.table} (
   timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );`)
 
-
 mqttClient.on('message', message => {
-  connection.query('INSERT INTO ' + config.table + '(topic, message, qos) VALUES (?,?,?)', [message.topic, message.message, message.qos], function(err, rows, fields) {
+  connection.query(`INSERT INTO ${table}(topic, message, qos) VALUES (?,?,?)`, [message.topic, message.message, message.qos], function(err, rows, fields) {
     if (err) throw err;
   })
 })
