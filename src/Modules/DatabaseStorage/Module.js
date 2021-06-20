@@ -1,7 +1,7 @@
-import _ from 'lodash'
 import { mqttClient } from '../../Components/SocketClient.js'
 import { config } from "../../Components/ModuleConfig.js";
 import mysql from 'mysql';
+import _ from 'lodash'
 
 const connection = mysql.createConnection({
   host: config.host,
@@ -23,8 +23,23 @@ connection.query(`CREATE TABLE IF NOT EXISTS ${table} (
   timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );`)
 
-mqttClient.on('message', message => {
-  connection.query(`INSERT INTO ${table}(topic, message, qos) VALUES (?,?,?)`, [message.topic, message.message, message.qos], function(err, rows, fields) {
-    if (err) throw err;
+let messages = []
+mqttClient.on('message', message => messages.push(message))
+
+const flushMessages = () => {
+  const flushed = messages
+  messages = []
+  return flushed
+}
+
+setInterval(() => {
+  const messages = flushMessages()
+  const data = _.chain(messages)
+    .map(message => _.pick(message, ['topic', 'message', 'qos']))
+    .flatMap()
+    .value()
+  const valuesTemplate = _.repeat('(?),', messages.length).slice(0, -1)
+  connection.query(`INSERT INTO ${table}(topic, message, qos) VALUES ${valuesTemplate}`, data, function(err, rows, fields) {
+    if (err) console.log(err);
   })
-})
+}, 5000)

@@ -15,5 +15,3 @@ client.connect().then(() => {
   const collection = database.collection(config.collection);
   mqttClient.on('message', message => collection.insertOne(message));
 }).catch(console.dir);
-
-
