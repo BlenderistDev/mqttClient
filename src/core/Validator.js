@@ -1,4 +1,4 @@
-import { getModuleConfig } from '../Api/ModuleApi.js'
+import { getConfigByPath } from '../Api/ModuleApi.js'
 import * as R from 'ramda'
 
 const validators = {
@@ -46,4 +46,4 @@ const validateConfigFields = config => R.pipe(
   R.reject(R.isEmpty),
 )
 
-export const validateConfig = async (module, config) => validateConfigFields(config)(await getModuleConfig(module))
+export const validateConfig = async (module, moduleName, config) => validateConfigFields(config)(await getConfigByPath(module, moduleName))

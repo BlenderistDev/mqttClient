@@ -14,8 +14,8 @@ const defaultFields = {
   }
 }
 
-export const getModuleConfig = function(moduleName) {
-  const configPath = path.join(process.cwd(), 'src', 'Modules', moduleName, 'config.js');
+export const getConfigByPath = function(modulePath, moduleName) {
+  const configPath = path.join(process.cwd(), modulePath, 'config.js');
   return fs.promises.access(configPath, fs.constants.R_OK)
     .then(() => import(configPath).then(module => _
       .chain(module.default)
@@ -30,7 +30,12 @@ export const getModuleConfig = function(moduleName) {
   })
 }
 
-export const setModuleConfig = (config) => 
+export const getModuleConfig = function(moduleName) {
+  const modulePath = path.join('src', 'Modules', moduleName);
+  return getConfigByPath(modulePath, moduleName)
+}
+
+export const setModuleConfig = (config) =>
   setConfig(config.name,
     config.type === 'Form' ? config.value :
       _.map(config.value, value =>

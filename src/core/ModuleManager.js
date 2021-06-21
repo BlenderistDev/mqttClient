@@ -12,17 +12,18 @@ const mqttPrefix = mqttConfig.topic
 
 const moduleKiller = new EventEmitter()
 
-const launch = _.curry((modulePath, sModuleDir, config) => {
-  validateConfig(sModuleDir, config).then(data => {
+const launch = _.curry((moduleFolder, moduleName, config) => {
+  const modulePath = path.join(moduleFolder, 'Module.js')
+  validateConfig(moduleFolder, moduleName, config).then(data => {
     if (_.isEmpty(data)) {
       const module = fork(modulePath, [JSON.stringify({
-        name: sModuleDir,
+        name: moduleName,
         config: config,
         mqttPrefix: mqttPrefix
       })]);
-      moduleKiller.on(sModuleDir, () => module.kill())
+      moduleKiller.on(moduleName, () => module.kill())
     } else {
-      sendNotification(sModuleDir, data)
+      sendNotification(moduleName, data)
     }
   })
 })
@@ -30,15 +31,17 @@ const launch = _.curry((modulePath, sModuleDir, config) => {
 /**
  * Проверяем существование модуля в директории модуля
  * Если модуль есть - инициализируем и кэшируем
- * @param {string} sModuleDir
+ * @param {string} moduleDir
+ * @param {string} module
  */
-function setModule(sModuleDir) {
-  const modulePath = path.join('src', 'Modules', sModuleDir, 'Module.js');
+const setupModule = _.curry((moduleDir, module) => {
+  const moduleFolder =  path.join(moduleDir, module);
+  const modulePath = path.join(moduleFolder, 'Module.js');
   fs.promises.access(modulePath, fs.constants.R_OK).then(async () => {
-    const config = getConfig(sModuleDir)
-    const launchModule = launch(modulePath, sModuleDir)
+    const config = getConfig(module)
+    const launchModule = launch(moduleFolder, module)
     if (_.isEmpty(config)) {
-      sendNotification(sModuleDir, `Skip module ${sModuleDir}. Config is empty`)
+      sendNotification(module, `Skip module ${module}. Config is empty`)
     } else if (_.isArray(config)) {
       _.map(config, launchModule)
     } else {
@@ -46,16 +49,17 @@ function setModule(sModuleDir) {
     }
   }).catch((err) => {
     if (err.code === 'ENOENT') {
-      console.log(`Module without logic: ${sModuleDir}`)
+      console.log(`Module without logic: ${module}`)
     } else {
       throw err
     }
   })
-}
+})
 
-export const startModules = () => fs.promises.readdir('src/Modules').then(modules => _.map(modules, setModule))
+
+export const startModules = () => fs.promises.readdir('src/Modules').then(modules => _.map(modules, setupModule(path.join('src', 'Modules'))))
 
 export const restartModule = (moduleName) => {
   moduleKiller.emit(moduleName)
-  setModule(moduleName)
+  setupModule('src/Modules', moduleName)
 }
