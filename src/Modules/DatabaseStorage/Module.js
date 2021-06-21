@@ -20,7 +20,7 @@ connection.query(`CREATE TABLE IF NOT EXISTS ${table} (
   topic VARCHAR(512) NOT NULL,
   message TEXT NOT NULL,
   qos INT(2),
-  timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  date TIMESTAMP NOT NULL
 );`)
 
 let messages = []
@@ -35,11 +35,12 @@ const flushMessages = () => {
 setInterval(() => {
   const messages = flushMessages()
   const data = _.chain(messages)
-    .map(message => _.pick(message, ['topic', 'message', 'qos']))
+    .map(message => [message.topic, message.message, message.qos, new Date(message.date)])
     .flatMap()
     .value()
-  const valuesTemplate = _.repeat('(?),', messages.length).slice(0, -1)
-  connection.query(`INSERT INTO ${table}(topic, message, qos) VALUES ${valuesTemplate}`, data, function(err, rows, fields) {
+
+  const valuesTemplate = _.repeat('(?, ?, ?, ?),', messages.length).slice(0, -1)
+  connection.query(`INSERT INTO ${table}(topic, message, qos, date) VALUES ${valuesTemplate}`, data, function(err, rows, fields) {
     if (err) console.log(err);
   })
-}, 5000)
+}, 10000)
