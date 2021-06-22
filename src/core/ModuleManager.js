@@ -7,6 +7,7 @@ import { startModuleProcess, killModule } from './ModuleProcess.js'
 import * as R from 'ramda'
 
 const moduleBaseDir = path.join('src', 'Modules')
+const storageBaseDir = path.join('src', 'Storage')
 
 const isConfigInvalid = R.pipe(R.prop('errors'), R.isEmpty)
 
@@ -49,8 +50,10 @@ const setup = R.curry((moduleDir, module) => {
 })
 
 const setupModule = setup(moduleBaseDir)
+const setupStorage = setup(storageBaseDir)
 
 export const startModules = () => fs.promises.readdir(moduleBaseDir).then(R.map(setupModule))
+export const startStorages = () => fs.promises.readdir(storageBaseDir).then(R.map(setupStorage))
 
 export const restartModule = (moduleName) => {
   killModule(moduleName)
