@@ -1,67 +1,75 @@
 import { getConfig } from './Config.js'
 import fs from 'fs'
 import path from 'path'
-import _ from 'lodash'
 import { fork } from 'child_process'
 import EventEmitter from "events"
 import { validateConfig } from './Validator.js'
 import { sendNotification } from './Notification.js'
+import * as R from 'ramda'
 
-const moduleDir = path.join('src', 'Modules')
+const moduleBaseDir = path.join('src', 'Modules')
 
 const mqttConfig = getConfig('Mqtt')
 const mqttPrefix = mqttConfig.topic
 
 const moduleKiller = new EventEmitter()
 
-const launch = _.curry((moduleFolder, moduleName, config) => {
+const startModuleForkProcess = R.curry((moduleFolder, config) => {
   const modulePath = path.join(moduleFolder, 'Module.js')
-  validateConfig(moduleFolder, moduleName, config).then(data => {
-    if (_.isEmpty(data)) {
-      const module = fork(modulePath, [JSON.stringify({
-        name: moduleName,
-        config: config,
-        mqttPrefix: mqttPrefix
-      })]);
-      moduleKiller.on(moduleName, () => module.kill())
-    } else {
-      sendNotification(moduleName, data)
-    }
-  })
+  const moduleName = path.basename(moduleFolder)
+
+  const module = fork(modulePath, [JSON.stringify({
+    name: moduleName,
+    config: config.config,
+    mqttPrefix: mqttPrefix
+  })]);
+  moduleKiller.on(moduleName, () => module.kill())
 })
 
-/**
- * Проверяем существование модуля в директории модуля
- * Если модуль есть - инициализируем и кэшируем
- * @param {string} moduleDir
- * @param {string} module
- */
-const setupModule = _.curry((moduleDir, module) => {
+const isConfigInvalid = R.pipe(R.prop('errors'), R.isEmpty)
+
+const getModuleLauncher = moduleFolder => R.pipe(
+  validateConfig(moduleFolder),
+  R.andThen(
+    R.ifElse(
+      isConfigInvalid,
+      startModuleForkProcess(moduleFolder),
+      sendNotification(path.basename(moduleFolder))
+  ))
+)
+
+const checkModuleExist = (modulePath) => fs.promises.access(modulePath, fs.constants.R_OK)
+
+const startModule = (launcher) => R.ifElse(
+  R.is(Array),
+  R.map(launcher),
+  launcher
+)
+
+const setup = R.curry((moduleDir, module) => {
   const moduleFolder =  path.join(moduleDir, module);
   const modulePath = path.join(moduleFolder, 'Module.js');
-  fs.promises.access(modulePath, fs.constants.R_OK).then(async () => {
-    const config = getConfig(module)
-    const launchModule = launch(moduleFolder, module)
-    if (_.isEmpty(config)) {
-      sendNotification(module, `Skip module ${module}. Config is empty`)
-    } else if (_.isArray(config)) {
-      _.map(config, launchModule)
-    } else {
-      launchModule(config)
-    }
-  }).catch((err) => {
-    if (err.code === 'ENOENT') {
-      console.log(`Module without logic: ${module}`)
-    } else {
-      throw err
-    }
-  })
+  const launchModule = getModuleLauncher(moduleFolder)
+
+  R.pipe(
+    checkModuleExist,
+    R.otherwise(() => console.log(`Module without logic: ${module}`)),
+    R.andThen(() => getConfig(module)),
+    R.andThen(
+      R.ifElse(
+        R.isNil,
+        () => sendNotification(module, `Skip module ${module}. Config is empty`),
+        startModule(launchModule)
+      )
+    )
+  )(modulePath)
 })
 
+const setupModule = setup(moduleBaseDir)
 
-export const startModules = () => fs.promises.readdir(moduleDir).then(modules => _.map(modules, setupModule(moduleDir)))
+export const startModules = () => fs.promises.readdir(moduleBaseDir).then(R.map(setupModule))
 
 export const restartModule = (moduleName) => {
   moduleKiller.emit(moduleName)
-  setupModule(moduleDir, moduleName)
+  setupModule(moduleName)
 }

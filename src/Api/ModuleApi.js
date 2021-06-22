@@ -14,7 +14,8 @@ const defaultFields = {
   }
 }
 
-export const getConfigByPath = function(modulePath, moduleName) {
+export const getConfigByPath = function(modulePath) {
+  const moduleName = path.basename(modulePath)
   const configPath = path.join(process.cwd(), modulePath, 'config.js');
   return fs.promises.access(configPath, fs.constants.R_OK)
     .then(() => import(configPath).then(module => _
@@ -32,7 +33,7 @@ export const getConfigByPath = function(modulePath, moduleName) {
 
 export const getModuleConfig = function(moduleName) {
   const modulePath = path.join('src', 'Modules', moduleName);
-  return getConfigByPath(modulePath, moduleName)
+  return getConfigByPath(modulePath)
 }
 
 export const setModuleConfig = (config) =>

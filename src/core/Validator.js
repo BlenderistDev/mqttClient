@@ -46,4 +46,9 @@ const validateConfigFields = config => R.pipe(
   R.reject(R.isEmpty),
 )
 
-export const validateConfig = async (module, moduleName, config) => validateConfigFields(config)(await getConfigByPath(module, moduleName))
+export const validateConfig = R.curry(async (module, config) => {
+  return {
+    config: config,
+    errors: validateConfigFields(config)(await getConfigByPath(module))
+  }
+})
