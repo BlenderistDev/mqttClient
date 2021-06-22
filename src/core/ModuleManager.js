@@ -1,30 +1,12 @@
 import { getConfig } from './Config.js'
 import fs from 'fs'
 import path from 'path'
-import { fork } from 'child_process'
-import EventEmitter from "events"
 import { validateConfig } from './Validator.js'
 import { sendNotification } from './Notification.js'
+import { startModuleProcess, killModule } from './ModuleProcess.js'
 import * as R from 'ramda'
 
 const moduleBaseDir = path.join('src', 'Modules')
-
-const mqttConfig = getConfig('Mqtt')
-const mqttPrefix = mqttConfig.topic
-
-const moduleKiller = new EventEmitter()
-
-const startModuleForkProcess = R.curry((moduleFolder, config) => {
-  const modulePath = path.join(moduleFolder, 'Module.js')
-  const moduleName = path.basename(moduleFolder)
-
-  const module = fork(modulePath, [JSON.stringify({
-    name: moduleName,
-    config: config.config,
-    mqttPrefix: mqttPrefix
-  })]);
-  moduleKiller.on(moduleName, () => module.kill())
-})
 
 const isConfigInvalid = R.pipe(R.prop('errors'), R.isEmpty)
 
@@ -33,7 +15,7 @@ const getModuleLauncher = moduleFolder => R.pipe(
   R.andThen(
     R.ifElse(
       isConfigInvalid,
-      startModuleForkProcess(moduleFolder),
+      startModuleProcess(moduleFolder),
       sendNotification(path.basename(moduleFolder))
   ))
 )
@@ -70,6 +52,6 @@ const setupModule = setup(moduleBaseDir)
 export const startModules = () => fs.promises.readdir(moduleBaseDir).then(R.map(setupModule))
 
 export const restartModule = (moduleName) => {
-  moduleKiller.emit(moduleName)
+  killModule(moduleName)
   setupModule(moduleName)
 }
