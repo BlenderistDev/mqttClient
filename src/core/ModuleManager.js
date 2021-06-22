@@ -7,6 +7,8 @@ import EventEmitter from "events"
 import { validateConfig } from './Validator.js'
 import { sendNotification } from './Notification.js'
 
+const moduleDir = path.join('src', 'Modules')
+
 const mqttConfig = getConfig('Mqtt')
 const mqttPrefix = mqttConfig.topic
 
@@ -57,9 +59,9 @@ const setupModule = _.curry((moduleDir, module) => {
 })
 
 
-export const startModules = () => fs.promises.readdir('src/Modules').then(modules => _.map(modules, setupModule(path.join('src', 'Modules'))))
+export const startModules = () => fs.promises.readdir(moduleDir).then(modules => _.map(modules, setupModule(moduleDir)))
 
 export const restartModule = (moduleName) => {
   moduleKiller.emit(moduleName)
-  setupModule('src/Modules', moduleName)
+  setupModule(moduleDir, moduleName)
 }
