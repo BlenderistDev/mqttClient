@@ -34,7 +34,7 @@ const launch = (module, launcher) => R.pipe(
   R.andThen(() => getConfig(module)),
   R.andThen(
     R.ifElse(
-      R.isNil,
+      R.isEmpty,
       () => sendNotification(module, `Skip module ${module}. Config is empty`),
       startModule(launcher)
     )
