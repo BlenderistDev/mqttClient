@@ -28,23 +28,24 @@ const startModule = (launcher) => R.ifElse(
   launcher
 )
 
-const setup = R.curry((moduleDir, module) => {
-  const moduleFolder =  path.join(moduleDir, module);
-  const modulePath = path.join(moduleFolder, 'Module.js');
-  const launchModule = getModuleLauncher(moduleFolder)
-
-  R.pipe(
-    checkModuleExist,
-    R.otherwise(() => console.log(`Module without logic: ${module}`)),
-    R.andThen(() => getConfig(module)),
-    R.andThen(
-      R.ifElse(
-        R.isNil,
-        () => sendNotification(module, `Skip module ${module}. Config is empty`),
-        startModule(launchModule)
-      )
+const launch = (module, launcher) => R.pipe(
+  checkModuleExist,
+  R.otherwise(() => console.log(`Module without logic: ${module}`)),
+  R.andThen(() => getConfig(module)),
+  R.andThen(
+    R.ifElse(
+      R.isNil,
+      () => sendNotification(module, `Skip module ${module}. Config is empty`),
+      startModule(launcher)
     )
-  )(modulePath)
+  )
+)
+
+const setup = R.curry((moduleDir, module) => {
+  const moduleFolder =  path.join(moduleDir, module)
+  const modulePath = path.join(moduleFolder, 'Module.js')
+  const launcher = getModuleLauncher(moduleFolder)
+  launch(module, launcher)(modulePath)
 })
 
 const setupModule = setup(moduleBaseDir)
