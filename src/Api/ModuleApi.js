@@ -36,6 +36,11 @@ export const getModuleConfig = function(moduleName) {
   return getConfigByPath(modulePath)
 }
 
+export const getStorageConfig = function(moduleName) {
+  const modulePath = path.join('src', 'Storage', moduleName);
+  return getConfigByPath(modulePath)
+}
+
 export const setModuleConfig = (config) =>
   setConfig(config.name,
     config.type === 'Form' ? config.value :
