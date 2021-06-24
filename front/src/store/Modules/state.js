@@ -1,4 +1,6 @@
 export const state = {
   moduleList: [],
-  module: null
+  module: null,
+  storage: null,
+  storageList: []
 }

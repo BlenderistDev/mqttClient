@@ -18,7 +18,7 @@ import ConfigRow from "../FormBuilder/ConfigRow";
 import { restartModule } from "@/services/api.js";
 import { mapActions } from "vuex";
 import { useRoute } from "vue-router";
-import { ref } from "vue";
+import {ref, toRefs} from "vue";
 import { watch } from "vue";
 
 export default {
@@ -27,17 +27,19 @@ export default {
     ConfigRow,
   },
   props: ["ui"],
-  setup() {
+  setup(props) {
     const route = useRoute();
     const moduleName = ref(route.params.name);
+    const {ui} = toRefs(props)
+    const restart = () => restartModule(ui.name, ui.group);
     watch(
-      () => route.params.name,
+      () => ui.name,
       async (newModuleName) => {
         moduleName.value = newModuleName;
       }
     );
     return {
-      restart: () => restartModule(moduleName.value),
+      restart
     };
   },
   methods: {

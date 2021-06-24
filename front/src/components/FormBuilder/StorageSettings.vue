@@ -1,41 +1,42 @@
 <template lang="pug">
 div
+  .row
+    .col(v-for="storage in storageList" @click="fetchStorage(storage)") {{ storage }}
   component(
-    v-if="module"
+    v-if="storage"
     :is="interface"
-    :ui="module"
+    :ui="storage"
   )
 </template>
 
 <script>
-import { watch } from "vue";
-import { useRoute } from "vue-router";
 import List from "./List";
 import Form from "./Form";
-import { mapState, useStore } from "vuex";
+import {mapState, useStore} from "vuex";
+import {computed} from "@vue/runtime-core";
 
 export default {
-  name: "ModuleList",
+  name: "StorageSettings",
   components: {
     List,
     Form,
   },
   setup() {
-    const router = useRoute();
     const store = useStore();
-    store.dispatch("modules/fetchModule", router.params.name);
-    watch(
-      () => router.params,
-      (params) => {
-        store.dispatch("modules/fetchModule", params.name);
-      }
-    );
+    store.dispatch("modules/fetchStorageList");
+    store.dispatch("modules/fetchStorage", 'DatabaseStorage');
+
+    return {
+      storageList: computed(() => store.state.modules.storageList),
+      storage: computed(() => store.state.modules.module),
+      fetchStorage: storage =>  store.dispatch("modules/fetchStorage", storage)
+    }
   },
   computed: {
     ...mapState("modules", ["module"]),
     interface() {
-      if (this.module) {
-        return this.module.type;
+      if (this.storage) {
+        return this.storage.type;
       }
       return null;
     },

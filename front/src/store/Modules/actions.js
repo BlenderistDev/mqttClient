@@ -1,11 +1,15 @@
 import _ from 'lodash'
-import { getModuleList, getModule, updateModule } from '@/services/api.js'
+import { getModuleList, getModule, updateModule, getStorageList,getStorage } from '@/services/api.js'
+
+export const fetchStorageList = ({ commit }) => getStorageList().then(res => commit('setStorageList', res.data))
 
 export const fetchModuleList = ({ commit }) => getModuleList().then(res => commit('setModuleList', res.data))
 
 export const fetchModule = ({commit}, module) => getModule(module).then((res) => commit('setModule', res.data))
 
-export async function updateConfig({state, dispatch}, config) {
+export const fetchStorage = ({commit}, storage) => getStorage(storage).then((res) => commit('setModule', res.data))
+
+export async function updateConfig({state}, config) {
   const module = {...state.module}
 
   if (module.type === 'Form') {
@@ -18,7 +22,6 @@ export async function updateConfig({state, dispatch}, config) {
     }
   }
   await updateModule(module)
-  dispatch('fetchModule', state.module.name)
 }
 
 export function addConfig({state, dispatch}) {

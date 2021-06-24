@@ -15,13 +15,17 @@ const defaultFields = {
 }
 
 export const getConfigByPath = function(modulePath) {
-  const moduleName = path.basename(modulePath)
+  const pathData = modulePath.split(path.sep)
+  const moduleName = pathData.pop()
+  const groupName = pathData.pop()
   const configPath = path.join(process.cwd(), modulePath, 'config.js');
+
   return fs.promises.access(configPath, fs.constants.R_OK)
     .then(() => import(configPath).then(module => _
       .chain(module.default)
       .omit('value')
       .set('value', getConfig(moduleName))
+      .set('group', groupName)
       .merge(defaultFields)
       .value()
   )).catch((err) => {

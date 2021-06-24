@@ -11,7 +11,7 @@ router.get('/api/module/:moduleName', async (req, res) => res.send(await getModu
 
 router.post('/api/module/:moduleName', async (req, res) => res.send(await setModuleConfig(req.body.config)));
 
-router.get('/api/restart/:moduleName', (req, res) => res.send(restartModule(req.params.moduleName.toString())));
+router.post('/api/restart', (req, res) => res.send(restartModule(req.body.name, req.body.group)));
 
 router.get('/api/storage/list', async (req, res,) =>res.send(await fs.promises.readdir('src/Storage').then(module => module)));
 

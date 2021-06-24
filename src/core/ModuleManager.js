@@ -55,7 +55,7 @@ const setupStorage = setup(storageBaseDir)
 export const startModules = () => fs.promises.readdir(moduleBaseDir).then(R.map(setupModule))
 export const startStorages = () => fs.promises.readdir(storageBaseDir).then(R.map(setupStorage))
 
-export const restartModule = (moduleName) => {
-  killModule(moduleName)
-  setupModule(moduleName)
+export const restartModule = (name, group) => {
+  killModule(name)
+  setup(path.join('src', group), name)
 }

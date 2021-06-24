@@ -1,17 +1,17 @@
 <template lang="pug">
 Layout
-  ModuleSettings
+  StorageSettings
 </template>
 
 <script>
 import Layout from "../layout/Layout";
-import ModuleSettings from "@/components/FormBuilder/ModuleSettings";
+import StorageSettings from "../components/FormBuilder/StorageSettings";
 
 export default {
   name: "Module",
   components: {
     Layout,
-    ModuleSettings,
+    StorageSettings,
   },
 };
 </script>
