@@ -2,6 +2,8 @@
 ul.list-group-flush
   router-link.list-group-item(:to="{ name: 'Home' }")
     .menu-item Home
+  router-link.list-group-item(:to="{ name: 'storage' }")
+    .menu-item Storage
   router-link.list-group-item(
     v-for="module in moduleList"
     :to="{ name: 'module', params: { name: module } }"

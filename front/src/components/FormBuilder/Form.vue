@@ -8,9 +8,8 @@ div
 
 <script>
 import ConfigRow from "../FormBuilder/ConfigRow";
-import { restartModule } from "@/services/api.js";
-import {useRoute} from "vue-router";
-import {ref} from "vue";
+import {restartModule} from "../../services/api";
+import {toRefs} from "vue";
 
 export default {
   name: "Form",
@@ -18,11 +17,10 @@ export default {
     ConfigRow,
   },
   props: ["ui"],
-  setup() {
-    const route = useRoute();
-    const moduleName = ref(route.params.name);
+  setup(props) {
+    const { ui } = toRefs(props)
     return {
-      restart: () => restartModule(moduleName.value),
+      restart: () => restartModule(ui.value.name, ui.value.group),
     }
   }
 };

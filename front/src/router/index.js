@@ -1,6 +1,7 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import Home from '../views/Home.vue'
 import Module from "../views/Module";
+import Storage from "../views/Storage";
 
 const routes = [
   {
@@ -12,6 +13,11 @@ const routes = [
     path: '/module/:name',
     name: 'module',
     component: Module,
+  },
+  {
+    path: '/storage',
+    name: 'storage',
+    component: Storage,
   }
 ]
 
