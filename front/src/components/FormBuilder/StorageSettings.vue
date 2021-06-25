@@ -3,7 +3,7 @@ div
   TabMenu(:items="storageList" route="storage")
   component(
     v-if="storage"
-    :is="interface"
+    :is="storageType"
     :ui="storage"
   )
 </template>
@@ -12,9 +12,9 @@ div
 import List from "./List";
 import Form from "./Form";
 import TabMenu from "../TabMenu/TabMenu.vue";
-import { mapState, useStore } from "vuex";
-import { computed, watch } from "vue";
-import { useRoute } from "vue-router";
+import { useStore } from "vuex";
+import { computed } from "vue";
+import { getConfigType, lookForRouter, getCurrentModule } from "./Services/Settings";
 
 export default {
   name: "StorageSettings",
@@ -28,29 +28,14 @@ export default {
     store.dispatch("modules/fetchStorageList");
     store.dispatch("modules/fetchStorage", "DatabaseStorage");
 
-    const router = useRoute();
+    lookForRouter("modules/fetchStorage");
 
-    watch(
-      () => router.params,
-      (params) => {
-        store.dispatch("modules/fetchStorage", params.name);
-      }
-    );
-
+    const storage = getCurrentModule();
     return {
       storageList: computed(() => store.state.modules.storageList),
-      storage: computed(() => store.state.modules.module),
-      fetchStorage: (storage) => store.dispatch("modules/fetchStorage", storage),
+      storage,
+      storageType: getConfigType(storage),
     };
-  },
-  computed: {
-    ...mapState("modules", ["module"]),
-    interface() {
-      if (this.storage) {
-        return this.storage.type;
-      }
-      return null;
-    },
   },
 };
 </script>
