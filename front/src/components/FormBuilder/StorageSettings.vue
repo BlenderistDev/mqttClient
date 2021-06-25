@@ -1,6 +1,6 @@
 <template lang="pug">
 div
-  StorageMenu(:items="storageList")
+  TabMenu(:items="storageList" route="storage")
   component(
     v-if="storage"
     :is="interface"
@@ -11,7 +11,7 @@ div
 <script>
 import List from "./List";
 import Form from "./Form";
-import StorageMenu from "./StorageMenu.vue";
+import TabMenu from "./TabMenu.vue";
 import { mapState, useStore } from "vuex";
 import { computed, watch } from "vue";
 import { useRoute } from "vue-router";
@@ -21,7 +21,7 @@ export default {
   components: {
     List,
     Form,
-    StorageMenu,
+    TabMenu,
   },
   setup() {
     const store = useStore();
