@@ -11,7 +11,7 @@ div
 <script>
 import List from "./List";
 import Form from "./Form";
-import TabMenu from "./TabMenu.vue";
+import TabMenu from "../TabMenu/TabMenu.vue";
 import { mapState, useStore } from "vuex";
 import { computed, watch } from "vue";
 import { useRoute } from "vue-router";
