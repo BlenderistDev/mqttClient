@@ -1,7 +1,6 @@
 <template lang="pug">
 div
-  .row
-    .col(v-for="storage in storageList" @click="fetchStorage(storage)") {{ storage }}
+  StorageMenu(:items="storageList")
   component(
     v-if="storage"
     :is="interface"
@@ -12,25 +11,37 @@ div
 <script>
 import List from "./List";
 import Form from "./Form";
-import {mapState, useStore} from "vuex";
-import {computed} from "@vue/runtime-core";
+import StorageMenu from "./StorageMenu.vue";
+import { mapState, useStore } from "vuex";
+import { computed, watch } from "vue";
+import { useRoute } from "vue-router";
 
 export default {
   name: "StorageSettings",
   components: {
     List,
     Form,
+    StorageMenu,
   },
   setup() {
     const store = useStore();
     store.dispatch("modules/fetchStorageList");
-    store.dispatch("modules/fetchStorage", 'DatabaseStorage');
+    store.dispatch("modules/fetchStorage", "DatabaseStorage");
+
+    const router = useRoute();
+
+    watch(
+      () => router.params,
+      (params) => {
+        store.dispatch("modules/fetchStorage", params.name);
+      }
+    );
 
     return {
       storageList: computed(() => store.state.modules.storageList),
       storage: computed(() => store.state.modules.module),
-      fetchStorage: storage =>  store.dispatch("modules/fetchStorage", storage)
-    }
+      fetchStorage: (storage) => store.dispatch("modules/fetchStorage", storage),
+    };
   },
   computed: {
     ...mapState("modules", ["module"]),
