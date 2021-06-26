@@ -1,34 +1,28 @@
 <template lang="pug">
-component(
+FormBuilder(
   v-if="module"
-  :is="configType"
-  :ui="module"
+  :config="module"
 )
 </template>
 
 <script>
 import { useRoute } from "vue-router";
-import List from "./List";
-import Form from "./Form";
 import { useStore } from "vuex";
-import { getConfigType, lookForRouter, getCurrentModule } from "./Services/Settings";
+import { lookForRouter, getCurrentModule } from "./Services/Settings";
+import FormBuilder from "./FormBuilder.vue";
 
 export default {
   name: "ModuleList",
   components: {
-    List,
-    Form,
+    FormBuilder,
   },
   setup() {
     const router = useRoute();
     const store = useStore();
     store.dispatch("modules/fetchModule", router.params.name);
     lookForRouter("modules/fetchModule");
-
-    const module = getCurrentModule();
     return {
-      module,
-      configType: getConfigType(module),
+      module: getCurrentModule(),
     };
   },
 };
