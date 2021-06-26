@@ -10,7 +10,7 @@ component(
 import List from "./List";
 import Form from "./Form";
 import { toRefs } from "@vue/reactivity";
-import { getConfigType } from "../../services/settings";
+import { getConfigType } from "../../services/modules";
 
 export default {
   name: "ModuleList",

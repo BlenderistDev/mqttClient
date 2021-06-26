@@ -9,7 +9,7 @@ Layout
 <script>
 import { useStore } from "vuex";
 import { useRoute } from "vue-router";
-import { lookForRouter, getCurrentModule } from "../services/settings";
+import { lookForRouter, getCurrentModule } from "../services/modules";
 import Layout from "../layout/Layout";
 import FormBuilder from "../components/FormBuilder/FormBuilder.vue";
 

@@ -10,7 +10,7 @@ Layout
 <script>
 import { useStore } from "vuex";
 import { computed } from "vue";
-import { lookForRouter, getCurrentModule } from "../services/settings";
+import { lookForRouter, getCurrentModule } from "../services/modules";
 import TabMenu from "../components/TabMenu/TabMenu.vue";
 import Layout from "../layout/Layout";
 import FormBuilder from "../components/FormBuilder/FormBuilder.vue";
@@ -25,7 +25,7 @@ export default {
   setup() {
     const store = useStore();
     store.dispatch("modules/fetchStorageList");
-    store.dispatch("modules/fetchStorage", "DatabaseStorage");
+    store.dispatch("modules/fetchSSettingstorage", "DatabaseStorage");
     lookForRouter("modules/fetchStorage");
     return {
       storageList: computed(() => store.state.modules.storageList),
