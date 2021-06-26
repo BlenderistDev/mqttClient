@@ -1,7 +1,7 @@
 <template lang="pug">
 component(
   v-if="config"
-  :is="type"
+  :is="type"  
   :ui="config"
 )
 </template>
@@ -10,7 +10,7 @@ component(
 import List from "./List";
 import Form from "./Form";
 import { toRefs } from "@vue/reactivity";
-import { getConfigType } from "./Services/Settings";
+import { getConfigType } from "../../services/settings";
 
 export default {
   name: "ModuleList",

@@ -1,17 +1,32 @@
 <template lang="pug">
 Layout
-  ModuleSettings
+  FormBuilder(
+  v-if="module"
+  :config="module"
+)
 </template>
 
 <script>
+import { useStore } from "vuex";
+import { useRoute } from "vue-router";
+import { lookForRouter, getCurrentModule } from "../services/settings";
 import Layout from "../layout/Layout";
-import ModuleSettings from "@/components/FormBuilder/ModuleSettings";
+import FormBuilder from "../components/FormBuilder/FormBuilder.vue";
 
 export default {
   name: "Module",
   components: {
     Layout,
-    ModuleSettings,
+    FormBuilder,
+  },
+  setup() {
+    const router = useRoute();
+    const store = useStore();
+    store.dispatch("modules/fetchModule", router.params.name);
+    lookForRouter("modules/fetchModule");
+    return {
+      module: getCurrentModule(),
+    };
   },
 };
 </script>
