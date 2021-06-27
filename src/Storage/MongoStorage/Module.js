@@ -13,5 +13,15 @@ const client = new MongoClient.MongoClient(uri, {
 client.connect().then(() => {
   const database = client.db(config.database);
   const collection = database.collection(config.collection);
-  mqttClient.on('message', message => collection.insertOne(message));
-}).catch(console.dir);
+  mqttClient.on('message', message => {
+    message.date = new Date(message.date)  
+    collection.insertOne(message)
+  });
+})
+
+export const get = (limit, offset) => {
+  const database = client.db(config.database)
+  const collection = database.collection(config.collection)
+  const cursor = collection.find({}).limit(limit).skip(offset)
+  return cursor.toArray()
+}
