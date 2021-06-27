@@ -20,3 +20,5 @@ export const restartModule = (name, group) => {
     group: group,
   })
 }
+
+export const getMessages = () => axios.post(VUE_APP_API_URL + '/api/messages')
