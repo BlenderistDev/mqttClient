@@ -4,5 +4,5 @@ export const state = {
   topicFilter: '',
   perPage: 100,
   bufferSize: 1000,
-  before: null,
+  dateFilter: {}
 }

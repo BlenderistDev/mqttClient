@@ -15,15 +15,19 @@ export const get = (filter, limit) => {
   return client.connect().then(() => {
     const database = client.db(config.database)
     const collection = database.collection(config.collection)
-    const cursor = collection.find({
-      date: {
-        $lt: new Date(filter.before)
-      }
-    }).limit(parseInt(limit.limit)).skip(parseInt(limit.skip))
+    const queryFilter = {
+      date: {}
+    }
+    if (filter.before) {
+      queryFilter.date.$lt = new Date(filter.before)
+    }
+    if (filter.after) {
+      queryFilter.date.$gt = new Date(filter.after)
+    }
+    const cursor = collection.find(queryFilter).limit(parseInt(limit.limit)).skip(parseInt(limit.skip))
     return cursor.toArray()
   }).then(data => {
     client.close()
     return data
   })
-
 }

@@ -17,12 +17,15 @@ div
   .row
     .col-md-6 Before:
       input(type="datetime-local" v-model="before")
+    .col-md-6 After:
+      input(type="datetime-local" v-model="after")
 </template>
 
 <script>
 import { useStore } from "vuex";
 import { computed } from "@vue/runtime-core";
 import Textarea from "./Textarea";
+import _ from "lodash";
 
 export default {
   name: "Controls",
@@ -48,8 +51,20 @@ export default {
       set: (bufferSize) => store.commit("messages/setBufferSize", bufferSize),
     });
     const before = computed({
-      get: () => store.state.messages.before,
-      set: (before) => store.dispatch("messages/setBefore", before),
+      get: () => store.state.messages.dateFilter.before,
+      set: (before) =>
+        store.dispatch(
+          "messages/setDateFilter",
+          _.set(store.state.messages.dateFilter, "before", before)
+        ),
+    });
+    const after = computed({
+      get: () => store.state.messages.after,
+      set: (after) =>
+        store.dispatch(
+          "messages/setDateFilter",
+          _.set(store.state.messages.dateFilter, "after", after)
+        ),
     });
     return {
       messageFilter,
@@ -57,6 +72,7 @@ export default {
       perPage,
       bufferSize,
       before,
+      after,
     };
   },
 };
