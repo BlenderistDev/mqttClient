@@ -21,8 +21,9 @@ export const get = (filter, limit) => {
       }
     }).limit(parseInt(limit.limit)).skip(parseInt(limit.skip))
     return cursor.toArray()
+  }).then(data => {
+    client.close()
+    return data
   })
-
-  
 
 }
