@@ -39,3 +39,8 @@ export const setBufferSize = (state, bufferSize) => {
   state.bufferSize = bufferSize
   storeToLocalStorage(state)
 }
+export const setBefore = (state, before) => {
+  state.before = before
+}
+
+export const setMessages = (state, messages) => state.messages = messages

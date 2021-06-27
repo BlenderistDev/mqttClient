@@ -19,6 +19,6 @@ router.get('/api/storage/list', async (req, res,) =>res.send(await fs.promises.r
 router.get('/api/storage/:moduleName', async (req, res) => res.send(await getStorageConfig(req.params.moduleName.toString())));
 
 
-router.post('/api/messages', async (req, res) => res.send(await getMessages(1000, 0)));
+router.post('/api/messages', async (req, res) => res.send(await getMessages(req.body.filter, req.body.limit)));
 
 export { router };

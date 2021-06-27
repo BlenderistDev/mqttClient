@@ -1,5 +1,5 @@
-export const getMessages = (limit, offset) => {
+export const getMessages = (filter, limit) => {
   return import('../Storage/Mongo/Storage.js').then(module => {
-    return module.get(limit, offset)
+    return module.get(filter, limit)
   })
 }

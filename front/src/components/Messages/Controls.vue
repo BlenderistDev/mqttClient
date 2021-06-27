@@ -14,6 +14,9 @@ div
     .col-md-1 Buffer:
     .col-md-1
       input(v-model='bufferSize')
+  .row
+    .col-md-6 Before:
+      input(type="datetime-local" v-model="before")
 </template>
 
 <script>
@@ -24,34 +27,39 @@ import Textarea from "./Textarea";
 export default {
   name: "Controls",
   components: {
-    Textarea
+    Textarea,
   },
   setup() {
     const store = useStore();
     const messageFilter = computed({
       get: () => store.state.messages.messageFilter,
-      set: message => store.commit('messages/setMessageFilter', message)
-    })
+      set: (message) => store.commit("messages/setMessageFilter", message),
+    });
     const topicFilter = computed({
       get: () => store.state.messages.topicFilter,
-      set: topic => store.commit('messages/setTopicFilter', topic)
-    })
+      set: (topic) => store.commit("messages/setTopicFilter", topic),
+    });
     const perPage = computed({
       get: () => store.state.messages.perPage,
-      set: perPage => store.commit('messages/setPerPage', perPage)
-    })
+      set: (perPage) => store.commit("messages/setPerPage", perPage),
+    });
     const bufferSize = computed({
       get: () => store.state.messages.bufferSize,
-      set: bufferSize => store.commit('messages/setBufferSize', bufferSize)
-    })
+      set: (bufferSize) => store.commit("messages/setBufferSize", bufferSize),
+    });
+    const before = computed({
+      get: () => store.state.messages.before,
+      set: (before) => store.dispatch("messages/setBefore", before),
+    });
     return {
       messageFilter,
       topicFilter,
       perPage,
-      bufferSize
-    }
-  }
-}
+      bufferSize,
+      before,
+    };
+  },
+};
 </script>
 
 <style scoped>

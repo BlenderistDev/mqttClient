@@ -1,8 +1,7 @@
 import { getConfig } from '../../core/Config.js'
 import MongoClient from 'mongodb';
 
-export const get = (limit, offset) => {
-
+export const get = (filter, limit) => {
   const config = getConfig('Mongo')
 
   const uri =
@@ -16,7 +15,11 @@ export const get = (limit, offset) => {
   return client.connect().then(() => {
     const database = client.db(config.database)
     const collection = database.collection(config.collection)
-    const cursor = collection.find({}).limit(limit).skip(offset)
+    const cursor = collection.find({
+      date: {
+        $lt: new Date(filter.before)
+      }
+    }).limit(parseInt(limit.limit)).skip(parseInt(limit.skip))
     return cursor.toArray()
   })
 

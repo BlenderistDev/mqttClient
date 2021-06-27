@@ -1,4 +1,4 @@
-import { ref } from "vue"
+import { ref, computed } from "vue"
 import openSocket from "socket.io-client"
 import { useStore } from "vuex"
 
@@ -23,7 +23,12 @@ export function getSocket(module) {
 
 export function startMqttSocket() {
   const store = useStore();
-  socket.on('mqtt', message => store.commit("messages/addMessage", message))
+  const before = computed(() => store.state.messages.before)
+  socket.on('mqtt', message => {
+    if (before.value === null) {
+      store.commit("messages/addMessage", message)
+    }
+  })
 }
 
 export function startErrorSocket() {
