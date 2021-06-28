@@ -1,6 +1,7 @@
 import { ref, computed } from "vue"
 import openSocket from "socket.io-client"
 import { useStore } from "vuex"
+import _ from 'lodash'
 
 const VUE_APP_SOCKET_URL = process.env.VUE_APP_SOCKET_URL
 
@@ -23,9 +24,9 @@ export function getSocket(module) {
 
 export function startMqttSocket() {
   const store = useStore();
-  const before = computed(() => store.state.messages.before)
+  const dateFilter = computed(() => store.state.messages.dateFilter)
   socket.on('mqtt', message => {
-    if (before.value === null) {
+    if (_.isEmpty(dateFilter.value?.before)) {
       store.commit("messages/addMessage", message)
     }
   })
