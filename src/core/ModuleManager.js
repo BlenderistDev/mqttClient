@@ -1,13 +1,11 @@
 import { getConfig } from './Config.js'
+import { moduleBaseDir, storageBaseDir } from "./Constants";
 import fs from 'fs'
 import path from 'path'
 import { validateConfig } from './Validator.js'
 import { sendNotification } from './Notification.js'
 import { startModuleProcess, killModule } from './ModuleProcess.js'
 import * as R from 'ramda'
-
-const moduleBaseDir = path.join('src', 'Modules')
-const storageBaseDir = path.join('src', 'Storage')
 
 const isConfigInvalid = R.pipe(R.prop('errors'), R.isEmpty)
 
