@@ -1,9 +1,8 @@
+import { defaultConfigFolder, configFileName } from "./Constants";
 import yaml from 'js-yaml'
 import fs from 'fs'
 import * as R from "ramda";
 
-const defaultConfigFolder = './config'
-const configFileName = '/config.yml';
 const configFolder = R.when(R.isNil, () => defaultConfigFolder)(process.env.CONFIG_DIR)
 const configPath = configFolder + configFileName;
 
