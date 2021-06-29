@@ -1,5 +1,5 @@
 import { getConfig } from './Config.js'
-import { moduleBaseDir, storageBaseDir } from "./Constants";
+import { moduleBaseDir, storageBaseDir } from "./Constants.js";
 import fs from 'fs'
 import path from 'path'
 import { validateConfig } from './Validator.js'

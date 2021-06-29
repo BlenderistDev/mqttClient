@@ -1,4 +1,4 @@
-import { defaultConfigFolder, configFileName } from "./Constants";
+import { defaultConfigFolder, configFileName } from "./Constants.js";
 import yaml from 'js-yaml'
 import fs from 'fs'
 import * as R from "ramda";

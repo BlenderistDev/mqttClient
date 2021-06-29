@@ -1,7 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 import { setConfig, getConfig } from '../core/Config.js'
-import { moduleBaseDir, storageBaseDir } from "../core/Constants";
+import { moduleBaseDir, storageBaseDir } from "../core/Constants.js";
 import _ from 'lodash'
 
 const defaultFields = {
@@ -58,3 +58,6 @@ export const setModuleConfig = (config) =>
         )
       )
   )
+
+export const getModuleList = () => fs.promises.readdir(moduleBaseDir).then(module => module)
+export const getStorageList = () => fs.promises.readdir(storageBaseDir).then(module => module)
