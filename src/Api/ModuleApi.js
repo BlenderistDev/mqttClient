@@ -1,6 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 import { setConfig, getConfig } from '../core/Config.js'
+import { moduleBaseDir, storageBaseDir } from "../core/Constants";
 import _ from 'lodash'
 
 const defaultFields = {
@@ -36,12 +37,12 @@ export const getConfigByPath = function(modulePath) {
 }
 
 export const getModuleConfig = function(moduleName) {
-  const modulePath = path.join('src', 'Modules', moduleName);
+  const modulePath = path.join(moduleBaseDir, moduleName);
   return getConfigByPath(modulePath)
 }
 
 export const getStorageConfig = function(moduleName) {
-  const modulePath = path.join('src', 'Storage', moduleName);
+  const modulePath = path.join(storageBaseDir, moduleName);
   return getConfigByPath(modulePath)
 }
 
