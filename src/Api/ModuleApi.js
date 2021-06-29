@@ -3,6 +3,7 @@ import path from 'path'
 import { setConfig, getConfig } from '../core/Config.js'
 import { moduleBaseDir, storageBaseDir } from "../core/Constants.js";
 import _ from 'lodash'
+import * as R from 'ramda'
 
 const defaultFields = {
   fields: {
@@ -61,3 +62,7 @@ export const setModuleConfig = (config) =>
 
 export const getModuleList = () => fs.promises.readdir(moduleBaseDir)
 export const getStorageList = () => fs.promises.readdir(storageBaseDir)
+
+export const getStorageConfigList = () => getStorageList()
+  .then(R.map(getStorageConfig))
+  .then(storages => Promise.all(storages))

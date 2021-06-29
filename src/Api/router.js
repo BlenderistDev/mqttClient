@@ -1,5 +1,12 @@
 import express from 'express';
-import { getModuleConfig, getStorageConfig, setModuleConfig, getModuleList, getStorageList } from './ModuleApi.js'
+import {
+  getModuleConfig,
+  getStorageConfig,
+  setModuleConfig,
+  getModuleList,
+  getStorageList,
+  getStorageConfigList
+} from './ModuleApi.js'
 import { restartModule } from '../core/ModuleManager.js'
 import { getMessages } from '../core/Storage.js';
 
@@ -14,6 +21,8 @@ router.post('/api/module/:moduleName', async (req, res) => res.send(await setMod
 router.post('/api/restart', (req, res) => res.send(restartModule(req.body.name, req.body.group)));
 
 router.get('/api/storage/list', async (req, res,) =>res.send(await getStorageList()));
+
+router.get('/api/storage/config/list', async (req, res,) =>res.send(await getStorageConfigList()));
 
 router.get('/api/storage/:moduleName', async (req, res) => res.send(await getStorageConfig(req.params.moduleName.toString())));
 
