@@ -5,6 +5,7 @@ Layout
     v-if="storage"
     :config="storage"
   )
+  StorageSettings(v-else)
 </template>
 
 <script>
@@ -14,6 +15,7 @@ import { lookForRouter, getCurrentModule } from "../services/modules";
 import TabMenu from "../components/TabMenu/TabMenu.vue";
 import Layout from "../layout/Layout";
 import FormBuilder from "../components/FormBuilder/FormBuilder.vue";
+import StorageSettings from "../components/StorageSettings/StorageSettings";
 
 export default {
   name: "Storage",
@@ -21,14 +23,14 @@ export default {
     Layout,
     TabMenu,
     FormBuilder,
+    StorageSettings
   },
   setup() {
     const store = useStore();
     store.dispatch("modules/fetchStorageList");
-    store.dispatch("modules/fetchSSettingstorage", "DatabaseStorage");
     lookForRouter("modules/fetchStorage");
     return {
-      storageList: computed(() => store.state.modules.storageList),
+      storageList: computed(() => ['StorageSettings'].concat(store.state.modules.storageList)),
       storage: getCurrentModule(),
     };
   },
