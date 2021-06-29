@@ -59,5 +59,5 @@ export const setModuleConfig = (config) =>
       )
   )
 
-export const getModuleList = () => fs.promises.readdir(moduleBaseDir).then(module => module)
-export const getStorageList = () => fs.promises.readdir(storageBaseDir).then(module => module)
+export const getModuleList = () => fs.promises.readdir(moduleBaseDir)
+export const getStorageList = () => fs.promises.readdir(storageBaseDir)
