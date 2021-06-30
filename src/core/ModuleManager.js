@@ -29,7 +29,6 @@ const startModule = (launcher) => R.ifElse(
 
 const launch = (module, launcher) => R.pipe(
   checkModuleExist,
-  R.otherwise(() => console.log(`Module without logic: ${module}`)),
   R.andThen(() => getConfig(module)),
   R.andThen(
     R.ifElse(
@@ -37,7 +36,8 @@ const launch = (module, launcher) => R.pipe(
       () => sendNotification(module, `Skip module ${module}. Config is empty`),
       startModule(launcher)
     )
-  )
+  ),
+  R.otherwise(() => console.log(`Module without logic: ${module}`)),
 )
 
 const setup = R.curry((moduleDir, module) => {
