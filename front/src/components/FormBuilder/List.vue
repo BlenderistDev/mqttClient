@@ -31,7 +31,7 @@ export default {
     const route = useRoute();
     const moduleName = ref(route.params.name);
     const {ui} = toRefs(props)
-    const restart = () => restartModule(ui.name, ui.group);
+    const restart = () => restartModule(ui.value.name, ui.value.group);
     watch(
       () => ui.name,
       async (newModuleName) => {
