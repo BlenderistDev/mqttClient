@@ -28,7 +28,6 @@ export default {
     const store = useStore();
     store.dispatch("modules/fetchStorageConfigList");
     const { config, field } = toRefs(props);
-    console.log(config.value);
     return {
       value: getConfigValue(config, field),
       storageList: computed(() => store.state.modules.storageConfigList),

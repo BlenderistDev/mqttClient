@@ -1,3 +1,6 @@
+<template lang="pug">
+</template>
+
 <script>
 import { useStore } from "vuex";
 
