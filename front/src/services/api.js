@@ -29,3 +29,5 @@ export const getMessages = (filter, limit) => {
     limit: limit
   }).then(data => _.flatMap(data.data))
 }
+
+export const getStorageConfigList = () => axios.get(VUE_APP_API_URL + '/api/storage/config/list' ).then(data => data.data)

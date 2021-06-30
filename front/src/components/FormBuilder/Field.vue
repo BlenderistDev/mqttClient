@@ -14,6 +14,7 @@ import Select from "./fields/Select";
 import Socket from "./fields/Socket";
 import SocketList from "./fields/SocketList";
 import Password from "./fields/Password";
+import StorageSelect from "./fields/StorageSelect";
 import { toRefs, computed } from "vue";
 import * as R from "ramda";
 
@@ -26,6 +27,7 @@ export default {
     SocketList,
     Select,
     Password,
+    StorageSelect,
   },
   setup(props) {
     const { field } = toRefs(props);

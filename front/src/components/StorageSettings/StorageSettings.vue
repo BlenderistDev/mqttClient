@@ -1,13 +1,11 @@
-<template lang="pug">
-div
-</template>
-
 <script>
+import { useStore } from "vuex";
+
 export default {
-  name: "StorageSettings"
-}
+  name: "StorageSettings",
+  setup() {
+    const store = useStore();
+    store.dispatch("modules/fetchModule", "Storage");
+  },
+};
 </script>
-
-<style scoped>
-
-</style>

@@ -23,14 +23,16 @@ export default {
     Layout,
     TabMenu,
     FormBuilder,
-    StorageSettings
+    StorageSettings,
   },
   setup() {
     const store = useStore();
     store.dispatch("modules/fetchStorageList");
     lookForRouter("modules/fetchStorage");
     return {
-      storageList: computed(() => ['StorageSettings'].concat(store.state.modules.storageList)),
+      storageList: computed(() =>
+        ["StorageSettings"].concat(store.state.modules.storageList)
+      ),
       storage: getCurrentModule(),
     };
   },
