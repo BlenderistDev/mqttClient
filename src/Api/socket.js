@@ -1,5 +1,4 @@
 import { notificationEmitter } from '../core/Notification.js'
-import { getMessages } from '../core/Storage.js'
 
 const mqttGatewayGroup = 'mqttGateway'
 const mqttListenerGroup = 'mqttListener'

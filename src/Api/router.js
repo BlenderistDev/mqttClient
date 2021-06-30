@@ -6,7 +6,7 @@ import {
   getModuleList,
   getStorageList,
   getStorageConfigList
-} from './ModuleApi.js'
+} from '../core/ModuleConfig.js'
 import { restartModule } from '../core/ModuleManager.js'
 import { getMessages } from '../core/Storage.js';
 

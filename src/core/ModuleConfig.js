@@ -1,7 +1,7 @@
 import fs from 'fs'
 import path from 'path'
-import { setConfig, getConfig } from '../core/Config.js'
-import { moduleBaseDir, storageBaseDir } from "../core/Constants.js";
+import { setConfig, getConfig } from './Config.js'
+import { moduleBaseDir, storageBaseDir } from "./Constants.js";
 import _ from 'lodash'
 import * as R from 'ramda'
 

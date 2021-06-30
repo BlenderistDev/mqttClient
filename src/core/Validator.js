@@ -1,4 +1,4 @@
-import { getConfigByPath } from '../Api/ModuleApi.js'
+import { getConfigByPath } from './ModuleConfig.js'
 import * as R from 'ramda'
 
 const validators = {
