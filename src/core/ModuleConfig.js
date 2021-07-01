@@ -47,18 +47,24 @@ export const getStorageConfig = function(moduleName) {
   return getConfigByPath(modulePath)
 }
 
-export const setModuleConfig = (config) =>
-  setConfig(config.name,
-    config.type === 'Form' ? config.value :
-      _.map(config.value, value =>
-        _.omit(value,
-          _.chain(config.fields)
-            .filter(field => field.virtual === true)
-            .map('name')
-            .value()
-        )
-      )
+const getExcludedFields = R.pipe(
+  R.prop('fields'),
+  R.filter(R.propEq('virtual', true)),
+  R.keys()
+)
+
+const prepareConfigToSave = config => R.ifElse(
+  R.propEq('type', 'Form'),
+  R.prop('value'),
+  R.pipe(
+    R.prop('value'),
+    R.map(R.omit(getExcludedFields(config))),
   )
+)(config)
+
+export const setModuleConfig = (config) => {
+  setConfig(config.name, prepareConfigToSave(config))
+}
 
 const getDirList = (configGetter) => R.pipe(
   fs.promises.readdir,
