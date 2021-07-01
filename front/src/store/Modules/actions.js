@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import { getModuleList, getModule, updateModule, getStorageList, getStorage, getStorageConfigList } from '@/services/api.js'
+import { getModuleList, getModule, updateModule, getStorageList, getStorage } from '../../services/api.js'
 
 export const fetchStorageList = ({ commit }) => getStorageList().then(res => commit('setStorageList', res.data))
 
@@ -40,5 +40,3 @@ export async function deleteConfig({state, dispatch}, id) {
   await updateModule(module)
   dispatch('fetchModule', state.module.name)
 }
-
-export const fetchStorageConfigList = ({commit}) => getStorageConfigList().then(storages => commit('setStorageConfigList', storages))

@@ -26,11 +26,11 @@ export default {
   },
   setup(props) {
     const store = useStore();
-    store.dispatch("modules/fetchStorageConfigList");
+    store.dispatch("modules/fetchStorageList");
     const { config, field } = toRefs(props);
     return {
       value: getConfigValue(config, field),
-      storageList: computed(() => store.state.modules.storageConfigList),
+      storageList: computed(() => store.state.modules.storageList),
     };
   },
 };

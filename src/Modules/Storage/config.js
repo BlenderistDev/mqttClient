@@ -5,6 +5,6 @@ export default {
     storage: {
       type: 'StorageSelect',
       name: 'storage'
-    },
+    }
   }
 }

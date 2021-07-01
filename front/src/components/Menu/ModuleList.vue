@@ -6,9 +6,9 @@ ul.list-group-flush
     .menu-item Storage
   router-link.list-group-item(
     v-for="module in moduleList"
-    :to="{ name: 'module', params: { name: module } }"
+    :to="{ name: 'module', params: { name: module.name } }"
   )
-    .menu-item {{ module }}
+    .menu-item {{ module.name }}
 </template>
 
 <script>

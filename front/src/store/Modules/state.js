@@ -3,5 +3,4 @@ export const state = {
   module: null,
   storage: null,
   storageList: [],
-  storageConfigList: []
 }
