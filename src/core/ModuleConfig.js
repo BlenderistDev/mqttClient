@@ -60,14 +60,12 @@ export const setModuleConfig = (config) =>
       )
   )
 
-const getDirList = dir => fs.promises.readdir(dir)
+const getDirList = (configGetter) => R.pipe(
+  fs.promises.readdir,
+  R.andThen(R.map(configGetter)),
+  R.andThen(modules => Promise.all(modules)),
+  R.andThen(R.filter(module => module.hide !== true))
+)
 
-export const getModuleList = () => getDirList(moduleBaseDir)
-  .then(R.map(getModuleConfig))
-  .then(modules => Promise.all(modules))
-  .then(R.filter(module => module.hide != true))
-
-export const getStorageList = () => getDirList(storageBaseDir)
-  .then(R.map(getStorageConfig))
-  .then(storages => Promise.all(storages))
-  .then(R.filter(module => module.hide != true))
+export const getModuleList = () => getDirList(getModuleConfig)(moduleBaseDir)
+export const getStorageList = () => getDirList(getStorageConfig)(storageBaseDir)
