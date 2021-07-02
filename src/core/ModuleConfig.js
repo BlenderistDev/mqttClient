@@ -2,9 +2,7 @@ import fs from 'fs'
 import path from 'path'
 import { setConfig, getConfig } from './Config.js'
 import { moduleBaseDir, storageBaseDir } from "./Constants.js";
-import _ from 'lodash'
 import * as R from 'ramda'
-import {lensProp} from "ramda";
 import md5 from 'md5'
 
 const defaultFields = {
@@ -18,9 +16,7 @@ const defaultFields = {
   }
 }
 
-const setHash = (config) => {
-  return R.set(R.lensProp('hash'), md5(JSON.stringify(config)), config)
-}
+const setHash = (config) => R.set(R.lensProp('hash'), md5(JSON.stringify(config)), config)
 
 export const getConfigByPathNew = (moduleName, groupName) => R.pipe(
   R.set(R.lensProp('value'), getConfig(moduleName)),
