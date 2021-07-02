@@ -4,6 +4,8 @@ import { setConfig, getConfig } from './Config.js'
 import { moduleBaseDir, storageBaseDir } from "./Constants.js";
 import _ from 'lodash'
 import * as R from 'ramda'
+import {lensProp} from "ramda";
+import md5 from 'md5'
 
 const defaultFields = {
   fields: {
@@ -16,6 +18,21 @@ const defaultFields = {
   }
 }
 
+const setHash = (config) => {
+  return R.set(R.lensProp('hash'), md5(JSON.stringify(config)), config)
+}
+
+export const getConfigByPathNew = (moduleName, groupName) => R.pipe(
+  R.set(R.lensProp('value'), getConfig(moduleName)),
+  R.over(R.lensProp('value'), R.ifElse(
+    R.is(Array),
+    R.map(setHash),
+    R.identity
+  )),
+  R.set(R.lensProp('group'), groupName),
+  R.mergeDeepRight(defaultFields)
+)
+
 export const getConfigByPath = function(modulePath) {
   const pathData = modulePath.split(path.sep)
   const moduleName = pathData.pop()
@@ -23,14 +40,9 @@ export const getConfigByPath = function(modulePath) {
   const configPath = path.join(process.cwd(), modulePath, 'config.js');
 
   return fs.promises.access(configPath, fs.constants.R_OK)
-    .then(() => import(configPath).then(module => _
-      .chain(module.default)
-      .omit('value')
-      .set('value', getConfig(moduleName))
-      .set('group', groupName)
-      .merge(defaultFields)
-      .value()
-  )).catch((err) => {
+    .then(() => import(configPath))
+    .then(module => getConfigByPathNew(moduleName, groupName)(module.default))
+    .catch((err) => {
     if (err.code !== 'ENOENT') {
       throw err
     }
