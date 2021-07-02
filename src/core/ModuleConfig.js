@@ -18,7 +18,7 @@ const defaultFields = {
 
 const setHash = (config) => R.set(R.lensProp('hash'), md5(JSON.stringify(config)), config)
 
-export const getConfigByPathNew = (moduleName, groupName) => R.pipe(
+export const addDataToConfig = (moduleName, groupName) => R.pipe(
   R.set(R.lensProp('value'), getConfig(moduleName)),
   R.over(R.lensProp('value'), R.ifElse(
     R.is(Array),
@@ -35,14 +35,12 @@ export const getConfigByPath = function(modulePath) {
   const groupName = pathData.pop()
   const configPath = path.join(process.cwd(), modulePath, 'config.js');
 
-  return fs.promises.access(configPath, fs.constants.R_OK)
-    .then(() => import(configPath))
-    .then(module => getConfigByPathNew(moduleName, groupName)(module.default))
-    .catch((err) => {
-    if (err.code !== 'ENOENT') {
-      throw err
-    }
-  })
+  return R.pipe(
+    configPath => import(configPath),
+    R.andThen(R.prop('default')),
+    R.andThen(addDataToConfig(moduleName, groupName)),
+    R.otherwise(err => console.log(err))
+  )(configPath)
 }
 
 export const getModuleConfig = function(moduleName) {
