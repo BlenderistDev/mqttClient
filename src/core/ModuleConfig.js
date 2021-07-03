@@ -1,7 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 import { setConfig, getConfig } from './Config.js'
-import { moduleBaseDir, storageBaseDir } from "./Constants.js";
+import { baseDir, moduleBaseDir, storageBaseDir } from "./Constants.js";
 import * as R from 'ramda'
 import md5 from 'md5'
 
@@ -43,15 +43,10 @@ export const getConfigByPath = function(modulePath) {
   )(configPath)
 }
 
-export const getModuleConfig = function(moduleName) {
-  const modulePath = path.join(moduleBaseDir, moduleName);
+export const getModuleConfig = R.curry(function(group, moduleName) {
+  const modulePath = path.join(baseDir, group, moduleName);
   return getConfigByPath(modulePath)
-}
-
-export const getStorageConfig = function(moduleName) {
-  const modulePath = path.join(storageBaseDir, moduleName);
-  return getConfigByPath(modulePath)
-}
+})
 
 const getExcludedFields = R.pipe(
   R.prop('fields'),
@@ -72,12 +67,14 @@ export const setModuleConfig = (config) => {
   setConfig(config.name, prepareConfigToSave(config))
 }
 
-const getDirList = (configGetter) => R.pipe(
+const getDirList = (group) => R.pipe(
   fs.promises.readdir,
-  R.andThen(R.map(configGetter)),
+  R.andThen(R.map(getModuleConfig(group))),
   R.andThen(modules => Promise.all(modules)),
   R.andThen(R.filter(module => module.hide !== true))
 )
 
-export const getModuleList = () => getDirList(getModuleConfig)(moduleBaseDir)
-export const getStorageList = () => getDirList(getStorageConfig)(storageBaseDir)
+export const getGroupList = group => getDirList(group)(path.join(baseDir, group))
+
+export const getModuleList = () => getGroupList('Modules')
+export const getStorageList = () => getGroupList('Storage')
