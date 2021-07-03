@@ -1,7 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 import { setConfig, getConfig } from './Config.js'
-import { baseDir, moduleBaseDir, storageBaseDir } from "./Constants.js";
+import { baseDir } from "./Constants.js";
 import * as R from 'ramda'
 import md5 from 'md5'
 
@@ -75,6 +75,3 @@ const getDirList = (group) => R.pipe(
 )
 
 export const getGroupList = group => getDirList(group)(path.join(baseDir, group))
-
-export const getModuleList = () => getGroupList('Modules')
-export const getStorageList = () => getGroupList('Storage')
