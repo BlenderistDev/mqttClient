@@ -1,13 +1,11 @@
 import _ from 'lodash'
-import { getModuleList, getModule, updateModule, getStorage } from '../../services/api.js'
+import { getModuleList, getModule, updateModule } from '../../services/api.js'
 
 export const fetchStorageList = ({ commit }) => getModuleList('Storage').then(res => commit('setStorageList', res.data))
 
 export const fetchModuleList = ({ commit }) => getModuleList('Modules').then(res => commit('setModuleList', res.data))
 
-export const fetchModule = ({commit}, module) => getModule(module).then((res) => commit('setModule', res.data))
-
-export const fetchStorage = ({commit}, storage) => getStorage(storage).then((res) => commit('setModule', res.data))
+export const fetchModule = ({commit, state}, module) => getModule(module, state.group).then((res) => commit('setModule', res.data))
 
 export async function updateConfig({state}, config) {
   const module = {...state.module}

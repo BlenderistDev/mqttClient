@@ -11,7 +11,7 @@ const router = express.Router();
 
 router.get('/api/modules/:group/list', async (req, res,) => res.send(await getGroupList(req.params.group.toString())));
 
-router.get('/api/modules/:moduleName', async (req, res) => res.send(await getModuleConfig('Modules', req.params.moduleName.toString())));
+router.get('/api/modules/:group/:moduleName', async (req, res) => res.send(await getModuleConfig(req.params.group.toString(), req.params.moduleName.toString())));
 
 router.post('/api/modules/:moduleName', async (req, res) => res.send(await setModuleConfig(req.body.config)));
 

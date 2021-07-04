@@ -10,7 +10,7 @@ export const getModuleList = group => axios.get(`${MODULE_LINK}/${group}/list`)
 
 export const getStorage = (storage) => axios.get(`${STORAGE_LINK}/${storage}`)
 
-export const getModule = (module) => axios.get(`${MODULE_LINK}/${module}`)
+export const getModule = (module, group) => axios.get(`${MODULE_LINK}/${group}/${module}`)
 
 export const updateModule = (module) => axios.post(`${MODULE_LINK}/${module.name}`, { config: module })
 
