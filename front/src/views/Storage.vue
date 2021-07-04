@@ -11,7 +11,7 @@ Layout
 <script>
 import { useStore } from "vuex";
 import { computed } from "vue";
-import { lookForRouter, getCurrentModule } from "../services/modules";
+import { lookForRouter, getCurrentModule, STORAGE_GROUP } from "../services/modules";
 import _ from "lodash";
 import TabMenu from "../components/TabMenu/TabMenu.vue";
 import Layout from "../layout/Layout";
@@ -28,7 +28,7 @@ export default {
   },
   setup() {
     const store = useStore();
-    store.commit("modules/setGroup", "Storage");
+    store.commit("modules/setGroup", STORAGE_GROUP);
     store.dispatch("modules/fetchStorageList");
     lookForRouter();
     return {

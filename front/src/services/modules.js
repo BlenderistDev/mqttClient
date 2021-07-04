@@ -2,6 +2,9 @@ import { computed, watch } from "vue";
 import { useRoute } from 'vue-router'
 import { useStore } from 'vuex'
 
+export const MODULES_GROUP = 'Modules'
+export const STORAGE_GROUP = 'Storage'
+
 export const getConfigType = config => computed(() => config.value.type)
 
 export const lookForRouter = () => {
