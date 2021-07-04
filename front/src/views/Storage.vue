@@ -12,7 +12,7 @@ Layout
 import { useStore } from "vuex";
 import { computed } from "vue";
 import { lookForRouter, getCurrentModule } from "../services/modules";
-import _ from 'lodash';
+import _ from "lodash";
 import TabMenu from "../components/TabMenu/TabMenu.vue";
 import Layout from "../layout/Layout";
 import FormBuilder from "../components/FormBuilder/FormBuilder.vue";
@@ -28,11 +28,14 @@ export default {
   },
   setup() {
     const store = useStore();
+    store.commit("modules/setGroup", "Storage");
     store.dispatch("modules/fetchStorageList");
-    lookForRouter("modules/fetchStorage");
+    lookForRouter();
     return {
       storageList: computed(() =>
-        ["StorageSettings"].concat(_.map(store.state.modules.storageList, storage => storage.name))
+        ["StorageSettings"].concat(
+          _.map(store.state.modules.storageList, (storage) => storage.name)
+        )
       ),
       storage: getCurrentModule(),
     };

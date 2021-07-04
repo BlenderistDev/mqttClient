@@ -3,16 +3,11 @@ import _ from 'lodash'
 
 const VUE_APP_API_URL = process.env.VUE_APP_API_URL
 
-const MODULE_LINK = VUE_APP_API_URL + '/api/module'
-const STORAGE_LINK = VUE_APP_API_URL + '/api/storage'
+const MODULE_LINK = VUE_APP_API_URL + '/api/modules'
 
-export const getModuleList = () => axios.get(MODULE_LINK + '/list')
+export const getModuleList = group => axios.get(`${MODULE_LINK}/${group}/list`)
 
-export const getStorageList = () => axios.get(STORAGE_LINK + '/list')
-
-export const getStorage = (storage) => axios.get(`${STORAGE_LINK}/${storage}`)
-
-export const getModule = (module) => axios.get(`${MODULE_LINK}/${module}`)
+export const getModule = (module, group) => axios.get(`${MODULE_LINK}/${group}/${module}`)
 
 export const updateModule = (module) => axios.post(`${MODULE_LINK}/${module.name}`, { config: module })
 

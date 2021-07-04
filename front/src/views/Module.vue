@@ -22,8 +22,9 @@ export default {
   setup() {
     const router = useRoute();
     const store = useStore();
+    store.commit("modules/setGroup", "Modules");
     store.dispatch("modules/fetchModule", router.params.name);
-    lookForRouter("modules/fetchModule");
+    lookForRouter();
     return {
       module: getCurrentModule(),
     };

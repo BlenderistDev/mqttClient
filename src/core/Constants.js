@@ -1,7 +1,7 @@
-import path from "path";
-
 export const defaultConfigFolder = './config'
 export const configFileName = '/config.yml';
 
-export const moduleBaseDir = path.join('src', 'Modules')
-export const storageBaseDir = path.join('src', 'Storage')
+export const baseDir = 'src'
+
+export const storageBaseDir = 'src/Storage'
+export const moduleBaseDir = 'src/Modules'
