@@ -17,8 +17,6 @@ router.post('/api/modules/:moduleName', async (req, res) => res.send(await setMo
 
 router.post('/api/restart', (req, res) => res.send(restartModule(req.body.name, req.body.group)));
 
-router.get('/api/storage/:moduleName', async (req, res) => res.send(await getModuleConfig('Storage', req.params.moduleName.toString())));
-
 router.post('/api/messages', async (req, res) => res.send(await getMessages(req.body.filter, req.body.limit)));
 
 export { router };
