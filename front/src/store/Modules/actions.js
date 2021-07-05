@@ -7,7 +7,7 @@ export const fetchModuleList = ({ commit }) => getModuleList('Modules').then(res
 
 export const fetchModule = ({commit, state}, module) => getModule(module, state.group).then((res) => commit('setModule', res.data))
 
-export async function updateConfig({state}, config) {
+export async function updateConfig({state, dispatch}, config) {
   const module = {...state.module}
 
   if (module.type === 'Form') {
@@ -20,6 +20,7 @@ export async function updateConfig({state}, config) {
     }
   }
   await updateModule(module)
+  dispatch('fetchModule', module.name)
 }
 
 export function addConfig({state, dispatch}) {
