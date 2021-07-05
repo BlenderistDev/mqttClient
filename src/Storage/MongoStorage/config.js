@@ -1,5 +1,5 @@
 export default {
-  type: 'Form',
+  type: 'List',
   name: 'MongoStorage',
   fields: {
     host: {
