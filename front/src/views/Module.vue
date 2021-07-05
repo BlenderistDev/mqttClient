@@ -9,7 +9,7 @@ Layout
 <script>
 import { useStore } from "vuex";
 import { useRoute } from "vue-router";
-import { getCurrentModule } from "../services/modules";
+import { getCurrentModule, MODULES_GROUP } from "../services/modules";
 import Layout from "../layout/Layout";
 import FormBuilder from "../components/FormBuilder/FormBuilder.vue";
 
@@ -22,8 +22,11 @@ export default {
   setup() {
     const router = useRoute();
     const store = useStore();
-    store.commit("modules/setGroup", "Modules");
-    if (store.state.modules.module === null || store.state.modules.module.group !== store.state.modules.group) {
+    store.commit("modules/setGroup", MODULES_GROUP);
+    if (
+      store.state.modules.module === null ||
+      store.state.modules.module.group !== store.state.modules.group
+    ) {
       store.dispatch("modules/fetchModule", router.params.name);
     }
     return {
