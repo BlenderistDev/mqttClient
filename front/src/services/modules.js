@@ -1,4 +1,5 @@
 import { computed } from "vue";
+import { useRoute } from "vue-router";
 import { useStore } from 'vuex'
 
 export const MODULES_GROUP = 'Modules'
@@ -11,3 +12,11 @@ export const getCurrentModule = () => {
   return computed(() => store.state.modules.module)
 }
 
+export const initModuleForm = group => {
+  const router = useRoute();
+  const store = useStore();
+  store.commit("modules/setGroup", group);
+  if (store.state.modules.module === null) {
+    store.dispatch("modules/fetchModule", router.params.name);
+  }
+}

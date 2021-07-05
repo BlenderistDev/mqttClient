@@ -10,8 +10,7 @@ Layout
 <script>
 import { useStore } from "vuex";
 import { computed } from "vue";
-import { getCurrentModule, STORAGE_GROUP } from "../services/modules";
-import { useRoute } from "vue-router";
+import { getCurrentModule, STORAGE_GROUP, initModuleForm } from "../services/modules";
 import TabMenu from "../components/TabMenu/TabMenu.vue";
 import Layout from "../layout/Layout";
 import FormBuilder from "../components/FormBuilder/FormBuilder.vue";
@@ -24,11 +23,9 @@ export default {
     FormBuilder,
   },
   setup() {
-    const router = useRoute();
+    initModuleForm(STORAGE_GROUP);
     const store = useStore();
-    store.commit("modules/setGroup", STORAGE_GROUP);
     store.dispatch("modules/fetchStorageList");
-    store.dispatch("modules/fetchModule", router.params.name);
     return {
       storageList: computed(() => store.state.modules.storageList),
       storage: getCurrentModule(),
