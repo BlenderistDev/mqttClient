@@ -7,6 +7,7 @@ ul.list-group-flush
   router-link.list-group-item(
     v-for="module in moduleList"
     :to="{ name: 'module', params: { name: module.name } }"
+    @click="setModule(module)"
   )
     .menu-item {{ module.name }}
 </template>
@@ -25,6 +26,7 @@ export default {
     store.dispatch("modules/fetchModuleList");
     return {
       moduleList: computed(() => store.state.modules.moduleList),
+      setModule: module => store.dispatch('modules/setModule', module)
     };
   },
 };

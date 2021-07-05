@@ -11,8 +11,7 @@ Layout
 <script>
 import { useStore } from "vuex";
 import { computed } from "vue";
-import { lookForRouter, getCurrentModule } from "../services/modules";
-import _ from "lodash";
+import { getCurrentModule } from "../services/modules";
 import TabMenu from "../components/TabMenu/TabMenu.vue";
 import Layout from "../layout/Layout";
 import FormBuilder from "../components/FormBuilder/FormBuilder.vue";
@@ -30,13 +29,13 @@ export default {
     const store = useStore();
     store.commit("modules/setGroup", "Storage");
     store.dispatch("modules/fetchStorageList");
-    lookForRouter();
+
+    if (store.state.modules.module === null || store.state.modules.module.group !== store.state.modules.group) {
+      store.dispatch("modules/fetchModule", 'Storage');
+    }
+
     return {
-      storageList: computed(() =>
-        ["StorageSettings"].concat(
-          _.map(store.state.modules.storageList, (storage) => storage.name)
-        )
-      ),
+      storageList: computed(() => store.state.modules.storageList),
       storage: getCurrentModule(),
     };
   },

@@ -38,3 +38,8 @@ export async function deleteConfig({state, dispatch}, id) {
   await updateModule(module)
   dispatch('fetchModule', state.module.name)
 }
+
+export const setModule = ({state, dispatch}, module) => {
+  state.group = module.group
+  dispatch('fetchModule', module.name)
+}
