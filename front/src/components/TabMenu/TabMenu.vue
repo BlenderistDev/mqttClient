@@ -2,7 +2,7 @@
 ul.nav.nav-fill
   li.nav-item
     router-link.nav-link.justify-content-center(
-      :to="{ name: route }"
+      :to="{ name: route, params: { name: 'Storage' } }"
       @click="setModule({name: 'Storage', group: 'Storage'})"
     ) Storage
   li.nav-item(v-for="item in items")
@@ -13,7 +13,7 @@ ul.nav.nav-fill
 </template>
 
 <script>
-import {useStore} from "vuex";
+import { useStore } from "vuex";
 
 export default {
   name: "TabMenu",
@@ -22,11 +22,11 @@ export default {
     route: String,
   },
   setup() {
-    const store = useStore()
+    const store = useStore();
     return {
-      setModule: module => store.dispatch('modules/setModule', module)
-    }
-  }
+      setModule: (module) => store.dispatch("modules/setModule", module),
+    };
+  },
 };
 </script>
 

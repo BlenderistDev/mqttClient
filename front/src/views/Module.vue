@@ -23,10 +23,7 @@ export default {
     const router = useRoute();
     const store = useStore();
     store.commit("modules/setGroup", MODULES_GROUP);
-    if (
-      store.state.modules.module === null ||
-      store.state.modules.module.group !== store.state.modules.group
-    ) {
+    if (store.state.modules.module === null) {
       store.dispatch("modules/fetchModule", router.params.name);
     }
     return {

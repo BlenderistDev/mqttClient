@@ -15,7 +15,7 @@ const routes = [
     component: Module,
   },
   {
-    path: '/storage',
+    path: '/storage/:name',
     name: 'storage',
     component: Storage,
   }

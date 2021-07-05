@@ -2,7 +2,7 @@
 ul.list-group-flush
   router-link.list-group-item(:to="{ name: 'Home' }")
     .menu-item Home
-  router-link.list-group-item(:to="{ name: 'storage' }")
+  router-link.list-group-item(:to="{ name: 'storage', params: { name: 'Storage' }}")
     .menu-item Storage
   router-link.list-group-item(
     v-for="module in moduleList"
@@ -26,7 +26,7 @@ export default {
     store.dispatch("modules/fetchModuleList");
     return {
       moduleList: computed(() => store.state.modules.moduleList),
-      setModule: module => store.dispatch('modules/setModule', module)
+      setModule: (module) => store.dispatch("modules/setModule", module),
     };
   },
 };
