@@ -3,25 +3,29 @@ import { notificationEmitter } from '../core/Notification.js'
 const mqttGatewayGroup = 'mqttGateway'
 const mqttListenerGroup = 'mqttListener'
 const frontendGroup = 'frontend'
+const mqttModule = 'Mqtt'
+const mqttEventName = 'mqtt'
+const dataEventName = 'data'
+const notificationEventName = 'notification'
 
 export const socketHandler = (socket) => {
   const module = socket.handshake.query.module
-  if (module === 'Mqtt') {
+  if (module === mqttModule) {
     socket.join(mqttGatewayGroup)
-    socket.on('data', data => socket.to(mqttListenerGroup).emit('mqtt', data))
+    socket.on(dataEventName, data => socket.to(mqttListenerGroup).emit(mqttEventName, data))
   } else {
-    socket.on('mqtt', data => socket.to(mqttGatewayGroup).emit('data', data))
+    socket.on(mqttEventName, data => socket.to(mqttGatewayGroup).emit(dataEventName, data))
     socket.join(mqttListenerGroup)
     if (module) {
-      socket.on('data', (data) => socket.to(frontendGroup).emit('data', {
+      socket.on(dataEventName, (data) => socket.to(frontendGroup).emit(dataEventName, {
         module: module,
         data: data
       }))
     }
     if (socket.handshake.query.frontend) {
       socket.join(frontendGroup)
-      socket.on('data', data => socket.to(data.module).emit('data'. data.data))
-      notificationEmitter.on('message', notification => socket.emit('notification', notification))
+      socket.on(dataEventName, data => socket.to(data.module).emit(dataEventName. data.data))
+      notificationEmitter.on('message', notification => socket.emit(notificationEventName, notification))
     }
   }
 }
