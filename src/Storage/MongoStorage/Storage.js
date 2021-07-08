@@ -24,8 +24,11 @@ export const get = (filter, limit) => {
     if (filter.after) {
       queryFilter.date.$gt = new Date(filter.after)
     }
-    const cursor = collection.find(queryFilter).limit(parseInt(limit.limit)).skip(parseInt(limit.skip))
-    return cursor.toArray()
+    return collection
+      .find(queryFilter)
+      .limit(parseInt(limit.limit))
+      .skip(parseInt(limit.skip))
+      .toArray()
   }).then(data => {
     client.close()
     return data
