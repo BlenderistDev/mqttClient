@@ -33,7 +33,7 @@ export default {
 <style scoped>
 .nav-link {
   margin-left: 0px;
-  border-bottom: 1px solid;
+  border-bottom: 2px solid;
   border-color: grey;
   color: black;
   font-size: large;
