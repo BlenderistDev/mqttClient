@@ -4,7 +4,7 @@ div
     .col-6
       .btn.btn-success(@click="addConfig") Add
     .col-6
-      .btn.btn-warning(@click="restart") Reload
+      .btn.btn-warning(v-if="!ui.hideReload" @click="restart") Reload
   ConfigRow(
     v-for="config in ui.value"
     :config="config"
@@ -18,7 +18,7 @@ import ConfigRow from "../FormBuilder/ConfigRow";
 import { restartModule } from "@/services/api.js";
 import { mapActions } from "vuex";
 import { useRoute } from "vue-router";
-import {ref, toRefs} from "vue";
+import { ref, toRefs } from "vue";
 import { watch } from "vue";
 
 export default {
@@ -30,7 +30,7 @@ export default {
   setup(props) {
     const route = useRoute();
     const moduleName = ref(route.params.name);
-    const {ui} = toRefs(props)
+    const { ui } = toRefs(props);
     const restart = () => restartModule(ui.value.name, ui.value.group);
     watch(
       () => ui.name,
@@ -39,7 +39,7 @@ export default {
       }
     );
     return {
-      restart
+      restart,
     };
   },
   methods: {
