@@ -31,23 +31,20 @@ export default {
 </script>
 
 <style scoped>
-.nav {
-  border-left: 1px solid;
-  border-right: 1px solid;
-  border-top: 1px solid;
-}
-.router-link-active {
-  border-left: 1px solid;
-  border-right: 1px solid;
-  border-bottom: 2px solid;
-  border-color: grey;
-}
 .nav-link {
   margin-left: 0px;
-  border-left: 1px solid;
-  border-right: 1px solid;
+  border-bottom: 1px solid;
   border-color: grey;
   color: black;
   font-size: large;
+}
+.router-link-active {
+  border-top: 2px solid;
+  border-color: grey;
+  border-bottom: 0px;
+  border-left: 1px solid;
+  border-right: 1px solid;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
 }
 </style>
