@@ -1,5 +1,11 @@
+import {getModuleConfig} from "./ModuleConfig.js";
+import * as R from 'ramda'
+
 export const getMessages = (filter, limit) => {
-  return import('../Storage/Mongo/Storage.js').then(module => {
-    return module.get(filter, limit)
-  })
+  getModuleConfig('Storage', 'Storage').then(R.pipe(
+    R.prop('value'),
+    R.prop('storage'),
+    storage => import(`../Storage/${storage}/Storage.js`),
+    R.andThen(module => module.get(filter, limit))
+  ))
 }
