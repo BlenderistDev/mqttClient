@@ -5,7 +5,7 @@ export const get = (filter, limit) => {
   const config = getConfig('Mongo')
 
   const uri =
-  `mongodb://${config.user}:${config.password}@${config.host}?retryWrites=true&writeConcern=majority&authSource=${config.database}`;
+  `mongodb://${config.user}:${config.password}@${config.host}?retryWrites=true&authSource=${config.database}`;
 
   const client = new MongoClient.MongoClient(uri, {
     useNewUrlParser: true,
