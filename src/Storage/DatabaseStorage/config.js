@@ -1,5 +1,5 @@
 export default {
-  type: 'List',
+  type: 'Form',
   name: 'DatabaseStorage',
   fields: {
     host: {
