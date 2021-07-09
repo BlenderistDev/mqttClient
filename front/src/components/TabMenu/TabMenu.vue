@@ -13,7 +13,7 @@ ul.nav.nav-fill
 </template>
 
 <script>
-import { computed } from 'vue'
+import { computed } from "vue";
 import { useStore } from "vuex";
 import { useRoute } from "vue-router";
 
@@ -26,10 +26,10 @@ export default {
   setup() {
     const route = useRoute();
     const store = useStore();
-    const activeModule = computed(() => route.params.name)
+    const activeModule = computed(() => route.params.name);
     return {
       setModule: (module) => store.dispatch("modules/setModule", module),
-      getClass: name => name === activeModule.value ? 'active' : '',
+      getClass: (name) => (name === activeModule.value ? "active" : ""),
     };
   },
 };
@@ -51,28 +51,28 @@ export default {
   width: 10px;
   height: 10px;
   position: absolute;
-  content: '';
+  content: "";
   display: block;
   right: -10px;
   bottom: 0;
-  background: #f5f6f7;
+  background: #dfe2e6;
 }
 .nav-item.active:before {
   width: 10px;
   height: 10px;
   position: absolute;
-  content: '';
+  content: "";
   display: block;
   left: -10px;
   bottom: 0;
-  background: #f5f6f7;
+  background: #dfe2e6;
 }
 .nav-item {
   position: relative;
 }
 .router-link-active {
   border-bottom: 0px;
-  background: #f5f6f7;
+  background: #dfe2e6;
   position: relative;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
@@ -83,7 +83,7 @@ export default {
   border-radius: 50%;
   position: absolute;
   display: block;
-  content: '';
+  content: "";
   bottom: 0;
   right: -20px;
   background: #fff;
@@ -95,7 +95,7 @@ export default {
   border-radius: 50%;
   position: absolute;
   display: block;
-  content: '';
+  content: "";
   bottom: 0;
   left: -20px;
   background: #fff;
