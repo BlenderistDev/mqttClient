@@ -21,8 +21,10 @@ Messages.init({
 export const get = (filter, limit) => Messages.findAll({
   where: {
     date: {
-      [Sequelize.Op.between]: [new Date(filter.after), new Date(filter.before)]
+      [Sequelize.Op.between]: [new Date(filter.after), new Date(filter.before)],
     }
-  }
+  },
+  limit: parseInt(limit.limit),
+  offset: limit.skip,
 })
 
