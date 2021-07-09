@@ -1,7 +1,6 @@
-import { sendDiscoveryMessage } from '../../Components/HomeAssistant.js'
-import _ from 'lodash'
-import { mqttClient, moduleClient } from '../../Components/SocketClient.js'
-import { config, topic } from "../../Components/ModuleConfig.js";
+import { sendDiscoveryMessage } from '../../../Components/HomeAssistant.js'
+import { mqttClient, moduleClient } from '../../../Components/SocketClient.js'
+import { config, topic } from "../../../Components/ModuleConfig.js";
 
 const name = `messages_in_${config.interval}_sec`
 const moduleTopic = `${topic}/${name}`

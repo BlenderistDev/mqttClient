@@ -1,6 +1,6 @@
-import {sendDiscoveryMessage} from '../../Components/HomeAssistant.js';
-import { mqttClient, moduleClient } from "../../Components/SocketClient.js";
-import { config, topic } from "../../Components/ModuleConfig.js";
+import {sendDiscoveryMessage} from '../../../Components/HomeAssistant.js';
+import { mqttClient, moduleClient } from "../../../Components/SocketClient.js";
+import { config, topic } from "../../../Components/ModuleConfig.js";
 
 const measureSubTopic = topic + '/measure';
 const resultSubTopic = topic + '/result';

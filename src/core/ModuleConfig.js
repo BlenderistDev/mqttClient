@@ -1,7 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 import { setConfig, getConfig } from './Config.js'
-import { baseDir } from "./Constants.js";
+import { moduleDir } from "./Constants.js";
 import * as R from 'ramda'
 import md5 from 'md5'
 
@@ -44,7 +44,7 @@ export const getConfigByPath = function(modulePath) {
 }
 
 export const getModuleConfig = R.curry(function(group, moduleName) {
-  const modulePath = path.join(baseDir, group, moduleName);
+  const modulePath = path.join(moduleDir, group, moduleName);
   return getConfigByPath(modulePath)
 })
 
@@ -74,4 +74,4 @@ const getDirList = (group) => R.pipe(
   R.andThen(R.filter(module => module.hide !== true))
 )
 
-export const getGroupList = group => getDirList(group)(path.join(baseDir, group))
+export const getGroupList = group => getDirList(group)(path.join(moduleDir, group))

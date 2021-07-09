@@ -1,4 +1,4 @@
-import { getConfig } from '../../core/Config.js'
+import { getConfig } from '../../../core/Config.js'
 import MongoClient from 'mongodb';
 
 export const get = (filter, limit) => {

@@ -1,6 +1,6 @@
 import shell from 'shelljs';
-import { mqttClient } from '../../Components/SocketClient.js'
-import { config } from "../../Components/ModuleConfig.js";
+import { mqttClient } from '../../../Components/SocketClient.js'
+import { config } from "../../../Components/ModuleConfig.js";
 
 /**
 * Производит замену меток и выполняет команду

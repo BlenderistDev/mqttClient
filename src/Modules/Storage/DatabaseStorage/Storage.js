@@ -1,4 +1,4 @@
-import { getConfig } from '../../core/Config.js'
+import { getConfig } from '../../../core/Config.js'
 import Sequelize from "sequelize";
 
 const config = getConfig('DatabaseStorage')

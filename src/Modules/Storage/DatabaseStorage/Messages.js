@@ -1,5 +1,5 @@
 import Sequelize from "sequelize";
-import { config } from "../../Components/ModuleConfig.js";
+import { config } from "../../../Components/ModuleConfig.js";
 import { sequelize } from "./Connection.js";
 
 export class Messages extends Sequelize.Model {}

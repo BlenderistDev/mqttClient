@@ -1,4 +1,4 @@
-import { mqttClient } from '../../Components/SocketClient.js'
+import { mqttClient } from '../../../Components/SocketClient.js'
 import { Messages } from './Messages.js';
 import { sequelize } from "./Connection.js";
 
