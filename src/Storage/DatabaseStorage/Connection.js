@@ -3,6 +3,6 @@ import {config} from "../../Components/ModuleConfig.js";
 
 export const sequelize = new Sequelize(config.database, config.user, config.password, {
   host: config.host,
-  dialect: 'mysql',
+  dialect: config.dialect,
   logging:false
 });

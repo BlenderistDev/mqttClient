@@ -5,8 +5,8 @@ const config = getConfig('DatabaseStorage')
 
 const sequelize = new Sequelize(config.database, config.user, config.password, {
   host: config.host,
-  dialect: 'mysql',
-  logging:false
+  dialect: config.dialect,
+  logging: false
 });
 
 export class Messages extends Sequelize.Model {}

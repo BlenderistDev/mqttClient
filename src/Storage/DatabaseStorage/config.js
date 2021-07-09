@@ -2,6 +2,13 @@ export default {
   type: 'Form',
   name: 'DatabaseStorage',
   fields: {
+    dialect: {
+      type: 'Select',
+      name: 'dialect',
+      options: ['mysql'],
+      width: 2,
+      validator: ['required'],
+    },
     host: {
       type: 'Input',
       name: 'host',
