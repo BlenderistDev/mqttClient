@@ -3,7 +3,7 @@ import * as R from 'ramda'
 
 const validators = {
   required: {
-    validate: value => !R.isEmpty(value),
+    validate: R.pipe(R.either(R.isEmpty, R.isNil), R.not),
     message: field => `Field ${field} is required.`
   },
   positiveNumber: {
