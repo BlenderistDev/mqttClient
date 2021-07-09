@@ -5,7 +5,7 @@ export default {
     dialect: {
       type: 'Select',
       name: 'dialect',
-      options: ['mysql'],
+      options: ['mysql', 'postgres'],
       width: 2,
       validator: ['required'],
     },
