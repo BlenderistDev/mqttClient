@@ -1,5 +1,5 @@
 import { getConfig } from './Config.js'
-import { moduleBaseDir, storageBaseDir } from "./Constants.js";
+import { moduleDir } from "./Constants.js";
 import fs from 'fs'
 import path from 'path'
 import { validateConfig } from './Validator.js'
@@ -47,13 +47,12 @@ const setup = R.curry((moduleDir, module) => {
   launch(module, launcher)(modulePath)
 })
 
-const setupModule = setup(moduleBaseDir)
-const setupStorage = setup(storageBaseDir)
+const setupGroupModules = group => fs.promises.readdir(path.join(moduleDir, group))
+  .then(R.map(setup(path.join(moduleDir, group))))
 
-export const startModules = () => fs.promises.readdir(moduleBaseDir).then(R.map(setupModule))
-export const startStorages = () => fs.promises.readdir(storageBaseDir).then(R.map(setupStorage))
+export const startModules = () => fs.promises.readdir(moduleDir).then(R.map(setupGroupModules))
 
 export const restartModule = (name, group) => {
   killModule(name)
-  setup(path.join('src', group), name)
+  setup(path.join(moduleDir, group), name)
 }
