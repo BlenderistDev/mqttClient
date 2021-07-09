@@ -11,7 +11,7 @@ const validators = {
     message: (field, value) => `Field ${field} must be more than 0. ${value} given.`
   },
   hasProtocol: {
-    validate: value => R.test(/.+:\/\/.+/, value),
+    validate: R.test(/.+:\/\/.+/),
     message: (field, value) => `Protocol is missing`
   }
 }
