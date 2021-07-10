@@ -1,5 +1,6 @@
 import { getConfig } from '../../../core/Config.js'
 import Sequelize from "sequelize";
+import * as R from 'ramda'
 
 const config = getConfig('DatabaseStorage')
 
@@ -19,12 +20,22 @@ Messages.init({
 }, { sequelize, modelName: config.table });
 
 export const get = (filter, limit) => Messages.findAll({
-  where: {
-    date: {
-      [Sequelize.Op.between]: [new Date(filter.after), new Date(filter.before)],
-    }
-  },
+  where: getWhere(filter),
   limit: parseInt(limit.limit),
   offset: limit.skip,
 })
+
+const isEmpty = R.either(R.isNil, R.isEmpty)
+
+const getWhere = filter => {
+  const where = {}
+  if (!isEmpty(filter.before) && !isEmpty(filter.after)) {
+    where.date = { [Sequelize.Op.between]: [new Date(filter.after), new Date(filter.before)] }
+  } else if (!isEmpty(filter.before)) {
+    where.date = { [Sequelize.Op.lte]: new Date(filter.before) }
+  } else if (!isEmpty(filter.after)) {
+    where.date = { [Sequelize.Op.gte]: new Date(filter.after) }
+  }
+  return where
+}
 
