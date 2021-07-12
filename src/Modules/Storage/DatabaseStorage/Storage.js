@@ -39,6 +39,9 @@ const getWhere = filter => {
   if (!isEmpty(filter.topic)) {
     where.topic = {[Sequelize.Op.like]: `%${filter.topic}%` }
   }
+  if (!isEmpty(filter.message)) {
+    where.message = {[Sequelize.Op.like]: `%${filter.message}%` }
+  }
   return where
 }
 
