@@ -36,6 +36,9 @@ const getWhere = filter => {
   } else if (!isEmpty(filter.after)) {
     where.date = { [Sequelize.Op.gte]: new Date(filter.after) }
   }
+  if (!isEmpty(filter.topic)) {
+    where.topic = {[Sequelize.Op.like]: `%${filter.topic}%` }
+  }
   return where
 }
 
