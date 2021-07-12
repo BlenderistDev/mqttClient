@@ -12,5 +12,7 @@ export const setDateFilter = ({ state, commit }, dateFilter) => {
     limit: state.bufferSize,
     skip: 0
   }
-  getMessages(filter, limit).then(messages => commit('setMessages', messages))
+  getMessages(filter, limit).then(messages => {
+    commit('setMessages', messages)
+  })
 }
