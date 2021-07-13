@@ -13,13 +13,13 @@ export default {
       type: 'Input',
       name: 'host',
       validator: ['required'],
-      width: 4,
+      width: 3,
       placeholder: '127.0.0.1',
     },
     user: {
       type: 'Input',
       name: 'user',
-      width: 4
+      width: 3
     },
     password: {
       type: 'Password',
@@ -38,5 +38,10 @@ export default {
       validator: ['required'],
       width: 4,
     },
+    interval: {
+      type: 'Number',
+      name: 'interval',
+      width: 2
+    }
   }
 }
