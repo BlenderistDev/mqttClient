@@ -31,5 +31,10 @@ export default {
       validator: ['required'],
       width: 4,
     },
+    interval: {
+      type: 'Number',
+      name: 'interval',
+      width: 4
+    }
   }
 }
