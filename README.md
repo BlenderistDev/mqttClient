@@ -11,3 +11,15 @@ cd mqttClient
 ```
 ./launch.sh
 ```
+
+## Docker
+### Instalation
+```
+git clone https://github.com/BlenderistDev/mqttClient.git
+cd mqttClient
+docker build -t blenderist:mqttclient .
+```
+### Launch
+```
+docker run -p 4000:4000 blenderist:mqttclient
+```
