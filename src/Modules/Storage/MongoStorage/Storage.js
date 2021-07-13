@@ -1,16 +1,8 @@
 import { getConfig } from '../../../core/Config.js'
-import MongoClient from 'mongodb';
+import { client } from "./Connection.js";
 
 export const get = (filter, limit) => {
   const config = getConfig('Mongo')
-
-  const uri =
-  `mongodb://${config.user}:${config.password}@${config.host}?retryWrites=true&authSource=${config.database}`;
-
-  const client = new MongoClient.MongoClient(uri, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  });
 
   return client.connect().then(() => {
     const database = client.db(config.database)

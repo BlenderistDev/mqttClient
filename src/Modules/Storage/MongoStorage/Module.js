@@ -1,14 +1,6 @@
 import { mqttClient } from '../../../Components/SocketClient.js'
 import { config } from "../../../Components/ModuleConfig.js";
-import MongoClient from 'mongodb';
-
-const uri =
-  `mongodb://${config.user}:${config.password}@${config.host}?retryWrites=true&writeConcern=majority&authSource=${config.database}`;
-
-const client = new MongoClient.MongoClient(uri, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+import { client } from "./Connection.js";
 
 client.connect().then(() => {
   const database = client.db(config.database);
