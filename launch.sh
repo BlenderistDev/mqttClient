@@ -1,5 +1,5 @@
 #!/bin/sh
 cd front
-npm run build > /dev/null 2>&1
+npm run build
 cd ..
 node main.js
