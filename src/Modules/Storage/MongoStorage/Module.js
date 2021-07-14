@@ -1,9 +1,11 @@
 import { mqttClient } from '../../../Components/SocketClient.js'
 import { config } from "../../../Components/ModuleConfig.js";
-import { client } from "./Connection.js";
+import { getClient } from "./Connection.js";
 import { Flushable } from "../../../Components/Flushable.js";
 
+const client = getClient(config)
 const interval = parseInt(config.interval)
+
 client.connect().then(() => {
   const database = client.db(config.database);
   const collection = database.collection(config.collection);

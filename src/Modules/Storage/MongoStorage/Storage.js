@@ -1,8 +1,9 @@
 import { getConfig } from '../../../core/Config.js'
-import { client } from "./Connection.js";
+import { getClient } from "./Connection.js";
 
 export const get = (filter, limit) => {
   const config = getConfig('MongoStorage')
+  const client = getClient(config)
 
   return client.connect().then(() => {
     const database = client.db(config.database)
