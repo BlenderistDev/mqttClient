@@ -40,3 +40,11 @@ docker run -p 4000:4000 blenderist/mqttclient:latest
 Module measures time between sending and receiving message.
 #### Config:
 - `interval` metering interval
+  - unit of measurement: seconds
+  - validation: required, integer, more than 0
+### MessageCounter
+Module counts messages per time interval
+#### Config:
+- `interval` time interval for counting, seconds
+  - unit of measurement: seconds
+  - validation: required, integer, more than 0
