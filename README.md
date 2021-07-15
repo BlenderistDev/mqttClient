@@ -1,7 +1,7 @@
 # mqttClient
 
 ## Pure client
-### Instalation
+### Installation
 ```
 git clone https://github.com/BlenderistDev/mqttClient.git
 cd mqttClient
@@ -13,7 +13,7 @@ cd mqttClient
 ```
 
 ## Docker
-### Instalation
+### Installation
 ```
 git clone https://github.com/BlenderistDev/mqttClient.git
 cd mqttClient
