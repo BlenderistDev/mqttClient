@@ -34,3 +34,9 @@ docker pull blenderist/mqttclient:latest
 ```
 docker run -p 4000:4000 blenderist/mqttclient:latest
 ```
+
+### Modules
+### Ping
+Module measures time between sending and receiving message.
+#### Config:
+- `interval` metering interval
