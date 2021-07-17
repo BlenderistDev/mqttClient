@@ -18,7 +18,10 @@ const defaultFields = {
 
 const setHash = (config) => R.set(R.lensProp('hash'), md5(JSON.stringify(config)), config)
 
+const addDefaultValidator = R.map(R.over(R.lensProp('validator'), R.defaultTo([])))
+
 export const addDataToConfig = (moduleName, groupName) => R.pipe(
+  R.over(R.lensProp('fields'), addDefaultValidator),
   R.set(R.lensProp('value'), getConfig(moduleName)),
   R.over(R.lensProp('value'), R.ifElse(
     R.is(Array),
