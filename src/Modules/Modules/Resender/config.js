@@ -6,7 +6,8 @@ export default {
       type: 'Select',
       name: 'direction',
       options: ['from', 'to'],
-      width: 2
+      width: 2,
+      validator: ['required']
     },
     host: {
       type: 'Input',

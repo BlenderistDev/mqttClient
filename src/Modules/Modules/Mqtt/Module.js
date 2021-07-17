@@ -1,15 +1,9 @@
 import mqtt from 'mqtt';
 import { moduleClient } from '../../../Components/SocketClient.js'
 import { config } from "../../../Components/ModuleConfig.js";
-import * as R from 'ramda'
+import { getConnectionOptions } from '../../../Components/MqttConnection.js';
 
-const getConnectionOptions = R.pipe(
-  R.set(R.lensProp('username'), config.username),
-  R.set(R.lensProp('password'), config.password),
-  R.reject(R.either(R.isEmpty, R.isNil))
-)
-
-const connection = mqtt.connect(config.host, getConnectionOptions({}))
+const connection = mqtt.connect(config.host, getConnectionOptions(config))
 
 connection.on('connect', () => connection.subscribe('#', { qos: 2 }))
 connection.on('message', (topic, message, packet) => moduleClient.send({

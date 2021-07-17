@@ -2,11 +2,9 @@ import { config } from "../../../Components/ModuleConfig.js";
 import mqtt from 'mqtt';
 import match from 'mqtt-match'
 import { mqttClient } from '../../../Components/SocketClient.js'
+import { getConnectionOptions } from '../../../Components/MqttConnection.js';
 
-const connection = mqtt.connect(config.host, {
-  username: config.username,
-  password: config.password
-})
+const connection = mqtt.connect(config.host, getConnectionOptions(config))
 
 if (config.direction === 'from') {
   connection.on('connect', () => connection.subscribe(config.topic, { qos: 2 }))
