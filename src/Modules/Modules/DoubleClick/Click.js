@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import {sendDiscoveryMessage} from '../../../Components/HomeAssistant.js';
 import { mqttClient } from '../../../Components/SocketClient.js'
 
@@ -39,10 +40,16 @@ export class ClickWatcher {
    * @param {object} oMessage
    */
   handleClick(oMessage) {
-    if (!this.currentState) {
-      this.currentState = oMessage;
+    let state;
+    if (this.attribute) {
+      state = _.get(oMessage, this.attribute)
+    } else {
+      state = oMessage
     }
-    if (this.currentState[this.attribute] !== oMessage[this.attribute]) {
+    if (!this.currentState) {
+      this.currentState = state;
+    }
+    if (this.currentState !== state) {
       if (this.timerId) {
         this.handleSecondClick();
       } else {
