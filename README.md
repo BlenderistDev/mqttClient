@@ -67,3 +67,13 @@ Module counts messages per time interval
 - `interval` time interval for counting, seconds
   - unit of measurement: seconds
   - validation: required, integer, more than 0
+#### DoubleClick
+Module adds double click functionality to smart switches without double click.
+###### Config:
+- `interval` time for waiting of second click
+  - unit of measurement: miliseconds
+  - validation: required, integer, more than 0
+- `topic` topic for input message
+  - validation: require
+- `attribute` json attribute with value in incoming message. For example `state_center` or `state.state_center` or even `state[1].state_center`. Optional
+- `name` part of output topic name. Helps to deference similar sensors. Optional
