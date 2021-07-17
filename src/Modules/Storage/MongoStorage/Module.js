@@ -16,7 +16,7 @@ client.connect().then(() => {
       message.date = new Date(message.date)
       flushable.push(message)
     });
-    collection.insertMany(flushable.flush())
+    setInterval(() => collection.insertMany(flushable.flush()), config.interval * 1000)
   } else {
     mqttClient.on('message', message => {
       message.date = new Date(message.date)
