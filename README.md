@@ -44,6 +44,17 @@ Main module. Connects to mqtt server, sends and receives mqtt messages.
 - `username` username for connecting, optional
 - `password` password for connection, optional
 - `topic` mqtt base topic for mqtt client, optional
+#### Resender
+Module resends messages from one mqtt server to another
+###### Config
+- `direction` direction of resending
+  - validation: required
+- `host` mqtt server host
+  - validation: required, has protocol (for example mqtt://)
+- `username` username for connecting, optional
+- `password` password for connection, optional
+- `topic` topic to resend. Support mqtt special chars like # or +
+  - validation: required
 #### Ping
 Module measures time between sending and receiving message.
 ###### Config:
