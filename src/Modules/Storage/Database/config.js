@@ -1,6 +1,6 @@
 export default {
   type: 'Form',
-  name: 'DatabaseStorage',
+  name: 'Database',
   fields: {
     dialect: {
       type: 'Select',

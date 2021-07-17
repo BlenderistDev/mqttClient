@@ -2,7 +2,7 @@ import { getConfig } from '../../../core/Config.js'
 import Sequelize from "sequelize";
 import * as R from 'ramda'
 
-const config = getConfig('DatabaseStorage')
+const config = getConfig('Database')
 
 const sequelize = new Sequelize(config.database, config.user, config.password, {
   host: config.host,

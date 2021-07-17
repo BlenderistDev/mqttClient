@@ -1,6 +1,6 @@
 export default {
   type: 'Form',
-  name: 'MongoStorage',
+  name: 'Mongo',
   fields: {
     host: {
       type: 'Input',

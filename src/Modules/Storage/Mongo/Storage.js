@@ -2,7 +2,7 @@ import { getConfig } from '../../../core/Config.js'
 import { getClient } from "./Connection.js";
 
 export const get = (filter, limit) => {
-  const config = getConfig('MongoStorage')
+  const config = getConfig('Mongo')
   const client = getClient(config)
 
   return client.connect().then(() => {
