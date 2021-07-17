@@ -5,22 +5,24 @@ export default {
     interval: {
       type: 'Number',
       name: 'interval',
-      width: 4
+      width: 1,
+      validator: ['required', 'positiveNumber']
     },
     in_topic: {
       type: 'Input',
       name: 'in_topic',
-      width: 8
+      width: 5,
+      validator: ['required']
     },
     attribute: {
       type: 'Input',
       name: 'attribute',
-      width: 6
+      width: 3
     },
     name: {
       type: 'Input',
       name: 'name',
-      width: 6
+      width: 3
     },
   }
 }
