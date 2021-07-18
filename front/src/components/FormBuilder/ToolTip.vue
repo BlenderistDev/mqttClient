@@ -24,10 +24,10 @@ export default {
       x,
       y,
       toggleTooltip: (e) => {
-        const { offsetX, offsetY } = e;
+        const { layerX, layerY } = e;
         show.value = !show.value;
-        x.value = offsetX;
-        y.value = offsetY;
+        x.value = layerX;
+        y.value = layerY;
       },
     };
   },
