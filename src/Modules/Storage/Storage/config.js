@@ -6,7 +6,8 @@ export default {
   fields: {
     storage: {
       type: 'StorageSelect',
-      name: 'storage'
+      name: 'storage',
+      tooltip: 'Storage to fetch data'
     }
   }
 }
