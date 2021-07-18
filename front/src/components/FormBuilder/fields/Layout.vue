@@ -3,10 +3,10 @@ div
   div(v-if="!field.width")
     .input-group
       .input-group-prepend {{ name }}
-      ToolTip(
-        v-if="field.tooltip"
-        :text="field.tooltip"
-      )
+        ToolTip(
+          v-if="field.tooltip"
+          :text="field.tooltip"
+        )
       slot
   div(v-else) {{ name }}
     ToolTip(

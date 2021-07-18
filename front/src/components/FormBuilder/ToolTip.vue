@@ -8,29 +8,28 @@ span.tooltip-button(@click="toggleTooltip") ?
 </template>
 
 <script>
-import {ref} from "vue";
+import { ref } from "vue";
 
 export default {
   name: "ToolTip",
   props: {
-    text: String
+    text: String,
   },
   setup() {
-    const show = ref(false)
-    const x = ref(0)
-    const y = ref(0)
+    const show = ref(false);
+    const x = ref(0);
+    const y = ref(0);
     return {
       show,
       x,
       y,
-      toggleTooltip: e => {
-        const { pageX, pageY } = e;
-        console.log(e)
+      toggleTooltip: (e) => {
+        const { offsetX, offsetY } = e;
         show.value = !show.value;
-        x.value = pageX;
-        y.value = pageY;
-      }
-    }
+        x.value = offsetX;
+        y.value = offsetY;
+      },
+    };
   },
 };
 </script>
@@ -41,6 +40,7 @@ export default {
   padding: 5px;
   position: absolute;
   background-color: white;
+  z-index: 3;
 }
 .tooltip-button {
   border: 1px solid;
