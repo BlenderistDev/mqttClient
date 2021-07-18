@@ -22,7 +22,8 @@ export default {
     topic: {
       type: 'Input',
       name: 'topic',
-      width: 2
+      width: 2,
+      tooltip: 'Mqtt client base topic'
     },
   }
 }
