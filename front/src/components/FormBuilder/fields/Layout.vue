@@ -33,7 +33,7 @@ export default {
   setup(props) {
     const { field } = toRefs(props);
     const isRequired = computed(() => field.value.validator.includes("required"));
-    const name = computed(() => field.value.name + (isRequired.value ? " *" : ""));
+    const name = computed(() => field.value.name + (isRequired.value ? "*" : ""));
     return {
       name,
     };
