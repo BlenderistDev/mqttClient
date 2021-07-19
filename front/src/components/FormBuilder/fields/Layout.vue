@@ -3,13 +3,13 @@ div
   div(v-if="!field.width")
     .input-group
       .input-group-prepend {{ name }}
-        ToolTip(
+        Tooltip(
           v-if="field.tooltip"
           :text="field.tooltip"
         )
       slot
   div(v-else) {{ name }}
-    ToolTip(
+    Tooltip(
       v-if="field.tooltip"
       :text="field.tooltip"
     )
@@ -18,12 +18,12 @@ div
 
 <script>
 import { toRefs } from "@vue/reactivity";
-import ToolTip from "../ToolTip";
+import Tooltip from "../../Tooltip/Tooltip.vue";
 import { computed } from "@vue/runtime-core";
 
 export default {
   components: {
-    ToolTip,
+    Tooltip,
   },
   props: {
     field: {

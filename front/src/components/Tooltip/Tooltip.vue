@@ -11,7 +11,7 @@ span.tooltip-button(@click="toggleTooltip") ?
 import { ref } from "vue";
 
 export default {
-  name: "ToolTip",
+  name: "Tooltip",
   props: {
     text: String,
   },
