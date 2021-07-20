@@ -44,5 +44,8 @@ export default {
 }
 .tooltip-button {
   border: 1px solid;
+  margin-left: 1px;
+  padding: 2px;
+  font-size: small;
 }
 </style>
