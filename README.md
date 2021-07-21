@@ -77,3 +77,22 @@ Module adds double click functionality to smart switches without double click.
   - validation: require
 - `attribute` json attribute with value in incoming message. For example `state_center` or `state.state_center` or even `state[1].state_center`. Optional
 - `name` part of output topic name. Helps to deference similar sensors. Optional
+
+### Storages
+The module allows you to view mqtt messages stored in the storage.
+###### Config:
+- `storage` storage to fetch data
+#### Database
+Module stores data to database.
+###### Config:
+- `dialect` database dialect. Supported dialects are mysql, mariadb, postrgesql.
+  - validation: required
+- `host` database host
+  - validation: required
+- `user` database user, optional
+- `password` user password, optional
+- `database` database name
+  - validation: required
+- `table` table name
+  - validation: required
+- `interval` interval to make query to database. Optional, if not set, every message will cause a query.
