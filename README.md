@@ -96,3 +96,15 @@ Module stores data to database.
 - `table` table name
   - validation: required
 - `interval` interval to make query to database. Optional, if not set, every message will cause a query.
+#### MongoDB
+Module stores data to MongoDB.
+###### Config:
+- `host` MongoDB host
+  - validation: required
+- `user` MongoDB user, optional
+- `password` user password, optional
+- `database` database name
+  - validation: required
+- `collection` collection name
+  - validation: required
+- `interval` interval to make query to MongoDB. Optional, if not set, every message will cause a query.
