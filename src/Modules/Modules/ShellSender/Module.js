@@ -6,6 +6,5 @@ import { config, topic } from "../../../Components/ModuleConfig.js"
 
 const moduleTopic = `${topic}/${config.topic}`
 sendDiscoveryMessage(md5(moduleTopic), moduleTopic, 'sensor', {})
-if (config.command) {
-  setInterval(() => mqttClient.send(moduleTopic, shell.exec(config.command, {'silent': true}).toString()), config.interval)
-}
+
+setInterval(() => mqttClient.send(moduleTopic, shell.exec(config.command, {'silent': true}).toString()), config.interval)

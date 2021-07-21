@@ -5,12 +5,14 @@ export default {
     command: {
       type: 'Input',
       name: 'command',
-      width: 4
+      width: 4,
+      validator: ['required']
     },
     topic: {
       type: 'Input',
       name: 'topic',
-      width: 4
+      width: 4,
+      validator: ['required']
     },
     interval: {
       type: 'Number',
