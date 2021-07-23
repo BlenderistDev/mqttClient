@@ -15,6 +15,7 @@ export const socketHandler = (socket) => {
     socket.on(dataEventName, data => socket.to(mqttListenerGroup).emit(mqttEventName, data))
   } else {
     socket.on(mqttEventName, data => socket.to(mqttGatewayGroup).emit(dataEventName, data))
+    socket.on(notificationEventName, data => socket.to(frontendGroup).emit(notificationEventName, data))
     socket.join(mqttListenerGroup)
     if (module) {
       socket.on(dataEventName, (data) => socket.to(frontendGroup).emit(dataEventName, {
