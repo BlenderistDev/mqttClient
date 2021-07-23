@@ -16,6 +16,11 @@ const getClient = (path, send) => {
   return client;
 }
 
+export const notificationClient = getClient('notification', (data) => {
+  console.error(data)
+  socket.emit('notification', data)
+})
+
 export const moduleClient = getClient('data', (data) => socket.emit('data', data))
 
 export const mqttClient = getClient('mqtt',
