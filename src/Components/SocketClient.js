@@ -3,7 +3,7 @@ import EventEmitter from 'events';
 
 const config = JSON.parse(process.argv[2]);
 
-export const socket = io('http://localhost:4000', {
+const socket = io('http://localhost:4000', {
   query: {
     module: config.name
   }
