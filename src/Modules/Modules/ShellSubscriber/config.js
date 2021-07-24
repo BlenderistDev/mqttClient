@@ -8,9 +8,9 @@ export default {
       width: 5,
       validator: ['required']
     },
-    commandTemplate: {
+    command: {
       type: 'Input',
-      name: 'commandTemplate',
+      name: 'command',
       width: 5,
       validator: ['required']
     },

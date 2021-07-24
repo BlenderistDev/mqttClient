@@ -13,9 +13,9 @@ const launchModule = () => {
   mqttClient.on('message', (message) => {
     if (config.topic === message.topic) {
       if (message.message) {
-        shellExec(replaceLabels(config.commandTemplate, JSON.parse(message.message)))
+        shellExec(replaceLabels(config.command, JSON.parse(message.message)))
       } else {
-        shellExec(config.commandTemplate)
+        shellExec(config.command)
       }
     }
   })
