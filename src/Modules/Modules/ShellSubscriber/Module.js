@@ -9,12 +9,14 @@ const replaceLabels = (text, labels) => {
   return text
 }
 
-const executeCommand = (command, labels) => shellExec(replaceLabels(command, labels))
-
 const launchModule = () => {
   mqttClient.on('message', (message) => {
     if (config.topic === message.topic) {
-      executeCommand(config.commandTemplate, JSON.parse(message.message))
+      if (message.message) {
+        shellExec(replaceLabels(config.commandTemplate, JSON.parse(message.message)))
+      } else {
+        shellExec(config.commandTemplate)
+      }
     }
   })
 }
