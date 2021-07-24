@@ -1,23 +1,22 @@
-import shell from 'shelljs';
+import { shellExec, execIfNotRoot } from '../../../Components/Shell.js';
 import { mqttClient } from '../../../Components/SocketClient.js'
 import { config } from "../../../Components/ModuleConfig.js";
 
-/**
-* Производит замену меток и выполняет команду
-* @param {string} sCommandTemplate
-* @param {object} oReplaceData
-*/
-function executeCommand(sCommandTemplate, oReplaceData) {
-  for (const sLabel in oReplaceData) {
-    if ({}.hasOwnProperty.call(oReplaceData, sLabel)) {
-      sCommandTemplate = sCommandTemplate.replace(`{{${sLabel}}}`, oReplaceData[sLabel]);
-    }
+const replaceLabels = (text, labels) => {
+  for (const label in labels) {
+    text = text.replace(`{{${label}}}`, labels[label]);
   }
-  shell.exec(sCommandTemplate);
+  return text
 }
 
-mqttClient.on('message', (mqttMessage) => {
-  if (config.topic === mqttMessage.topic) {
-    executeCommand(config.commandTemplate, JSON.parse(mqttMessage.message))
-  }
-})
+const executeCommand = (command, labels) => shellExec(replaceLabels(command, labels))
+
+const launchModule = () => {
+  mqttClient.on('message', (message) => {
+    if (config.topic === message.topic) {
+      executeCommand(config.commandTemplate, JSON.parse(message.message))
+    }
+  })
+}
+
+execIfNotRoot(launchModule)
