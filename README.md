@@ -94,6 +94,20 @@ It can be usefull for monitoring some system state, like disk usage or volume le
   - unit of measurement: seconds
   - validation: required, integer, more than 0
 
+#### ShellSubscriber
+*Only pure installation*
+
+**No root user**
+
+Module executes shell command, triggered by message to specified topic. Message should be empty or contain a valid JSON key-value object with labels to replace. You can use labels in your commands with syntax `{{label_name}}`
+
+It can be usefull for block or unblock your computer, luanch programs or set volume level.
+###### Config:
+- `topic` trigger topic
+  - validation: required
+- `command` shell command to execute
+  - validation: required
+
 ### Storages
 The module allows you to view mqtt messages stored in the storage.
 ###### Config:
