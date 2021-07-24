@@ -77,6 +77,22 @@ Module adds double click functionality to smart switches without double click.
   - validation: require
 - `attribute` json attribute with value in incoming message. For example `state_center` or `state.state_center` or even `state[1].state_center`. Optional
 - `name` part of output topic name. Helps to deference similar sensors. Optional
+#### ShellSender
+*Only pure installation*
+
+**No root user**
+
+Module executes shell command with time interval and sends execution result to specified topic.
+
+It can be usefull for monitoring some system state, like disk usage or volume level.
+###### Config:
+- `topic` topic to send command result
+  - validation: required
+- `command` shell command to execute
+  - validation: required
+- `interval` interval beetween command execution
+  - unit of measurement: seconds
+  - validation: required, integer, more than 0
 
 ### Storages
 The module allows you to view mqtt messages stored in the storage.
