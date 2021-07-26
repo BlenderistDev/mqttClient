@@ -11,6 +11,18 @@ Real-time statistic:
 - Ping (interval beetwen sending and reciving message)
 - Message count per time interval
 
+## Home Assistant addon
+### Installation
+
+Supervisor > Add-on Store > ![image](https://user-images.githubusercontent.com/45158965/126977982-fc0a743c-68d9-4034-99aa-28011a3431ab.png) > Repositories
+
+Add https://github.com/BlenderistDev/homeassistant-addons to your addons
+
+Install addon mqttClient as usual.
+
+More information: https://www.home-assistant.io/common-tasks/os#installing-third-party-add-ons
+
+
 ## Pure client
 ### Installation
 ```
