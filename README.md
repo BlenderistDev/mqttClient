@@ -1,4 +1,15 @@
 # mqttClient
+Web based program for comfortable work with mqtt messages. It gives you comfortable web interface for working with your mqtt network. Supports filtring mqtt messages by topic and message content. Messages can be grouped by topic or rolled into a topic tree.
+
+Supports different databases to store mqtt messages:
+- MySQL
+- PostgreSQL
+- MariaDB
+- MongoDB
+
+Real-time statistic:
+- Ping (interval beetwen sending and reciving message)
+- Message count per time interval
 
 ## Pure client
 ### Installation
