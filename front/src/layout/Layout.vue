@@ -33,4 +33,7 @@ export default {
 .menu {
   padding: 0px;
 }
+.content {
+  max-width: 80%;
+}
 </style>
