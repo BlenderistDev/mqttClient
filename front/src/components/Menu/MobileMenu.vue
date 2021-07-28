@@ -38,6 +38,7 @@ export default {
   position: relative;
   left: 10px;
   top: 10px;
+  z-index: 100;
 }
 .mobile-menu-content {
   background-color: #ced4da;
