@@ -40,6 +40,7 @@ export default {
 }
 .list-group-flush {
   padding-left: 0px;
+  padding-top: 30px;
 }
 .list-group-item {
   padding-left: 0px;

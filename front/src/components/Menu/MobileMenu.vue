@@ -3,7 +3,7 @@ div(v-if="isMobile")
   img(src="@/assets/menu.png" @click="show = !show")
   .menu(v-if="show")
     .mobile-menu-content(@click="show = false")
-      .close X
+      //- h3.close X
       ModuleList
 </template>
 
@@ -33,12 +33,6 @@ export default {
   top: 0;
   width: 100%;
   z-index: 1000;
-}
-.close {
-  position: relative;
-  left: 10px;
-  top: 10px;
-  z-index: 100;
 }
 .mobile-menu-content {
   background-color: #ced4da;
