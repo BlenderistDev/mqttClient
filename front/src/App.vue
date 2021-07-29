@@ -23,7 +23,7 @@ export default {
 
 <style scoped>
 .navbar {
-  height: 5vh;
+  height: 48px;
   background-color: #ced4da;
   padding-top: 0px;
 }

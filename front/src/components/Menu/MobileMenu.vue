@@ -10,19 +10,19 @@ div(v-if="isMobile")
 <script>
 import { ref } from "vue";
 import ModuleList from "./ModuleList";
-import { isMobile } from '../../services/window'
+import { isMobile } from "../../services/window";
 
 export default {
   setup() {
     const show = ref(false);
     return {
       show,
-      isMobile
+      isMobile,
     };
   },
   components: {
-    ModuleList
-  }
+    ModuleList,
+  },
 };
 </script>
 
@@ -43,8 +43,5 @@ export default {
 .mobile-menu-content {
   background-color: #ced4da;
   height: 100vh;
-}
-img {
-  height: 5vh;
 }
 </style>
