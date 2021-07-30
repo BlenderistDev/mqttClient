@@ -59,7 +59,7 @@ export default {
         ),
     });
     const after = computed({
-      get: () => store.state.messages.after,
+      get: () => store.state.messages.dateFilter.after,
       set: (after) =>
         store.dispatch(
           "messages/setDateFilter",
