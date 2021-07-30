@@ -40,8 +40,14 @@ export default {
 }
 .list-group-flush {
   padding-left: 0px;
-  padding-top: 30px;
 }
+
+/*@media (max-width: 991px) {*/
+/*  .list-group-flush {*/
+/*    padding-top: 48px;*/
+/*  }*/
+/*}*/
+
 .list-group-item {
   padding-left: 0px;
   background-color: inherit;
