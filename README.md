@@ -11,6 +11,10 @@ Real-time statistic:
 - Ping (interval beetwen sending and reciving message)
 - Message count per time interval
 
+## Initial setup
+First of all you should fill mqtt config. (Module Mqtt). After filling config use restart button to reload mqtt settings.
+If you want to use some storage (like MongoDB or MySQL), fill storage config. (Module storage). Also you have to choose primary storage.
+
 ## Home Assistant addon
 ### Installation
 
