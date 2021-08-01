@@ -7,6 +7,7 @@ export default {
     storage: {
       type: 'StorageSelect',
       name: 'storage',
+      title: 'Primary storage',
       tooltip: 'Storage to fetch data'
     }
   }
