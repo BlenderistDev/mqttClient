@@ -9,7 +9,7 @@ ul.nav.nav-fill
     router-link.nav-link.justify-content-center(
       :to="{ name: route, params: { name: item.name } }"
       @click="setModule({name: item.name, group: item.group})"
-    ) {{ item.name }}
+    ) {{ item.title ? item.title : item.name }}
 </template>
 
 <script>

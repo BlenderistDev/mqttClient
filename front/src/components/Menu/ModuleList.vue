@@ -9,7 +9,7 @@ ul.list-group-flush
     :to="{ name: 'module', params: { name: module.name } }"
     @click="setModule(module)"
   )
-    .menu-item {{ module.name }}
+    .menu-item {{ module.title ? module.title : module.name }}
 </template>
 
 <script>
