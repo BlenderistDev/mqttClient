@@ -1,6 +1,7 @@
 export default {
   type: 'List',
   name: 'ShellSender',
+  title: 'Shell Sender',
   fields: {
     command: {
       type: 'Input',

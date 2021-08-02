@@ -1,6 +1,7 @@
 export default {
   type: 'List',
   name: 'ShellSubscriber',
+  title: 'Shell Subscriber',
   fields: {
     topic: {
       type: 'Input',
