@@ -5,13 +5,13 @@ export default {
     interval: {
       type: 'Number',
       name: 'interval',
-      width: 1,
+      width: 2,
       validator: ['required', 'positiveNumber']
     },
     in_topic: {
       type: 'Input',
       name: 'in_topic',
-      width: 5,
+      width: 4,
       validator: ['required']
     },
     attribute: {
