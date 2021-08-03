@@ -4,8 +4,11 @@ div
     .card-header.d-flex.justify-content-between
       span {{ notification.module }}
       button(@click="deleteNotification(index)") X
-    .card-body {{ notification.message }}
-    
+    .card-body
+      ul.list-group
+        li.list-group-item(v-for="error, field in notification.message.errors") {{ field }}:
+          ul
+            li(v-for="err in error") {{ err }}
 </template>
 
 <script>
