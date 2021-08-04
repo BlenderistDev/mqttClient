@@ -27,16 +27,25 @@ const startModule = (launcher) => R.ifElse(
   launcher
 )
 
+const getError = (module) => {
+  const error = {
+    errors: {}
+  };
+  error.errors[module] = [`Skip module ${module}. Config is empty`];
+  return error
+}
+
 const launch = (module, launcher) => R.pipe(
   checkModuleExist,
   R.andThen(() => getConfig(module)),
   R.andThen(
     R.ifElse(
       R.either(R.isEmpty, R.isNil),
-      () => sendNotification(module, `Skip module ${module}. Config is empty`),
+      () => sendNotification(module, getError(module)),
       startModule(launcher)
     )
   ),
+  R.otherwise(console.log),
   R.otherwise(() => console.log(`Module without logic: ${module}`)),
 )
 
