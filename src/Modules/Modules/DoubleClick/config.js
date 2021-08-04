@@ -1,6 +1,7 @@
 export default {
   type: 'List',
   name: 'DoubleClick',
+  title: 'Double Click',
   fields: {
     interval: {
       type: 'Number',
