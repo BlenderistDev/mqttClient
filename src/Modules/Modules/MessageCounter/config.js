@@ -1,6 +1,7 @@
 export default {
   type: 'List',
   name: 'MessageCounter',
+  title: 'Message Counter',
   fields: {
     interval: {
       type: 'Number',
