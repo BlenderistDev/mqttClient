@@ -1,9 +1,11 @@
 <template lang="pug">
 .row
-  .col-md-7
-    template(v-if="isJson")
-      ObjectViewer(:data="JSON.parse(message.message)")
-    template(v-else) {{ message.message }}
+  .col-md-7(@click="showMessage") {{ message.message }}
+    teleport(to="body")
+      div.modal(v-if="show")
+        div
+          MessageDetail(:message="message")
+          button(@click="show = false") Закрыть
   .col-md-2 Retain: {{ message.retain }}
   .col-md-1 Qos: {{ message.qos }}
   .col-md-2 {{ date }}
@@ -12,32 +14,52 @@
 <script>
 import {ref, toRefs, computed} from "vue";
 import ObjectViewer from "../../ObjectViewer/ObjectViewer";
-import _ from 'lodash';
+import MessageDetail from "./MessageDetail";
+import ObjectMessage from "./ObjectMessage";
 
 export default {
   name: "Message",
   components: {
+    MessageDetail,
     ObjectViewer,
+    ObjectMessage
   },
   props: {
     message: Object,
   },
   setup(props) {
     const { message } = toRefs(props);
-    const jsonData = ref({});
-    try {
-      const messageData = computed(() => JSON.parse(message.value.message));
-      if (typeof jsonData.value === 'object') {
-        jsonData.value = messageData.value
-      }
-
-      // eslint-disable-next-line no-empty
-    } catch (e) {}
+    const show = ref(false)
+    const showMessage = () => show.value = true
     return {
       date: computed(() => new Date(message.value.date).toLocaleString()),
-      jsonData,
-      isJson: computed(() => !_.isEmpty(jsonData.value))
+      show,
+      showMessage,
     };
   },
 };
 </script>
+
+
+<style scoped>
+.modal {
+  position: absolute;
+  top: 0; right: 0; bottom: 0; left: 0;
+  background-color: rgba(0,0,0,.5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  width: 300px;
+  height: 300px;
+  padding: 5px;
+}
+</style>
