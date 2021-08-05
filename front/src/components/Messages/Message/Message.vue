@@ -11,7 +11,7 @@
 
 <script>
 import {ref, toRefs, computed} from "vue";
-import ObjectViewer from "../ObjectViewer/ObjectViewer";
+import ObjectViewer from "../../ObjectViewer/ObjectViewer";
 import _ from 'lodash';
 
 export default {

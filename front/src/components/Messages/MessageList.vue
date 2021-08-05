@@ -11,7 +11,7 @@ div
 
 <script>
 import { ref, computed } from "vue";
-import Message from "./Message";
+import Message from "./Message/Message";
 import Controls from "./Controls";
 import { useStore } from "vuex";
 
