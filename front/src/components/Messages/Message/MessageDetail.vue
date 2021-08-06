@@ -1,45 +1,71 @@
 <template lang="pug">
-div
-  ObjectViewer(v-if="isJson" :data="jsonData")
-  div(v-else) {{ message }}
+div.modal(@click="close")
+  .message(@click='preventClose')
+   div Topic: {{ message.topic }}
+   div Date: {{ message.date }}
+   div Retained: {{ message.retain }}
+   div Message:
+    ObjectViewer(v-if="jsonData" :data="jsonData")
+    div(v-else) {{ message.message }}
+   .btn.btn-secondary(@click="close") Close
 </template>
 
 <script>
-import {computed, ref} from "vue";
-import _ from "lodash";
+import { computed } from "vue";
 import ObjectViewer from "../../ObjectViewer/ObjectViewer";
+import { useStore } from "vuex";
 
 export default {
   name: "MessageDetail",
   components: {
     ObjectViewer
   },
-  props: {
-    message: Object,
-  },
-  setup(props) {
-    // не используем реактивность, так как необходимо показывать неизменяющееся сообщение
-    // eslint-disable-next-line vue/no-setup-props-destructure
-    const data = props.message
-
-    const jsonData = ref({});
-
-    try {
-      const messageData = JSON.parse(data.message);
-      if (typeof jsonData.value === 'object') {
-        jsonData.value = messageData.value
+  setup() {
+    const store = useStore()
+    const message = computed(() => store.state.messages.currentMessage)
+    const jsonData = computed(() => {
+      try {
+        const messageData = JSON.parse(message.value.message);
+        if (typeof messageData === 'object') {
+          return messageData
+        }
+      } catch (e) {
+        return false;
       }
-      // eslint-disable-next-line no-empty
-    } catch (e) {}
+      return false;
+    });
     return {
-      data,
+      message,
       jsonData,
-      isJson: computed(() => !_.isEmpty(jsonData.value)),
+      close: () => store.commit('messages/setCurrentMessage', {}),
+      preventClose: event => event.stopPropagation(),
     }
   }
 }
 </script>
 
 <style scoped>
+.modal {
+  position: fixed;
+  top: 0; right: 0; bottom: 0; left: 0;
+  background-color: rgba(0,0,0,.5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 
+.modal .message {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  width: 50%;
+  height: 60%;
+  padding: 5px;
+  overflow-y: scroll;
+}
+.btn {
+  width: 100%;
+  margin-top: auto;
+}
 </style>

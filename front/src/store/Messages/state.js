@@ -1,5 +1,6 @@
 export const state = {
   messages: [],
+  currentMessage: {},
   messageFilter: '',
   topicFilter: '',
   perPage: 100,

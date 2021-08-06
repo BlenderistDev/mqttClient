@@ -8,6 +8,7 @@ div
         .badge.rounded-pill.bg-info {{ tab.count }}
   Controls
   component(:is="currentTab")
+  DetailPopup
 </template>
 
 <script>
@@ -18,6 +19,7 @@ import Tree from "./Tree/Tree";
 import SendForm from "./SendForm";
 import Controls from "./Controls";
 import { useStore } from "vuex";
+import DetailPopup from "./Message/DetailPopup";
 
 export default {
   components: {
@@ -26,6 +28,7 @@ export default {
     Tree,
     SendForm,
     Controls,
+    DetailPopup,
   },
   setup() {
     const store = useStore();

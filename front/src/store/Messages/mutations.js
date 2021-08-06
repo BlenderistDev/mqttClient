@@ -42,3 +42,5 @@ export const setBufferSize = (state, bufferSize) => {
 
 export const setDateFilter = (state, dateFilter) => state.dateFilter = dateFilter
 export const setMessages = (state, messages) => state.messages = messages
+
+export const setCurrentMessage = (state, message) => state.currentMessage = message
