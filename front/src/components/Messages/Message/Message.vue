@@ -1,6 +1,6 @@
 <template lang="pug">
-.row
-  .col-md-7(@click="setCurrentMessage") {{ message.message }}
+.row(@click="setCurrentMessage")
+  .col-md-7 {{ message.message }}
   .col-md-2 Retain: {{ message.retain }}
   .col-md-1 Qos: {{ message.qos }}
   .col-md-2 {{ date }}
