@@ -1,13 +1,14 @@
 <template lang="pug">
 div.modal(@click="close")
   .message(@click='preventClose')
-   div Topic: {{ message.topic }}
-   div Date: {{ message.date }}
-   div Retained: {{ message.retain }}
-   div Message:
-    ObjectViewer(v-if="jsonData" :data="jsonData")
-    div(v-else) {{ message.message }}
-   .btn.btn-secondary(@click="close") Close
+    .content
+      div Topic: {{ message.topic }}
+      div Date: {{ message.date }}
+      div Retained: {{ message.retain }}
+      div Message:
+        ObjectViewer(v-if="jsonData" :data="jsonData")
+        div(v-else) {{ message.message }}
+    .btn.btn-secondary(@click="close") Close
 </template>
 
 <script>
@@ -63,6 +64,11 @@ export default {
   height: 60%;
   padding: 5px;
   overflow-y: scroll;
+  border: 3px solid black;
+  border-radius: 5px;
+}
+.content {
+  padding: 5%;
 }
 .btn {
   width: 100%;
