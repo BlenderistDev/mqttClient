@@ -34,5 +34,6 @@ export default {
 <style>
 .layer {
   padding-left: 10px;
+  border-left: 1px solid Gainsboro;
 }
 </style>
