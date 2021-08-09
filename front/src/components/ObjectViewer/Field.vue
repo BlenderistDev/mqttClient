@@ -12,8 +12,7 @@ div.layer {{ name }}:&nbsp;
 </template>
 
 <script>
-import {toRefs, ref} from "vue";
-import {computed} from "@vue/runtime-core";
+import { toRefs, ref, computed } from "vue";
 
 export default {
   name: 'Field',
