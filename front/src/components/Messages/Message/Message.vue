@@ -7,29 +7,19 @@
 </template>
 
 <script>
-import {ref, toRefs, computed} from "vue";
-import ObjectViewer from "../../ObjectViewer/ObjectViewer";
-import MessageDetail from "./MessageDetail";
-import ObjectMessage from "./ObjectMessage";
+import { toRefs, computed } from "vue";
 import {useStore} from "vuex";
 
 export default {
   name: "Message",
-  components: {
-    MessageDetail,
-    ObjectViewer,
-    ObjectMessage
-  },
   props: {
     message: Object,
   },
   setup(props) {
     const store = useStore();
     const { message } = toRefs(props);
-    const show = ref(false)
     return {
       date: computed(() => new Date(message.value.date).toLocaleString()),
-      show,
       setCurrentMessage: () => store.commit('messages/setCurrentMessage', message.value),
     };
   },
