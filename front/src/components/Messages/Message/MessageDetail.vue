@@ -3,7 +3,7 @@ div.modal(@click="close")
   .message(@click='preventClose')
     .content
       div Topic: {{ message.topic }}
-      div Date: {{ message.date }}
+      div Date: {{ date }}
       div Retained: {{ message.retain }}
       div Message:
         ObjectViewer(v-if="jsonData" :data="jsonData")
@@ -37,6 +37,7 @@ export default {
     });
     return {
       message,
+      date: computed(() => new Date(message.value.date).toLocaleString()),
       jsonData,
       close: () => store.commit('messages/setCurrentMessage', {}),
       preventClose: event => event.stopPropagation(),
