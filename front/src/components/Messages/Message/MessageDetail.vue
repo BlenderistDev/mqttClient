@@ -67,6 +67,13 @@ export default {
   border: 3px solid black;
   border-radius: 5px;
 }
+@media screen and (max-width: 992px)  {
+  .modal .message {
+    width: 90%;
+    height: 80%;
+  }  
+}
+
 .content {
   padding: 5%;
 }
