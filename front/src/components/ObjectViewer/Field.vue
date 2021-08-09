@@ -1,7 +1,10 @@
 <template lang="pug">
-div.layer {{ name }}:&nbsp;
+div.layer
+  span(@click="toggleOpen" v-if="isObject")
+    span(v-if="isOpen") -&nbsp;
+    span(v-else) +&nbsp;
+  span {{ name }}:&nbsp;
   span(v-if="isObject")
-    span(@click="toggleOpen") ...
     span(v-if="isOpen")
       div(v-for="data, index in content")
         Field(
