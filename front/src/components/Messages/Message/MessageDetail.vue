@@ -7,7 +7,7 @@ div.modal(@click="close")
       div Retained: {{ message.retain }}
       div Message:
         ObjectViewer(v-if="jsonData" :data="jsonData")
-        div(v-else) {{ message.message }}
+        span(v-else) &nbsp;{{ message.message }}
     .btn.btn-secondary(@click="close") Close
 </template>
 
