@@ -85,4 +85,7 @@ export default {
   width: 100%;
   margin-top: auto;
 }
+.btn-close {
+  position: absolute;
+}
 </style>
