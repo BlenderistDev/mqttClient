@@ -1,6 +1,7 @@
 <template lang="pug">
 div.modal(@click="close")
   .message(@click='preventClose')
+    button.btn-close(type="button" aria-label="Close" @click="close")
     .content
       div Topic: {{ message.topic }}
       div Date: {{ date }}
@@ -72,7 +73,7 @@ export default {
   .modal .message {
     width: 90%;
     height: 80%;
-  }  
+  }
 }
 
 .content {
