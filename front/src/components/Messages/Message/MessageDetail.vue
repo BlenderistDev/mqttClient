@@ -3,12 +3,14 @@ div.modal(@click="close")
   .message(@click='preventClose')
     button.btn-close(type="button" aria-label="Close" @click="close")
     .content
-      div Topic: {{ message.topic }}
-      div Date: {{ date }}
-      div Retained: {{ message.retain }}
-      div Message:
-        ObjectViewer(v-if="jsonData" :data="jsonData")
-        span(v-else) &nbsp;{{ message.message }}
+      .card
+        .card-header
+          div Topic: {{ message.topic }}
+          div Retained: {{ message.retain }}
+          div Date: {{ date }}
+        .card-body Message:
+            ObjectViewer(v-if="jsonData" :data="jsonData")
+            span(v-else) &nbsp;{{ message.message }}
     .btn.btn-secondary(@click="close") Close
 </template>
 
