@@ -79,7 +79,7 @@ export default {
 }
 
 .content {
-  padding: 5%;
+  padding: 1.5em 5% 5%;
 }
 .btn {
   width: 100%;
