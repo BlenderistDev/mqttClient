@@ -1,6 +1,7 @@
 export default {
   type: 'List',
   name: 'MotionSensor',
+  hide: true,
   fields: {
     in_topic: {
       type: 'Input',
