@@ -1,5 +1,4 @@
 import config from '../../Storage/Mongo/config.js'
-import _ from 'lodash'
 
 const moduleConfig = { ...config }
 
