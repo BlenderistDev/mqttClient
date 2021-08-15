@@ -18,7 +18,8 @@ export default {
     attribute: {
       type: 'Input',
       name: 'attribute',
-      width: 3
+      width: 3,
+      tooltip: 'JSON attribute if message has JSON format'
     },
     name: {
       type: 'Input',
