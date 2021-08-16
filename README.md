@@ -11,12 +11,35 @@ Real-time statistic:
 - Ping (interval beetwen sending and reciving message)
 - Message count per time interval
 
-## Initial setup
+
+## Table of Contents
+- [Initial setup](#initial)
+- [Home Assistant addon](#home_assistant_addon)
+  - [Installation](#home_assistant_addon_installation)
+- [Pure client](#pure_client)
+  - [Installation](#pure_client_installation)
+  - [Launch](#pure_client_launch)
+- [Docker](#docker)
+  - [Installation](#docker_installation)
+  - [Launch](#docker_launch)
+- [DockerHub](#dockerhub)
+  - [Installation](#dockerhub_installation)
+  - [Launch](#dockerhub_launch)
+- [Modules](#modules)
+  - [Mqtt](#mqtt)
+  - [Resender](#resender)
+  - [Ping](#ping)
+  - [MessageCounter](#messagecounter)
+  - [DoubleClick](#doubleclick)
+  - [ShellSender](#shellsender)
+  - [ShellSubscriber](#shellsubscriber)
+
+## <a name="initial"></a> Initial setup
 First of all you should fill mqtt config. (Module Mqtt). After filling config use restart button to reload mqtt settings.
 If you want to use some storage (like MongoDB or MySQL), fill storage config. (Module storage). Also you have to choose primary storage.
 
-## Home Assistant addon
-### Installation
+## <a name="home_assistant_addon"></a>Home Assistant addon
+### <a name="home_assistant_addon_installation"></a> Installation
 
 Supervisor > Add-on Store > ![image](https://user-images.githubusercontent.com/45158965/126977982-fc0a743c-68d9-4034-99aa-28011a3431ab.png) > Repositories
 
@@ -27,43 +50,43 @@ Install addon mqttClient as usual.
 More information: https://www.home-assistant.io/common-tasks/os#installing-third-party-add-ons
 
 
-## Pure client
-### Installation
+## <a name="pure_client"> Pure client
+### <a name="pure_client_installation"> Installation
 ```
 git clone https://github.com/BlenderistDev/mqttClient.git
 cd mqttClient
 ./install.sh
 ```
-### Launch
+### <a name="pure_client_launch"> Launch
 ```
 ./launch.sh
 ```
 
-## Docker
-### Installation
+## <a name="docker"> Docker
+### <a name="docker_installation"> Installation
 ```
 git clone https://github.com/BlenderistDev/mqttClient.git
 cd mqttClient
 docker build -t blenderist:mqttclient .
 ```
-### Launch
+### <a name="docker_launch"> Launch
 ```
 docker run -p 4000:4000 blenderist:mqttclient
 ```
 
-## DocherHub
-### Installation
+## <a name="dockerhub"> DockerHub
+### <a name="dockerhub_installation"> Installation
 ```
 docker pull blenderist/mqttclient:latest 
 
 ```
-### Launch
+### <a name="dockerhub_launch"> Launch
 ```
 docker run -p 4000:4000 blenderist/mqttclient:latest
 ```
 
-### Modules
-#### Mqtt
+### <a name="modules"> Modules
+#### <a name="mqtt"> Mqtt
 Main module. Connects to mqtt server, sends and receives mqtt messages.
 ###### Config
 - `host` mqtt server host
@@ -71,7 +94,7 @@ Main module. Connects to mqtt server, sends and receives mqtt messages.
 - `username` username for connecting, optional
 - `password` password for connection, optional
 - `topic` mqtt base topic for mqtt client, optional
-#### Resender
+#### <a name="resender"> Resender
 Module resends messages from one mqtt server to another
 ###### Config
 - `direction` direction of resending
@@ -82,19 +105,19 @@ Module resends messages from one mqtt server to another
 - `password` password for connection, optional
 - `topic` topic to resend. Support mqtt special chars like # or +
   - validation: required
-#### Ping
+#### <a name="ping"> Ping
 Module measures time between sending and receiving message.
 ###### Config:
 - `interval` metering interval
   - unit of measurement: seconds
   - validation: required, integer, more than 0
-#### MessageCounter
+#### <a name="messagecounter"> MessageCounter
 Module counts messages per time interval
 ###### Config:
 - `interval` time interval for counting, seconds
   - unit of measurement: seconds
   - validation: required, integer, more than 0
-#### DoubleClick
+#### <a name="doubleclick"> DoubleClick
 Module adds double click functionality to smart switches without double click.
 ###### Config:
 - `interval` time for waiting of second click
@@ -104,7 +127,7 @@ Module adds double click functionality to smart switches without double click.
   - validation: require
 - `attribute` json attribute with value in incoming message. For example `state_center` or `state.state_center` or even `state[1].state_center`. Optional
 - `name` part of output topic name. Helps to deference similar sensors. Optional
-#### ShellSender
+#### <a name="shellsender"> ShellSender
 *Only pure installation*
 
 **No root user**
@@ -121,7 +144,7 @@ It can be usefull for monitoring some system state, like disk usage or volume le
   - unit of measurement: seconds
   - validation: required, integer, more than 0
 
-#### ShellSubscriber
+#### <a name="shellsubscriber"> ShellSubscriber
 *Only pure installation*
 
 **No root user**
