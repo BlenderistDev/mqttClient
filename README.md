@@ -32,7 +32,10 @@ Real-time statistic:
   - [MessageCounter](#messagecounter)
   - [DoubleClick](#doubleclick)
   - [ShellSender](#shellsender)
-  - [ShellSubscriber](#shellsubscriber)
+  - [ShellSubscriber](#shellsubscriber)'
+- [Storages](#storages)
+  - [Database](#database)
+  - [Mongodb](#mongodb)
 
 ## <a name="initial"></a> Initial setup
 First of all you should fill mqtt config. (Module Mqtt). After filling config use restart button to reload mqtt settings.
@@ -158,11 +161,11 @@ It can be usefull for block or unblock your computer, luanch programs or set vol
 - `command` shell command to execute
   - validation: required
 
-### Storages
+### <a name="storages"> Storages
 The module allows you to view mqtt messages stored in the storage.
 ###### Config:
 - `storage` storage to fetch data
-#### Database
+#### <a name="database"> Database
 Module stores data to database.
 ###### Config:
 - `dialect` database dialect. Supported dialects are mysql, mariadb, postrgesql.
@@ -176,7 +179,7 @@ Module stores data to database.
 - `table` table name
   - validation: required
 - `interval` interval to make query to database. Optional, if not set, every message will cause a query.
-#### MongoDB
+#### <a name="mongodb"> MongoDB
 Module stores data to MongoDB.
 ###### Config:
 - `host` MongoDB host
