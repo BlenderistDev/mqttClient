@@ -33,9 +33,11 @@ Real-time statistic:
   - [DoubleClick](#doubleclick)
   - [ShellSender](#shellsender)
   - [ShellSubscriber](#shellsubscriber)'
+  - [Database](#database_module)
+  - [MongoDB](#mongodb_module)
 - [Storages](#storages)
   - [Database](#database)
-  - [Mongodb](#mongodb)
+  - [MongoDB](#mongodb)
 
 ## <a name="initial"></a> Initial setup
 First of all you should fill mqtt config. (Module Mqtt). After filling config use restart button to reload mqtt settings.
@@ -160,6 +162,14 @@ It can be usefull for block or unblock your computer, luanch programs or set vol
   - validation: required
 - `command` shell command to execute
   - validation: required
+  
+#### <a name="database_module"> Database
+Module allows to create several database storages.
+Config is similar to [Database](#database)
+
+#### <a name="mongodb_module"> MongoDB
+Module allows to create several MongoDB storages.
+Config is similar to [MongoDB](#mongodb)
 
 ### <a name="storages"> Storages
 The module allows you to view mqtt messages stored in the storage.
