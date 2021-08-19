@@ -1,5 +1,5 @@
 <template lang="pug">
-.subtopic(v-for="topic, key in tree")
+div(v-for="topic, key in tree" :class="{subtopic: topicPrefix !== ''}")
   TreeSubtopic(
     :topic="topic"
     :name="key"
