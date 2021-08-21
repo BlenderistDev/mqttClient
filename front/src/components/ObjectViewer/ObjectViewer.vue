@@ -1,10 +1,9 @@
 <template lang="pug">
-div
-  Field(
-    v-for="content, name in data"
-    :name="name"
-    :content="content"
-  )
+Field(
+  v-for="content, name in data"
+  :name="name"
+  :content="content"
+)
 </template>
 
 <script>
