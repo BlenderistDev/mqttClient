@@ -2,7 +2,7 @@
   "name": "mqttshell",
   "type": "module",
   "version": "1.0.0",
-  "description": "",
+  "description": "Web based program for comfortable work with mqtt messages",
   "main": "main.js",
   "exports": {
     ".": "./main.js"
