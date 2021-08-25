@@ -1,7 +1,7 @@
 {
   "name": "mqttshell",
   "type": "module",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Web based program for comfortable work with mqtt messages",
   "main": "main.js",
   "exports": {
@@ -11,8 +11,8 @@
     "dev": "node main.js & ./utils/frontDev.sh",
     "prod": "./utils/frontProd.sh & node main.js"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Blenderist",
+  "license": "MIT",
   "dependencies": {
     "cookie-parser": "^1.4.4",
     "cors": "^2.8.5",
