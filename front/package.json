@@ -1,6 +1,6 @@
 {
-  "name": "mqtt_client",
-  "version": "0.1.0",
+  "name": "mqttshell_frontend",
+  "version": "0.0.1",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
