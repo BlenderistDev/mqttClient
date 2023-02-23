@@ -29,7 +29,7 @@
     "mysql2": "^2.2.5",
     "pg": "^8.6.0",
     "ramda": "^0.27.1",
-    "sequelize": "^6.6.5",
+    "sequelize": "^6.28.2",
     "shelljs": "^0.8.5",
     "socket.io": "^4.0.1",
     "socket.io-client": "^4.0.0",
