@@ -9,6 +9,14 @@ import { getMessages } from '../core/Storage.js';
 
 const router = express.Router();
 
+router.use(function (req, res, next) {
+  if (req.url.includes('hassio_ingress')) {
+    const regexp = /api\/hassio_ingress\/[^\/]*\//;
+    req.url = req.url.replace(regexp, '')
+  }
+  next()
+})
+
 router.get('/api/modules/:group/list', async (req, res,) => res.send(await getGroupList(req.params.group.toString())));
 
 router.get('/api/modules/:group/:moduleName', async (req, res) => res.send(await getModuleConfig(req.params.group.toString(), req.params.moduleName.toString())));
