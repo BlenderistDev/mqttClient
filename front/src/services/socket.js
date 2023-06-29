@@ -4,13 +4,14 @@ import { useStore } from "vuex"
 import _ from 'lodash'
 
 // const VUE_APP_SOCKET_URL = process.env.VUE_APP_SOCKET_URL
-const VUE_APP_SOCKET_URL = window.location.href + '/'
+// const VUE_APP_SOCKET_URL = window.location.href
 
-const socket = openSocket(VUE_APP_SOCKET_URL, {
+const socket = openSocket('', {
   transports: ["websocket"],
   query: {
     frontend: true
-  }
+  },
+  path: window.location.href + 'socket.io'
 })
 
 export function getSocket(module) {
