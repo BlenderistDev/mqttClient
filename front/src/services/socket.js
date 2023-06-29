@@ -11,7 +11,7 @@ const socket = openSocket('', {
   query: {
     frontend: true
   },
-  path: window.location.href + 'socket.io'
+  path: window.location.pathname + 'socket.io'
 })
 
 export function getSocket(module) {
