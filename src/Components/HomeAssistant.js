@@ -16,7 +16,7 @@ export function sendDiscoveryMessage(name, stateTopic, deviceType, params = {}) 
     state_topic: stateTopic,
     device: {
       'identifiers': [
-        'mqttClient_' + uniqueName,
+        'mqttClient_' + mqttPrefix,
       ],
       'name': `${mqttPrefix}`,
       'model': 'mqtt client',
