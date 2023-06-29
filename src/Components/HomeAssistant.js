@@ -1,6 +1,5 @@
 import { mqttClient } from './SocketClient.js'
 import { mqttPrefix } from './ModuleConfig.js'
-import md5 from 'md5';
 
 /**
  * Отправляем сообщение для автообнаружения в HomeAssistant
@@ -10,20 +9,19 @@ import md5 from 'md5';
  * @param {object} params дополнительные параметры
  */
 export function sendDiscoveryMessage(name, stateTopic, deviceType, params = {}) {
-  const topicHash = md5(stateTopic);
-  const mqttPrefixHash = md5(mqttPrefix);
+  const uniqueName = `${mqttPrefix}_${name}`
   const oMinimalConfig = {
-    name: `${name}_${topicHash}`,
-    unique_id: `${name}_${topicHash}`,
+    name: uniqueName,
+    unique_id: uniqueName,
     state_topic: stateTopic,
     device: {
       'identifiers': [
-        'mqttClient_' + mqttPrefixHash,
+        'mqttClient_' + uniqueName,
       ],
       'name': `${mqttPrefix}`,
       'model': 'mqtt client',
     },
   };
   const oHomeAssistantDiscoveryConfig = {...params, ...oMinimalConfig};
-  mqttClient.send(`homeassistant/${deviceType}/${topicHash}/${name}/config`, JSON.stringify(oHomeAssistantDiscoveryConfig), true);
+  mqttClient.send(`homeassistant/${deviceType}/${uniqueName}/${name}/config`, JSON.stringify(oHomeAssistantDiscoveryConfig), true);
 }
