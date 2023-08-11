@@ -11,7 +11,7 @@ import { mqttPrefix } from './ModuleConfig.js'
 export function sendDiscoveryMessage(name, stateTopic, deviceType, params = {}) {
   const uniqueName = `${mqttPrefix}_${name}`
   const oMinimalConfig = {
-    name: uniqueName,
+    name: name,
     unique_id: uniqueName,
     state_topic: stateTopic,
     device: {
