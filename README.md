@@ -148,6 +148,8 @@ It can be usefull for monitoring some system state, like disk usage or volume le
 - `interval` interval beetween command execution
   - unit of measurement: seconds
   - validation: required, integer, more than 0
+- `name` sensor name
+  - validation: required
 
 #### <a name="shellsubscriber"> ShellSubscriber
 *Only pure installation*
