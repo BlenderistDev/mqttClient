@@ -28,7 +28,7 @@
     "@vue/cli-plugin-vuex": "~5.0.8",
     "@vue/cli-service": "~5.0.8",
     "@vue/compiler-sfc": "^3.0.0",
-    "babel-eslint": "^10.1.0",
+    "@babel/eslint-parser": "^7.5.4",
     "eslint": ">=7.5.0",
     "eslint-plugin-vue": "^7.0.0-0",
     "postcss": ">=8.2.10",
@@ -45,8 +45,7 @@
     "parserOptions": {
       "parser": "babel-eslint"
     },
-    "rules": {},
-    "ignorePatterns": "*"
+    "rules": {}
   },
   "browserslist": [
     "> 1%",
