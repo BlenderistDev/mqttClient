@@ -12,30 +12,29 @@
     "axios": "^0.21.2",
     "bootstrap": "^5.0.0-beta3",
     "core-js": "^3.6.5",
+    "normalize-url": ">=4.5.1",
     "ramda": "^0.27.1",
     "socket.io-client": "^4.0.0",
     "ssri": ">=8.0.1",
     "vue": "^3.0.0",
     "vue-3-socket.io": "^1.0.2",
     "vue-router": "^4.0.0-0",
-    "vuex": "^4.0.0-0",
-    "normalize-url": ">=4.5.1"
+    "vuex": "^4.0.0-0"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^4.5.12",
-    "@vue/cli-plugin-eslint": "^4.5.12",
-    "@vue/cli-plugin-router": "^4.5.12",
-    "@vue/cli-plugin-vuex": "^4.5.12",
-    "@vue/cli-service": "^4.5.12",
+    "@vue/cli-plugin-babel": "~5.0.8",
+    "@vue/cli-plugin-eslint": "~5.0.8",
+    "@vue/cli-plugin-router": "~5.0.8",
+    "@vue/cli-plugin-vuex": "~5.0.8",
+    "@vue/cli-service": "~5.0.8",
     "@vue/compiler-sfc": "^3.0.0",
     "babel-eslint": "^10.1.0",
-    "eslint": "^6.7.2",
+    "eslint": ">=7.5.0",
     "eslint-plugin-vue": "^7.0.0-0",
-    "vue-cli-plugin-pug": "^2.0.0",
-    "postcss": ">=8.2.10"
+    "postcss": ">=8.2.10",
+    "vue-cli-plugin-pug": "^2.0.0"
   },
   "eslintConfig": {
-    "root": true,
     "env": {
       "node": true
     },
@@ -46,7 +45,8 @@
     "parserOptions": {
       "parser": "babel-eslint"
     },
-    "rules": {}
+    "rules": {},
+    "ignorePatterns": "*"
   },
   "browserslist": [
     "> 1%",
