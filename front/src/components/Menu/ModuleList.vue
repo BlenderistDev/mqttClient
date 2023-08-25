@@ -42,8 +42,10 @@ export default {
   padding-left: 0px;
 }
 .list-group-item {
-  padding-left: 0px;
+  padding: 0.5rem 1rem 0.5rem 0px;
   background-color: inherit;
+  border-bottom: 1px solid rgba(0,0,0,.125);
+  border-top: 0;
 }
 .router-link-active {
   background-color: #dcd8e4;

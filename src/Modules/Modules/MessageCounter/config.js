@@ -6,14 +6,14 @@ export default {
     interval: {
       type: 'Number',
       name: 'interval',
-      width: 8,
+      width: 4,
       validator: ['required', 'positiveNumber']
     },
     ignoreRetain: {
       type: 'Select',
       name: 'ignoreRetain',
       options: ['smart', 'false', 'true'],
-      width: 2,
+      width: 4,
       validator: ['required']
     },
     socket: {
