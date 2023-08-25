@@ -122,6 +122,12 @@ Module counts messages per time interval
 - `interval` time interval for counting, seconds
   - unit of measurement: seconds
   - validation: required, integer, more than 0
+- `ignoreRetain` option for ignoring retain messages
+  - options:
+    - false - do not ignore retain messages
+    - true - ignore retain messages
+    - smart - ignore retain messages only for 2 seconds after connect to mqtt server
+  - validation: required
 #### <a name="doubleclick"> DoubleClick
 Module adds double click functionality to smart switches without double click.
 ###### Config:
