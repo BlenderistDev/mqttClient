@@ -1,11 +1,15 @@
 import mqtt from 'mqtt';
-import { moduleClient } from '../../../Components/SocketClient.js'
+import { moduleClient, connectClient } from '../../../Components/SocketClient.js'
 import { config } from "../../../Components/ModuleConfig.js";
 import { getConnectionOptions } from '../../../Components/MqttConnection.js';
 
 const connection = mqtt.connect(config.host, getConnectionOptions(config))
 
-connection.on('connect', () => connection.subscribe('#', { qos: 2 }))
+connection.on('connect', () => {
+    connectClient.send()
+    connection.subscribe('#', { qos: 2 })
+})
+
 connection.on('message', (topic, message, packet) => moduleClient.send({
     topic: topic.toString(),
     message: message.toString(),

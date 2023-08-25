@@ -6,6 +6,7 @@ const frontendGroup = 'frontend'
 const mqttModule = 'Mqtt'
 const mqttEventName = 'mqtt'
 const dataEventName = 'data'
+const connectEventName = 'connected'
 const notificationEventName = 'notification'
 
 export const socketHandler = (socket) => {
@@ -13,6 +14,9 @@ export const socketHandler = (socket) => {
   if (module === mqttModule) {
     socket.join(mqttGatewayGroup)
     socket.on(dataEventName, data => socket.to(mqttListenerGroup).emit(mqttEventName, data))
+    socket.on(connectEventName, data => {
+      socket.to(mqttListenerGroup).emit(connectEventName, data)
+    })
   } else {
     socket.on(mqttEventName, data => socket.to(mqttGatewayGroup).emit(dataEventName, data))
     socket.on(notificationEventName, data => socket.to(frontendGroup).emit(notificationEventName, data))

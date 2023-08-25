@@ -30,3 +30,5 @@ export const mqttClient = getClient('mqtt',
     retain: retain
   })
 )
+
+export const connectClient = getClient('connected', () => socket.emit('connected', {}))
