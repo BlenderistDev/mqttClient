@@ -46,9 +46,6 @@ export class ClickWatcher {
     } else {
       state = oMessage
     }
-    if (!this.currentState) {
-      this.currentState = state;
-    }
     if (this.currentState !== state) {
       if (this.timerId) {
         this.handleSecondClick();
@@ -56,14 +53,13 @@ export class ClickWatcher {
         this.handleFirstClick();
       }
     }
-    this.currentState = oMessage;
+    this.currentState = state;
   }
 
   /**
    * Обработка двойного клика
    */
   handleSecondClick() {
-    this.waitSecondClick = false;
     this.doubleClick.sendClickMessage();
     clearTimeout(this.timerId);
     this.timerId = 0;
@@ -73,7 +69,6 @@ export class ClickWatcher {
    * Обработка первого клика
    */
   handleFirstClick() {
-    this.waitSecondClick = true;
     this.timerId = setTimeout(() => {
       this.singleClick.sendClickMessage();
       this.timerId = 0;
