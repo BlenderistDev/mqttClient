@@ -14,7 +14,8 @@ if (config.ignoreRetain === ignoreRetainMode) {
   ignoreRetainSuffix = '_ignore_retain_smart'
 }
 
-const name = `messages_in_${config.interval}_sec${ignoreRetainSuffix}`
+
+const name = `messages_in_${config.topic.trim() !== '' ? config.topic + '_' : '' }${config.interval}_sec${ignoreRetainSuffix}`
 const moduleTopic = `${topic}/${name}`
 
 sendDiscoveryMessage(name, moduleTopic, 'sensor', { unit_of_measurement: 'messages' })
