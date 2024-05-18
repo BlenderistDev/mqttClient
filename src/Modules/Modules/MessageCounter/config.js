@@ -6,14 +6,20 @@ export default {
     interval: {
       type: 'Number',
       name: 'interval',
-      width: 4,
+      width: 3,
       validator: ['required', 'positiveNumber']
+    },
+    topic: {
+      type: 'Input',
+      name: 'topic',
+      width: 3,
+      tooltip: 'Topic to count messages. Default is #'
     },
     ignoreRetain: {
       type: 'Select',
       name: 'ignoreRetain',
       options: ['smart', 'false', 'true'],
-      width: 4,
+      width: 2,
       validator: ['required']
     },
     socket: {

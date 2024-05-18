@@ -1,6 +1,7 @@
 import { sendDiscoveryMessage } from '../../../Components/HomeAssistant.js'
 import { mqttClient, moduleClient, connectClient } from '../../../Components/SocketClient.js'
 import { config, topic } from "../../../Components/ModuleConfig.js";
+import match from "mqtt-match";
 
 const smartIgnoreTimeout = 2000;
 const smartMode = 'smart';
@@ -33,6 +34,10 @@ mqttClient.on('message', (m) => {
   const isSkipRetain = config.ignoreRetain === ignoreRetainMode || isSmartSkipRetain
 
   if(m.retain && isSkipRetain) {
+    return
+  }
+
+  if (config.topic.trim() !== '' && !match(config.topic, m.topic)) {
     return
   }
 
