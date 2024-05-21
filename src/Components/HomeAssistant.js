@@ -1,5 +1,7 @@
-import { mqttClient } from './SocketClient.js'
-import { mqttPrefix } from './ModuleConfig.js'
+import {mqttPrefix} from './ModuleConfig.js'
+import {getConfig} from "../core/Config.js";
+import mqtt from "mqtt";
+import {getConnectionOptions} from "./MqttConnection.js";
 
 /**
  * Отправляем сообщение для автообнаружения в HomeAssistant
@@ -23,5 +25,13 @@ export function sendDiscoveryMessage(name, stateTopic, deviceType, params = {}) 
     },
   };
   const oHomeAssistantDiscoveryConfig = {...params, ...oMinimalConfig};
-  mqttClient.send(`homeassistant/${deviceType}/${uniqueName}/${name}/config`, JSON.stringify(oHomeAssistantDiscoveryConfig), true);
+  sendMqttMessage(`homeassistant/${deviceType}/${uniqueName}/${name}/config`, JSON.stringify(oHomeAssistantDiscoveryConfig))
+}
+
+function sendMqttMessage(topic, message) {
+  const mqttConfig = getConfig("Mqtt")
+  const connection = mqtt.connect(mqttConfig.host, getConnectionOptions(mqttConfig))
+  connection.on('connect', () => {
+    connection.publish(topic, message, { retain: true })
+  })
 }

@@ -18,10 +18,10 @@ if (config.topic === undefined) {
   config.topic = ''
 }
 
-
 const name = `messages_in_${config.topic.trim() !== '' ? config.topic + '_' : '' }${config.interval}_sec${ignoreRetainSuffix}`
+    .replace('#', '_').replace('+', '_').replace('/', '_')
 
-const moduleTopic = `${topic}/${name}`.replace('#', '*').replace('+', '_')
+const moduleTopic = `${topic}/${name}`
 
 sendDiscoveryMessage(name, moduleTopic, 'sensor', { unit_of_measurement: 'messages' })
 
